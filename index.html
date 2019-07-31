@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Taiwan Gym</title>
+    <title>TaiwanGym</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -22,17 +22,26 @@
 
         /* Add a gray background color and some padding to the footer */
         footer {
-            background-color: #f2f2f2;
+            background-color: brown;
             padding: 25px;
         }
 
         #headerimg {
-            background-image: url('./02.png');
+            background-image: url('./index.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
             height: 700px;
         }
 
+        #username {
+            cursor: default;
+            color: white;
+        }
+
+        #username:hover {
+            cursor: default;
+            color: white;
+        }
     </style>
 </head>
 
@@ -45,18 +54,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" href="./index.html">Home</a>
+                <span class="navbar-brand" id='username'>Username</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">跑步運動</a></li>
+                    <li><a href="#">跑步</a></li>
                     <li><a href="#">滑雪</a></li>
                     <li><a href="#">拳擊</a></li>
                     <li><a href="#">瑜珈</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-plus"></span> Logout</a></li>
+                    <li><a href="./login.html"><span class="glyphicon glyphicon glyphicon-log-in"></span> Login</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> Uaername</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
@@ -70,56 +79,57 @@
         <div class="container text-center"></div>
     </div>
     <div class="container">
-            <h3>熱門商品</h3>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">商品1</div>
-                        <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
-                        <div class="panel-footer">名稱價格</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">商品2</div>
-                        <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
-                        <div class="panel-footer">名稱價格</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">商品3</div>
-                        <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
-                        <div class="panel-footer">名稱價格</div>
-                    </div>
+        <h3>熱門商品</h3>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">商品1</div>
+                    <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">名稱價格</div>
                 </div>
             </div>
-        </div><br>    <div class="container">
-                <h3>熱門商品</h3>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">商品1</div>
-                            <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
-                            <div class="panel-footer">名稱價格</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-heading">商品2</div>
-                            <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
-                            <div class="panel-footer">名稱價格</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">商品3</div>
-                            <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
-                            <div class="panel-footer">名稱價格</div>
-                        </div>
-                    </div>
+            <div class="col-sm-4">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">商品2</div>
+                    <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">名稱價格</div>
                 </div>
-            </div><br>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">商品3</div>
+                    <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">名稱價格</div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    <div class="container">
+        <h3>熱門商品</h3>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">商品1</div>
+                    <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">名稱價格</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">商品2</div>
+                    <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">名稱價格</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">商品3</div>
+                    <div class="panel-body"><img src="" class="img-responsive" style="width:100%" alt="Image"></div>
+                    <div class="panel-footer">名稱價格</div>
+                </div>
+            </div>
+        </div>
+    </div><br>
 
     <div class="container">
         <h3>熱門商品</h3>
