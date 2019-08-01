@@ -34,8 +34,9 @@
 
         /* Add a gray background color and some padding to the footer */
         footer {
-            background-color: brown;
+            background-color: #444444;
             padding: 25px;
+            color:white;
         }
 
         #headerimg {
@@ -71,7 +72,12 @@
 
         #typelist {
             position: relative;
-            top: 15%
+            top: 15%;
+            text-align: center;
+        }
+
+        .typelist {
+            border:1px solid white;
         }
 
         #breadcrumbs {
@@ -83,7 +89,7 @@
             width: 97%;
             text-align: right;
             font-family: fantasy;
-            font-size: 18px;
+            font-size: 14px;
             color: black;
             letter-spacing: 0.8px
         }
@@ -97,14 +103,16 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             letter-spacing: 0.8px;
+            color: black;
+            font-family: "Microsoft JhengHei";
         }
 
         .goodswall {
-            border: 3px solid white
+            border: 1px solid white
         }
 
         .goodswall:hover {
-            border: 3px solid goldenrod
+            border: 1px solid rgb(57, 122, 175)
         }
 
         .goodsimg {
@@ -129,10 +137,10 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">boxing</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
+                    <li><a href="{{URL}}goods/index/jog">Jog</a></li>
+                    <li><a href="{{URL}}goods/index/ski">Ski</a></li>
+                    <li><a href="{{URL}}goods/index/boxing">boxing</a></li>
+                    <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
@@ -150,16 +158,15 @@
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
-
-
+    
     <div class="container-fluid" style="margin-bottom: 20px">
-        <div class="row content">
+        <div class="row content" style = "margin-left:50px">
             <div class="col-sm-2 sidenav">
                 <div class="list-group" id='typelist'>
-                    <a href="#" class="list-group-item"><strong>Bigtype</strong></a>
-                    <a href="#" class="list-group-item">type1</a>
-                    <a href="#" class="list-group-item">type2</a>
-                    <a href="#" class="list-group-item">type3</a>
+                    <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
+                    <a href="#" class="list-group-item typelist">type1</a>
+                    <a href="#" class="list-group-item typelist">type2</a>
+                    <a href="#" class="list-group-item typelist">type3</a>
                 </div>
             </div>
 
@@ -171,13 +178,14 @@
                 </ol>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-3 goodswall">
+                        <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive goodsimg" alt="Image"></a>
                                 </div>
-                                <div class="panel-heading" style='background-color: white'>
+                                <div class="panel-heading" >
                                     <p class='goodsprice'><span>NT$</span>123456</p>
                                     <a href='#'>
                                         <p class='goodsname'>
@@ -186,11 +194,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 goodswall">
+                        <div class="col-sm-2 goodswall">
                             <div>
                                 <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
@@ -201,75 +209,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body" style="padding: -100%">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
+                        <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body" style="padding: -100%">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
@@ -280,12 +225,75 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 goodswall">
+                        <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
+                                <div class="panel-body">
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <div class="panel-body">
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
+                                <div class="panel-body" style="padding: -100%">
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
+                                <div class="panel-body">
+                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>

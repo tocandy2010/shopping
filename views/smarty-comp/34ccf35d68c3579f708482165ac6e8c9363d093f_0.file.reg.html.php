@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-01 19:52:02
+  from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\reg.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d4326c265c0f7_39040787',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '34ccf35d68c3579f708482165ac6e8c9363d093f' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\reg.html',
+      1 => 1564681918,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d4326c265c0f7_39040787 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -74,17 +101,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+index/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">boxing</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/jog">Jog</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/ski">Ski</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/boxing">boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -173,7 +206,8 @@
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
                             <button type="button" id="regsend" class="btn btn-info">Create an account</button>
-                            <a href="{{URL}}login/index"><button type="button"
+                            <a href="<?php echo URL;?>
+login/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo">錯誤訊息測試</span>
                         </div>
@@ -186,7 +220,8 @@
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <script>
+    <?php echo '<script'; ?>
+>
         //style="border:3px solid crimson"
         $("#regsend").click(function () {
             let eamil = $('#email').val();
@@ -210,7 +245,8 @@
                 },
                 success: function (result) {
                     if (result.reginfo === 'success') {
-                        $(window).attr('location', '{{URL}}/login/index');
+                        $(window).attr('location', '<?php echo URL;?>
+/login/index');
                     } else if (result.reginfo === 'fail') {
 
                     } else if (result.reginfo) {
@@ -224,7 +260,9 @@
 
 
 
-    </script>
+    <?php echo '</script'; ?>
+>
 </body>
 
-</html>
+</html><?php }
+}

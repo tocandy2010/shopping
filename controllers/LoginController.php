@@ -11,7 +11,7 @@ class LoginController extends Controller
 
     public function index($reg = false)
     {
-        var_dump($this->DBCustomer->getAll());
+        // var_dump($this->DBCustomer->getAll());
         return $this->smarty->display("home/login/login.html");
     }
 
@@ -76,7 +76,7 @@ class LoginController extends Controller
         $logininfo['email'] = $_POST['email'];
         $logininfo['password'] = $_POST['password'];
         $logininfo['vcode'] = $_POST['vcode'];
-        $token = $this->holp->getUser();
+        $token = $this->getToken(1);
         $chekc = true;
         if ($chekc === true) {
             $logininfo = ['logininfo' => 'success'];

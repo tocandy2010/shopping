@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-01 19:03:41
+  from 'D:\xampp\htdocs\TaiwanGYM\views\home\index.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d431b6d2ce9a8_43279556',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '2c1c3fb3d0e8c4a780393b1b1dc0e218660554a5' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\index.html',
+      1 => 1564679020,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d431b6d2ce9a8_43279556 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -28,7 +55,8 @@
         }
 
         #headerimg {
-            background-image: url('{{URL}}public/homeimg/headerimg/index.png');
+            background-image: url('<?php echo URL;?>
+public/homeimg/headerimg/index.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
             height: 700px;
@@ -102,19 +130,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}/index/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+/index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
                     <span class="glyphicon glyphicon-user"></span>&nbspUsername</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">boxing</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/jog">Jog</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/ski">Ski</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/boxing">boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
@@ -163,4 +197,5 @@
 
 </body>
 
-</html>
+</html><?php }
+}

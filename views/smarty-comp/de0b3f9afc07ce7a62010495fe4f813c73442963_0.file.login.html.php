@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-01 19:53:20
+  from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d432710ba3b97_57629533',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'de0b3f9afc07ce7a62010495fe4f813c73442963' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
+      1 => 1564681999,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d432710ba3b97_57629533 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -89,18 +116,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+index/index">Home</a>
                 <span class="navbar-brand" id='username'>Username</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">boxing</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/jog">Jog</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/ski">Ski</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/boxing">boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -144,14 +177,16 @@
                                 autocomplete="off">
                             <span class="help-block">點圖片換驗證碼</span>
                         </div>
-                        <img src="{{URL}}public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
+                        <img src="<?php echo URL;?>
+public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
                     </div>
 
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <div class="col-md-8">
                                 <label for="button1id"></label>
-                            <a href="{{URL}}login/create"><button type="button" class="btn btn-default">Create an
+                            <a href="<?php echo URL;?>
+login/create"><button type="button" class="btn btn-default">Create an
                                     account</button></a>
                             <button type="button"  id="loginsend" class="btn btn-success ">Login</button>
                         </div>
@@ -169,10 +204,12 @@
 
 </html>
 
-<script>
+<?php echo '<script'; ?>
+>
 
     $('#vcodeimg').click(function () {
-        this.src = "{{URL}}public/vcode/vcode.php?" + Math.random();
+        this.src = "<?php echo URL;?>
+public/vcode/vcode.php?" + Math.random();
     })
 
     $("#loginsend").click(function () {
@@ -191,7 +228,8 @@
             },
             success: function (result) {
                 if (result.logininfo === 'success') {
-                    $(window).attr('location', '{{URL}}/index/index');
+                    $(window).attr('location', '<?php echo URL;?>
+/index/index');
                 } else if (result.logininfo === 'fail') {
 
                 } else if (result.logininfo) {
@@ -204,4 +242,6 @@
     })
 
 
-</script>
+<?php echo '</script'; ?>
+><?php }
+}
