@@ -5,6 +5,7 @@
  */
 require("./public/smraty3/smarty-3.1.33/libs/Smarty.class.php");
 require('./config/path.php');
+require('./helper/Helper.php');
 
  function loadlibs($class)
  {

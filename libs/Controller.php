@@ -10,6 +10,7 @@ class Controller
     {
         $this->view = new View();
         $this->smarty = new Mysmarty();
+        $this->helper = new Helper();
     }
 
     // /*
@@ -30,14 +31,17 @@ class Controller
     // }
 
 
+
+
     function __get($modelname)
     {
-        if (substr($modelname, 0, 2)) {
+        if (substr($modelname, 0, 2) === "DB") {
             $name = substr($modelname, 2);
             $path = 'models/' . $name . 'Model.php';
             if (file_exists($path)) {
                 require($path);
                 $modelname = $name . 'Model';
+                // $this->${"DB{$name}"} = new $modelname;
                 return new $modelname;
             }
         }

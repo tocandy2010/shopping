@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-01 11:36:22
+/* Smarty version 3.1.33, created on 2019-08-02 12:19:56
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d42b2962329f6_24797745',
+  'unifunc' => 'content_5d440e4caf43f9_86431246',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7e5deadc749d2849bd958b01add38fb7a3ed1c4f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\index.html',
-      1 => 1564652181,
+      1 => 1564741195,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d42b2962329f6_24797745 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d440e4caf43f9_86431246 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -44,13 +44,14 @@ function content_5d42b2962329f6_24797745 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Remove the jumbotron's default bottom margin */
         .jumbotron {
-            margin-bottom: 100px;
+            margin-bottom: 10px;
         }
 
         /* Add a gray background color and some padding to the footer */
         footer {
-            background-color: brown;
+            background-color: #444444;
             padding: 25px;
+            color: white;
         }
 
         #headerimg {
@@ -64,6 +65,7 @@ public/homeimg/headerimg/index.png');
         #username {
             cursor: default;
             color: white;
+            font-size: 16px;
         }
 
         #username:hover {
@@ -103,6 +105,25 @@ public/homeimg/headerimg/index.png');
             max-width: 100%;
             margin: auto;
         }
+
+        .toggleable {
+            font-size: 18px;
+            height: 40px;
+            line-height: 40px;
+            width: 377px;
+            text-align: center;
+            line-height: 14px;
+            background-color: #444444;
+            color: white;
+            font-family: Microsoft JhengHei;
+        }
+
+        .showtab {
+            border: 1px solid black;
+            height: 800px;
+            margin-bottom: 10%;
+            font-size: 25px;
+        }
     </style>
 </head>
 
@@ -115,27 +136,38 @@ public/homeimg/headerimg/index.png');
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./index">Home</a>
-                <span class="navbar-brand" id='username'>Username</span>
+                <a class="navbar-brand" href="<?php echo URL;?>
+/index/index">Home</a>
+                <span class="navbar-brand" id='username'>&nbsp
+                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
+</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-/goods/index/jog">Jog</a></li>
+goods/index/jog">Jog</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/ski">Ski</a></li>
+goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/boxing">boxing</a></li>
+goods/index/boxing">Boxing</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/yoga">Yoga</a></li>
+goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
+goods/cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
+                    <li><a href=""><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
+                    <li><a href="<?php echo URL;?>
+login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
 login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -145,206 +177,27 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="container text-center"></div>
     </div>
     <div class="container">
-        <h3>熱門商品</h3>
-        <div class="row">
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><br>
-    <div class="container">
-        <h3>熱門商品</h3>
-        <div class="row">
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><br>
+        <ul class="nav nav-pills">
+            <li class="active" class='toggleable'><a data-toggle="pill" href="#home" class='toggleable'>熱銷商品</a></li>
+            <li><a data-toggle="pill" href="#menu1" class='toggleable'>專屬推薦</a></li>
+            <li><a data-toggle="pill" href="#menu2" class='toggleable'>夏日運動</a></li>
+        </ul>
 
-    <div class="container">
-        <h3>熱門商品</h3>
-        <div class="row">
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3></h3>
+                <div class='showtab'>熱銷商品</div>
             </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
+            <div id="menu1" class="tab-pane fade">
+                <h3></h3>
+                <div class='showtab'>專屬推薦</div>
             </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
+            <div id="menu2" class="tab-pane fade">
+                <h3></h3>
+                <div class='showtab'>夏日運動</div>
             </div>
         </div>
-    </div><br>
-    <div class="container">
-        <h3>熱門商品</h3>
-        <div class="row">
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 goodswall">
-                <div>
-                    <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                    <div class="panel-body">
-                        <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                    </div>
-                    <div class="panel-heading" style='background-color: white'>
-                        <p class='goodsprice'><span>NT$</span>123456</p>
-                        <a href='#'>
-                            <p class='goodsname'>
-                                產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><br><br>
+    </div>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>

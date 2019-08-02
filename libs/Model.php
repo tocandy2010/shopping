@@ -80,9 +80,27 @@ class Model
     }
 
     /*
-     * 獲得主鍵獲得，參數1為主見職，參數2為接收方式(預設為關連陣列)
+     * 根據陣列的key 和 value，參數2為接收方式(預設為關連陣列)
      */
-    public function getOne($pkvalue, $show = PDO::FETCH_ASSOC)
+    public function getOne($arr, $show = PDO::FETCH_ASSOC)
+    {
+        $key = array_keys($arr)[0];
+        $value = array_values($arr)[0];
+        $sql = "select * from {$this->table} where {$key} = ?";
+        $res = $this->db->prepare($sql);
+        $res->bindParam(1, $value);
+        $res->execute();
+        if ($show == 'index') {
+            $show = PDO::FETCH_NUM;
+            return $res->fetch($show);
+        }
+        return $res->fetch($show);
+    }
+
+    /*
+     * 根據主鍵獲得，參數1為主鍵值，參數2為接收方式(預設為關連陣列)
+     */
+    public function findOne($pkvalue, $show = PDO::FETCH_ASSOC)
     {
         $sql = "select * from {$this->table} where {$this->pk} = ?";
         $res = $this->db->prepare($sql);

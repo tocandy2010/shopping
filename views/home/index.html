@@ -24,7 +24,7 @@
         footer {
             background-color: #444444;
             padding: 25px;
-            color:white;
+            color: white;
         }
 
         #headerimg {
@@ -82,14 +82,20 @@
             font-size: 18px;
             height: 40px;
             line-height: 40px;
-            width: 330px;
+            width: 377px;
             text-align: center;
-            line-height:14px;
+            line-height: 14px;
             background-color: #444444;
-            color:white;
-            font-family:Microsoft JhengHei;
+            color: white;
+            font-family: Microsoft JhengHei;
         }
 
+        .showtab {
+            border: 1px solid black;
+            height: 800px;
+            margin-bottom: 10%;
+            font-size: 25px;
+        }
     </style>
 </head>
 
@@ -104,21 +110,26 @@
                 </button>
                 <a class="navbar-brand" href="{{URL}}/index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbspUsername</span>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">boxing</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
+                    <li><a href="{{URL}}goods/index/jog">Jog</a></li>
+                    <li><a href="{{URL}}goods/index/ski">Ski</a></li>
+                    <li><a href="{{URL}}goods/index/boxing">Boxing</a></li>
+                    <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{URL}}goods/cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    {{if $loginflag|default:false}}
+                    <li><a href=""><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
+                    <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    {{else}}
                     <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -130,30 +141,22 @@
     <div class="container">
         <ul class="nav nav-pills">
             <li class="active" class='toggleable'><a data-toggle="pill" href="#home" class='toggleable'>熱銷商品</a></li>
-            <li><a data-toggle="pill" href="#menu2" class='toggleable'>專屬推薦</a></li>
-            <li><a data-toggle="pill" href="#menu3" class='toggleable'>夏日運動</a></li>
+            <li><a data-toggle="pill" href="#menu1" class='toggleable'>專屬推薦</a></li>
+            <li><a data-toggle="pill" href="#menu2" class='toggleable'>夏日運動</a></li>
         </ul>
 
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
-                <h3>HOME</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
+                <h3></h3>
+                <div class='showtab'>熱銷商品</div>
             </div>
             <div id="menu1" class="tab-pane fade">
-                <h3>Menu 1</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.</p>
+                <h3></h3>
+                <div class='showtab'>專屬推薦</div>
             </div>
             <div id="menu2" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam.</p>
-            </div>
-            <div id="menu3" class="tab-pane fade">
-                <h3>Menu 3</h3>
-                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                </p>
+                <h3></h3>
+                <div class='showtab'>夏日運動</div>
             </div>
         </div>
     </div>

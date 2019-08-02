@@ -31,13 +31,61 @@ class LoginController extends Controller
     {
         $reginfo['email'] = $_POST['email'];
         $reginfo['password'] = $_POST['password'];
-        // $reginfo['repassword'] = $_POST['repassword'];
+        $reginfo['repassword'] = $_POST['repassword'];
         $reginfo['name'] = $_POST['name'];
         $reginfo['phone'] = $_POST['phone'];
         $reginfo['address'] = $_POST['address'];
+
+        ## 設定傳入資料要驗證的格式
+        $verification = [
+            'email' => array('email' => '0'),
+            'password' => array('length' => "6~20"),
+            'repassword' => array('length' => "6~20"),
+            'name' => array('length' => '3~30'),
+            'phone' => array('phone' => '0'),
+            'address' => array('notempty' => '0'),
+        ];
+
+        ##針對設定格式驗證表單
+        $errorMessage = $this->helper->checkForm($reginfo, $verification);
+        if (!empty($this->helper->checkForm($reginfo, $verification))) {
+            echo json_encode(['reginfo' => $errorMessage]);
+            exit;
+        }
+
+        ##使用$this->DB加上Model名稱即實體化
+        $DBCustomer = $this->DBCustomer;
+
+        ##檢查eamil.phone重複
+        $notUnique = [];
+        $email = $DBCustomer->getOne(['email' => $reginfo['email']]);
+        if (!empty($email)) {
+            $notUnique['email'] = "此Email已被註冊";
+        }
+        $phone = $DBCustomer->getOne(['phone' => $reginfo['phone']]);
+        if (!empty($phone)) {
+            $notUnique['phone'] = "此電話已被註冊";
+        }
+        if (!empty($notUnique)) {
+            echo json_encode(['reginfo' => $notUnique]);
+            exit;
+        }
+
+        ##檢查確認密碼和秘密碼是否相同
+        if ($reginfo['password'] !== $reginfo['repassword']) {
+            echo json_encode(['reginfo' => ['repassword' => "確認密碼和密碼不相同"]]);
+            exit;
+        } else {
+            unset($reginfo['repassword']);
+        }
+
+        ##密碼加密.姓名符號過濾.產生註冊時間
+        $reginfo['password'] = password_hash($reginfo['password'], PASSWORD_DEFAULT);
+        $reginfo['name'] = htmlspecialchars($this->helper->removeAllSpace($reginfo['name'], ENT_QUOTES));
         $reginfo['regTime'] = time();
 
-        if ($this->model->add($reginfo) === 1) {
+        ##寫入DB
+        if ($DBCustomer->add($reginfo)) {
             $reginfo = ['reginfo' => "success"];
             echo json_encode($reginfo);
         } else {
@@ -65,6 +113,7 @@ class LoginController extends Controller
      */
     public function logout()
     {
+        setcookie('token', '', time() - 100, '/');
         header("Location:" . URL . "login/index");
     }
 
@@ -73,20 +122,59 @@ class LoginController extends Controller
      */
     public function loginCheck()
     {
-        $logininfo['email'] = $_POST['email'];
-        $logininfo['password'] = $_POST['password'];
-        $logininfo['vcode'] = $_POST['vcode'];
-        $token = $this->getToken(1);
-        $chekc = true;
-        if ($chekc === true) {
-            $logininfo = ['logininfo' => 'success'];
-            echo json_encode($logininfo);
+        $loginInfo['email'] = $_POST['email'];
+        $loginInfo['password'] = $_POST['password'];
+        $loginInfo['vcode'] = $_POST['vcode'];
+
+        ##檢查驗證碼
+        Session::init();
+        if (Session::get('vcode') !== $loginInfo['vcode']) {
+            echo json_encode(['reginfo' => ['error' => '驗證碼錯誤']]);
+            exit;
         } else {
-            $logininfo = ['logininfo' => 'fail'];
-            echo json_encode($logininfo);
+            Session::destroy();
+        }
+
+        ## 設定傳入資料要驗證的格式
+        $verification = [
+            'email' => array('email' => '0'),
+            'password' => array('length' => "6~20"),
+            'vcode' => array('notempty' => '0'),
+        ];
+
+        ##針對設定格式驗證表單
+        $errorMessage = $this->helper->checkForm($loginInfo, $verification);
+        if (!empty($this->helper->checkForm($loginInfo, $verification))) {
+            echo json_encode(['reginfo' => $errorMessage]);
+            exit;
+        }
+
+        ##使用$this->DB加上Model名稱即實體化
+        $DBCustomer = $this->DBCustomer;
+
+        ##檢查登入帳號密碼
+        $userInfo = $DBCustomer->getOne(['email' => $loginInfo['email']]);
+        $password = password_verify($loginInfo['password'], $userInfo['password']);
+        if (empty($userInfo) || $password === false) {
+            echo json_encode(['reginfo' => ['error' => 'Email或密碼錯誤']]);
+            exit;
+        }
+
+        $token = $this->getToken($userInfo['cid']);
+
+        if ($DBCustomer->update(['token' => $token], $userInfo['cid']) === 1) {
+            setcookie('token', $token, time() + 3600, '/');
+            $reginfo = ['logininfo' => "success"];
+            echo json_encode($reginfo);
+        } else {
+            $reginfo = ['logininfo' => "fail"];
+            echo json_encode($reginfo);
         }
     }
 
+    /*
+     * 產生token值
+     */
     protected function getToken($id)
     {
         $str = "abcdefghijklmnopqrstuvwxyz";

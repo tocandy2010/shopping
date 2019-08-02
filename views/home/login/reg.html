@@ -80,7 +80,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
                     <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">boxing</a></li>
+                    <li><a href="{{URL}}/goods/index/Boxing">boxing</a></li>
                     <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -102,8 +102,8 @@
                         <div class="col-md-4">
                             <input id="email" name="email" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">請輸入一個目前可用的Email
+                                <span class="errorinfo" id='emailinfo'></span>
                             </span>
                         </div>
                     </div>
@@ -114,8 +114,8 @@
                         <div class="col-md-4">
                             <input id="password" name="password" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">不可輸入符號&nbsp&nbsp6~20位&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="passwordinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -126,8 +126,8 @@
                         <div class="col-md-4">
                             <input id="repassword" name="repassword" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">不可輸入符號&nbsp&nbsp6~20位&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="repasswordinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -138,8 +138,8 @@
                         <div class="col-md-4">
                             <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
-                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~50字&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~30字&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="nameinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                             <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
                             <span class="help-block">請輸入您的手機號碼&nbsp例如:&nbsp09xxxxxxxx&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                                <span class="errorinfo" id="phoneinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                             <input id="address" name="address" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
                             <span class="help-block">請輸入您的地址&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                                <span class="errorinfo" id="addressinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                             <button type="button" id="regsend" class="btn btn-info">Create an account</button>
                             <a href="{{URL}}login/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
-                            <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="errorinfo" id='errorinfo'></span>
                         </div>
                     </div>
                 </form>
@@ -195,6 +195,11 @@
             let name = $('#name').val();
             let phone = $('#phone').val();
             let address = $('#address').val();
+            let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
+
+            for(error of formname) {
+                $('#' + error + 'info').html("");
+            }
 
             $.ajax({
                 url: "add",
@@ -209,14 +214,17 @@
                     'address': address,
                 },
                 success: function (result) {
+                    console.log(result);
                     if (result.reginfo === 'success') {
                         $(window).attr('location', '{{URL}}/login/index');
                     } else if (result.reginfo === 'fail') {
-
+                        $('#errorinfo').html("註冊失敗");
                     } else if (result.reginfo) {
-
+                        for(error of formname) {
+                            $('#' + error + 'info').html(result.reginfo[error]);
+                        }
                     } else {
-
+                        $('#errorinfo').html("錯誤");
                     }
                 }
             });

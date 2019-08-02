@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-01 12:14:27
+/* Smarty version 3.1.33, created on 2019-08-02 12:02:52
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d42bb836a2b83_68920324',
+  'unifunc' => 'content_5d440a4cb49a44_87543423',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd1b3d0ee98eca8a92b35c549743021159f63433a' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
-      1 => 1564654460,
+      1 => 1564740172,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d42bb836a2b83_68920324 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d440a4cb49a44_87543423 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -56,8 +56,9 @@ function content_5d42bb836a2b83_68920324 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Set black background color, white text and some padding */
         footer {
-            background-color: brown;
+            background-color: #444444;
             padding: 25px;
+            color: white;
         }
 
         #username {
@@ -72,7 +73,24 @@ function content_5d42bb836a2b83_68920324 (Smarty_Internal_Template $_smarty_tpl)
 
         #vcodeimg {
             position: relative;
-            left: 0%
+            left: 0%;
+            top: 15px;
+        }
+
+        .loginwall {
+            border: 1px solid gray;
+            width: 30%;
+            box-shadow: 3px 3px 5px 6px #b9b5b5;
+        }
+
+        .errorinfo {
+            color: darkred;
+            font-weight: bold;
+            letter-spacing: 0.5px
+        }
+
+        #loginsend {
+            position: relative;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -84,6 +102,20 @@ function content_5d42bb836a2b83_68920324 (Smarty_Internal_Template $_smarty_tpl)
 
             .row.content {
                 height: auto;
+            }
+
+            .loginwall {
+                width: auto
+            }
+
+            #vcode {
+                width: 50%
+            }
+
+            #vcodeimg {
+                position: absolute;
+                left: 55%;
+                top: 63%
             }
         }
     </style>
@@ -100,15 +132,17 @@ function content_5d42bb836a2b83_68920324 (Smarty_Internal_Template $_smarty_tpl)
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
 index/index">Home</a>
-                <span class="navbar-brand" id='username'>Username</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-">跑步</a></li>
-                    <li><a href="#">滑雪</a></li>
-                    <li><a href="#">拳擊</a></li>
-                    <li><a href="#">瑜珈</a></li>
+/goods/index/jog">Jog</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/ski">Ski</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/boxing">Boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
@@ -121,36 +155,40 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
     <div class="container-fluid text-center">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-7 text-left">
+            <div class="col-sm-4 sidenav"></div>
+            <div class="col-sm-7 text-left loginwall">
                 <form class="form-horizontal">
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="email">Email</label>
-                        <div class="col-md-5">
+                        <h1>會員登入</h1>
+                        <div class="col-md-10">
+                            <label for="email">Email</label>
                             <input id="email" name="email" type="text" placeholder="your E-mail"
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫</span>
+                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id='emailinfo'></span></span>
                         </div>
                     </div>
 
                     <!-- Password input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">password</label>
-                        <div class="col-md-5">
+
+                        <div class="col-md-10">
+                            <label for="password">password</label>
                             <input id="password" name="password" type="password" placeholder="your password"
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫</span>
+                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id='passwordinfo'></span></span>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Verification code</label>
-                        <div class="col-md-2">
+
+                        <div class="col-md-5">
+                            <label for="textinput"></label>
                             <input id="vcode" name="vcode" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
-
                             <span class="help-block">點圖片換驗證碼</span>
                         </div>
                         <img src="<?php echo URL;?>
@@ -159,18 +197,18 @@ public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
 
                     <!-- Button (Double) -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
+                            <label for="button1id"></label>
                             <a href="<?php echo URL;?>
-login/create"><button type="button" class="btn btn-default">Create an
-                                    account</button></a>
-                            <button type="button" id="loginsend" class="btn btn-success">Login</button>
-
+login/create"><button type="button" class="btn btn-default">Join
+                                    us</button></a>
+                            <button type="button" id="loginsend" class="btn btn-success ">Login</button>
+                            <span class="errorinfo" id='errorinfo'></span>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-sm-2 sidenav"></div>
+            <div class="col-sm-4 sidenav"></div>
         </div>
     </div>
     <footer class="container-fluid text-center">
@@ -193,6 +231,11 @@ public/vcode/vcode.php?" + Math.random();
         let eamil = $('#email').val();
         let password = $('#password').val();
         let vcode = $('#vcode').val();
+        let formname = ['email', 'password', 'error'];
+
+        for(error of formname) {
+                $('#' + error + 'info').html("");
+            }
 
         $.ajax({
             url: "loginCheck",
@@ -208,11 +251,13 @@ public/vcode/vcode.php?" + Math.random();
                     $(window).attr('location', '<?php echo URL;?>
 /index/index');
                 } else if (result.logininfo === 'fail') {
-
+                    $('#errorinfo').html("登入失敗");
                 } else if (result.logininfo) {
-
+                    for (error of formname) {
+                        $('#' + error + 'info').html(result.logininfo[error]);
+                    }
                 } else {
-
+                    $('#errorinfo').html("錯誤");
                 }
             }
         });

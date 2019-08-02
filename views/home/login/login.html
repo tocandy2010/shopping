@@ -47,19 +47,23 @@
         #vcodeimg {
             position: relative;
             left: 0%;
-            top:15px;
+            top: 15px;
         }
 
         .loginwall {
-            border:1px solid gray;
-            width:30%;
-            box-shadow:3px 3px 5px 6px #b9b5b5;"
+            border: 1px solid gray;
+            width: 30%;
+            box-shadow: 3px 3px 5px 6px #b9b5b5;
         }
-        
+
         .errorinfo {
             color: darkred;
             font-weight: bold;
             letter-spacing: 0.5px
+        }
+
+        #loginsend {
+            position: relative;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -74,7 +78,17 @@
             }
 
             .loginwall {
-                width:auto
+                width: auto
+            }
+
+            #vcode {
+                width: 50%
+            }
+
+            #vcodeimg {
+                position: absolute;
+                left: 55%;
+                top: 63%
             }
         }
     </style>
@@ -90,13 +104,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{URL}}index/index">Home</a>
-                <span class="navbar-brand" id='username'>Username</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
                     <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">boxing</a></li>
+                    <li><a href="{{URL}}/goods/index/boxing">Boxing</a></li>
                     <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -114,32 +127,33 @@
                 <form class="form-horizontal">
                     <!-- Text input-->
                     <div class="form-group">
+                        <h1>會員登入</h1>
                         <div class="col-md-10">
                             <label for="email">Email</label>
                             <input id="email" name="email" type="text" placeholder="your E-mail"
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                    <span class="errorinfo">錯誤訊息測試</span></span>
+                                <span class="errorinfo" id='emailinfo'></span></span>
                         </div>
                     </div>
 
                     <!-- Password input-->
                     <div class="form-group">
-                        
+
                         <div class="col-md-10">
-                                <label for="password">password</label>
+                            <label for="password">password</label>
                             <input id="password" name="password" type="password" placeholder="your password"
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                    <span class="errorinfo">錯誤訊息測試</span></span>
+                                <span class="errorinfo" id='passwordinfo'></span></span>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        
+
                         <div class="col-md-5">
-                                <label for="textinput"></label>
+                            <label for="textinput"></label>
                             <input id="vcode" name="vcode" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
                             <span class="help-block">點圖片換驗證碼</span>
@@ -150,10 +164,11 @@
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <div class="col-md-8">
-                                <label for="button1id"></label>
-                            <a href="{{URL}}login/create"><button type="button" class="btn btn-default">Create an
-                                    account</button></a>
-                            <button type="button"  id="loginsend" class="btn btn-success ">Login</button>
+                            <label for="button1id"></label>
+                            <a href="{{URL}}login/create"><button type="button" class="btn btn-default">Join
+                                    us</button></a>
+                            <button type="button" id="loginsend" class="btn btn-success ">Login</button>
+                            <span class="errorinfo" id='errorinfo'></span>
                         </div>
                     </div>
                 </form>
@@ -179,6 +194,11 @@
         let eamil = $('#email').val();
         let password = $('#password').val();
         let vcode = $('#vcode').val();
+        let formname = ['email', 'password', 'error'];
+
+        for(error of formname) {
+                $('#' + error + 'info').html("");
+            }
 
         $.ajax({
             url: "loginCheck",
@@ -193,11 +213,13 @@
                 if (result.logininfo === 'success') {
                     $(window).attr('location', '{{URL}}/index/index');
                 } else if (result.logininfo === 'fail') {
-
+                    $('#errorinfo').html("登入失敗");
                 } else if (result.logininfo) {
-
+                    for (error of formname) {
+                        $('#' + error + 'info').html(result.logininfo[error]);
+                    }
                 } else {
-
+                    $('#errorinfo').html("錯誤");
                 }
             }
         });

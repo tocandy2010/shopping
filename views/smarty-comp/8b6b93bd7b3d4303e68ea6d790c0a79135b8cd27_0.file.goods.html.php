@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-01 11:35:25
+/* Smarty version 3.1.33, created on 2019-08-02 12:14:48
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d42b25d29eb89_43390099',
+  'unifunc' => 'content_5d440d18c5e7a7_21559983',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8b6b93bd7b3d4303e68ea6d790c0a79135b8cd27' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1564652121,
+      1 => 1564740827,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d42b25d29eb89_43390099 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d440d18c5e7a7_21559983 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -61,8 +61,9 @@ function content_5d42b25d29eb89_43390099 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Add a gray background color and some padding to the footer */
         footer {
-            background-color: brown;
+            background-color: #444444;
             padding: 25px;
+            color: white;
         }
 
         #headerimg {
@@ -100,7 +101,12 @@ public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['headimg']->value;?>
 
         #typelist {
             position: relative;
-            top: 15%
+            top: 15%;
+            text-align: center;
+        }
+
+        .typelist {
+            border: 1px solid white;
         }
 
         #breadcrumbs {
@@ -112,7 +118,7 @@ public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['headimg']->value;?>
             width: 97%;
             text-align: right;
             font-family: fantasy;
-            font-size: 18px;
+            font-size: 14px;
             color: black;
             letter-spacing: 0.8px
         }
@@ -126,14 +132,16 @@ public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['headimg']->value;?>
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             letter-spacing: 0.8px;
+            color: black;
+            font-family: "Microsoft JhengHei";
         }
 
         .goodswall {
-            border: 3px solid white
+            border: 1px solid white
         }
 
         .goodswall:hover {
-            border: 3px solid goldenrod
+            border: 1px solid rgb(57, 122, 175)
         }
 
         .goodsimg {
@@ -155,29 +163,33 @@ public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['headimg']->value;?>
                 <a class="navbar-brand" href="<?php echo URL;?>
 index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbspUsername</span>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
+</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-/goods/index/jog">Jog</a></li>
+goods/index/jog">Jog</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/ski">Ski</a></li>
+goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/boxing">boxing</a></li>
+goods/index/boxing">Boxing</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/yoga">Yoga</a></li>
+goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-
+                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="<?php echo URL;?>
 login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                            Login</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -187,15 +199,14 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
         <div class="container text-center"></div>
     </div>
 
-
     <div class="container-fluid" style="margin-bottom: 20px">
-        <div class="row content">
+        <div class="row content" style="margin-left:50px">
             <div class="col-sm-2 sidenav">
                 <div class="list-group" id='typelist'>
-                    <a href="#" class="list-group-item"><strong>Bigtype</strong></a>
-                    <a href="#" class="list-group-item">type1</a>
-                    <a href="#" class="list-group-item">type2</a>
-                    <a href="#" class="list-group-item">type3</a>
+                    <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
+                    <a href="#" class="list-group-item typelist">type1</a>
+                    <a href="#" class="list-group-item typelist">type2</a>
+                    <a href="#" class="list-group-item typelist">type3</a>
                 </div>
             </div>
 
@@ -207,26 +218,13 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                 </ol>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-3 goodswall">
+                        <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive goodsimg" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading" style='background-color: white'>
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive goodsimg" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
@@ -237,12 +235,96 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 goodswall">
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <div class="panel-body">
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
+                                <div class="panel-body">
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
+                                <div class="panel-body">
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
+                                <div class="panel-body">
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
+                            <div>
+                                <div class="panel-body">
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                </div>
+                                <div class="panel-heading">
+                                    <p class='goodsprice'><span>NT$</span>123456</p>
+                                    <a href='#'>
+                                        <p class='goodsname'>
+                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body" style="padding: -100%">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
@@ -253,75 +335,13 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 goodswall">
+                        <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body" style="padding: -100%">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="./test2.png" class="img-responsive"
-                                            style="max-width: 100%;margin:auto;" alt="Image"></a>
+                                    <a href='#'><img src="<?php echo URL;?>
+/public/homeimg/goodsimg/test2.png"
+                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>

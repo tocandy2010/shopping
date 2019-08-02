@@ -36,7 +36,7 @@
         footer {
             background-color: #444444;
             padding: 25px;
-            color:white;
+            color: white;
         }
 
         #headerimg {
@@ -77,7 +77,7 @@
         }
 
         .typelist {
-            border:1px solid white;
+            border: 1px solid white;
         }
 
         #breadcrumbs {
@@ -133,23 +133,26 @@
                 </button>
                 <a class="navbar-brand" href="{{URL}}index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbspUsername</span>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="{{URL}}goods/index/jog">Jog</a></li>
                     <li><a href="{{URL}}goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}goods/index/boxing">boxing</a></li>
+                    <li><a href="{{URL}}goods/index/boxing">Boxing</a></li>
                     <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    {{if $loginflag|default:false}}
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-
+                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
+                    {{else}}
+                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                            Login</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -158,9 +161,9 @@
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
-    
+
     <div class="container-fluid" style="margin-bottom: 20px">
-        <div class="row content" style = "margin-left:50px">
+        <div class="row content" style="margin-left:50px">
             <div class="col-sm-2 sidenav">
                 <div class="list-group" id='typelist'>
                     <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
@@ -185,7 +188,7 @@
                                     <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
                                             class="img-responsive goodsimg" alt="Image"></a>
                                 </div>
-                                <div class="panel-heading" >
+                                <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
                                     <a href='#'>
                                         <p class='goodsname'>
@@ -212,7 +215,7 @@
                         <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body" style="padding: -100%">
+                                <div class="panel-body">
                                     <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
                                             class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
                                 </div>
