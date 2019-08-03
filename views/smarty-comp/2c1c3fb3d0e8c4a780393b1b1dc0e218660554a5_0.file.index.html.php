@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-01 19:03:41
+/* Smarty version 3.1.33, created on 2019-08-02 20:43:11
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d431b6d2ce9a8_43279556',
+  'unifunc' => 'content_5d44843fde3e98_29754931',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2c1c3fb3d0e8c4a780393b1b1dc0e218660554a5' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\index.html',
-      1 => 1564679020,
+      1 => 1564771160,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d431b6d2ce9a8_43279556 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d44843fde3e98_29754931 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +51,7 @@ function content_5d431b6d2ce9a8_43279556 (Smarty_Internal_Template $_smarty_tpl)
         footer {
             background-color: #444444;
             padding: 25px;
-            color:white;
+            color: white;
         }
 
         #headerimg {
@@ -110,14 +110,20 @@ public/homeimg/headerimg/index.png');
             font-size: 18px;
             height: 40px;
             line-height: 40px;
-            width: 330px;
+            width: 377px;
             text-align: center;
-            line-height:14px;
+            line-height: 14px;
             background-color: #444444;
-            color:white;
-            font-family:Microsoft JhengHei;
+            color: white;
+            font-family: Microsoft JhengHei;
         }
 
+        .showtab {
+            border: 1px solid black;
+            height: 800px;
+            margin-bottom: 10%;
+            font-size: 25px;
+        }
     </style>
 </head>
 
@@ -133,26 +139,35 @@ public/homeimg/headerimg/index.png');
                 <a class="navbar-brand" href="<?php echo URL;?>
 /index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbspUsername</span>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
+</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-/goods/index/jog">Jog</a></li>
+goods/index/jog">Jog</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/ski">Ski</a></li>
+goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/boxing">boxing</a></li>
+goods/index/boxing">Boxing</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/yoga">Yoga</a></li>
+goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
+goods/cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
+                    <li><a href=""><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
+                    <li><a href="<?php echo URL;?>
+login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
 login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -164,30 +179,22 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
     <div class="container">
         <ul class="nav nav-pills">
             <li class="active" class='toggleable'><a data-toggle="pill" href="#home" class='toggleable'>熱銷商品</a></li>
-            <li><a data-toggle="pill" href="#menu2" class='toggleable'>專屬推薦</a></li>
-            <li><a data-toggle="pill" href="#menu3" class='toggleable'>夏日運動</a></li>
+            <li><a data-toggle="pill" href="#menu1" class='toggleable'>專屬推薦</a></li>
+            <li><a data-toggle="pill" href="#menu2" class='toggleable'>夏日運動</a></li>
         </ul>
 
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
-                <h3>HOME</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
+                <h3></h3>
+                <div class='showtab'>熱銷商品</div>
             </div>
             <div id="menu1" class="tab-pane fade">
-                <h3>Menu 1</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.</p>
+                <h3></h3>
+                <div class='showtab'>專屬推薦</div>
             </div>
             <div id="menu2" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam.</p>
-            </div>
-            <div id="menu3" class="tab-pane fade">
-                <h3>Menu 3</h3>
-                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                </p>
+                <h3></h3>
+                <div class='showtab'>夏日運動</div>
             </div>
         </div>
     </div>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-01 19:04:19
+/* Smarty version 3.1.33, created on 2019-08-03 06:03:39
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d431b936f5f31_28301558',
+  'unifunc' => 'content_5d45079b1d3963_03411501',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dc669a1b68a2d76fbc9a84eb28f84544c09fe7b' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1564679058,
+      1 => 1564805018,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d431b936f5f31_28301558 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d45079b1d3963_03411501 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +63,7 @@ function content_5d431b936f5f31_28301558 (Smarty_Internal_Template $_smarty_tpl)
         footer {
             background-color: #444444;
             padding: 25px;
-            color:white;
+            color: white;
         }
 
         #headerimg {
@@ -106,7 +106,7 @@ public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['headimg']->value;?>
         }
 
         .typelist {
-            border:1px solid white;
+            border: 1px solid white;
         }
 
         #breadcrumbs {
@@ -163,7 +163,8 @@ public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['headimg']->value;?>
                 <a class="navbar-brand" href="<?php echo URL;?>
 index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbspUsername</span>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
+</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -172,20 +173,23 @@ goods/index/jog">Jog</a></li>
                     <li><a href="<?php echo URL;?>
 goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-goods/index/boxing">boxing</a></li>
+goods/index/boxing">Boxing</a></li>
                     <li><a href="<?php echo URL;?>
 goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-
+                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="<?php echo URL;?>
 login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                            Login</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -194,9 +198,9 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
-    
-    <div class="container-fluid" style="margin-bottom: 20px">
-        <div class="row content" style = "margin-left:50px">
+
+    <div class="container-fluid" >
+        <div class="row content" style="margin-left:50px">
             <div class="col-sm-2 sidenav">
                 <div class="list-group" id='typelist'>
                     <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
@@ -208,7 +212,8 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
 
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="<?php echo URL;?>
+index/index">Home</a></li>
                     <li><a href="#">typename</a></li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
@@ -218,13 +223,15 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='#'><img src="<?php echo URL;?>
+                                    <a href='<?php echo URL;?>
+goods/show/1'><img src="<?php echo URL;?>
 /public/homeimg/goodsimg/test2.png"
                                             class="img-responsive goodsimg" alt="Image"></a>
                                 </div>
-                                <div class="panel-heading" >
+                                <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
+                                    <a href='<?php echo URL;?>
+goods/show/1'>
                                         <p class='goodsname'>
                                             產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
                                     </a>
@@ -250,7 +257,7 @@ login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                         <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body" style="padding: -100%">
+                                <div class="panel-body">
                                     <a href='#'><img src="<?php echo URL;?>
 /public/homeimg/goodsimg/test2.png"
                                             class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>

@@ -75,7 +75,39 @@ class GoodsController extends Controller
         echo "delete";
     }
 
-    public function cart()
+    public function show($res = false)
     {
+        ##檢查商品參數
+        if (!isset($res[0]) || empty($res[0]) || !is_numeric($res[0])) {
+            header('Location:../index/index');
+            exit;
+        }
+
+        ##判斷使用者登入
+        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+            $userInfo = [];
+        } else {
+            $DBCustomer = $this->DBCustomer;
+            $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
+            if (!empty($userInfo)) {
+                $this->smarty->assign('loginflag', true);
+            }
+        }
+
+        // ##取得商品資訊
+        // $DBgoods = $this->DBgoods;
+        // $goodsInfo = $DBgoods->findOne($res[0]);
+        // if (empty($gooodsInfo)) {
+        //     header('Location:../index/index');
+        //     exit;
+        // }
+        
+        // $this->smarty->assign('userinfo', $userInfo);
+        // $this->smarty->assign('goodsinfo', $goodsInfo);
+        return $this->smarty->display('home/goods/goodsdetial.html');
+
     }
+
+    public function cart()
+    { }
 }

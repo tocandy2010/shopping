@@ -162,7 +162,7 @@
         <div class="container text-center"></div>
     </div>
 
-    <div class="container-fluid" style="margin-bottom: 20px">
+    <div class="container-fluid" >
         <div class="row content" style="margin-left:50px">
             <div class="col-sm-2 sidenav">
                 <div class="list-group" id='typelist'>
@@ -175,7 +175,7 @@
 
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="{{URL}}index/index">Home</a></li>
                     <li><a href="#">typename</a></li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
@@ -185,12 +185,12 @@
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
+                                    <a href='{{URL}}goods/show/1'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
                                             class="img-responsive goodsimg" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
+                                    <a href='{{URL}}goods/show/1'>
                                         <p class='goodsname'>
                                             產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
                                     </a>

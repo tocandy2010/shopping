@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-03 06:21:07
+  from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goodsdetial.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d450bb378ff93_29159819',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '60c5a435185034a2111844014b48bdfc00576763' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goodsdetial.html',
+      1 => 1564806063,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -145,7 +172,8 @@
                                 <div class="container-fluid">
                                     <div class="row-content">
                                         <div class="col-sm-6">
-                                            <img src="{{URL}}public/homeimg/goodsimg/test.png"
+                                            <img src="<?php echo URL;?>
+public/homeimg/goodsimg/test.png"
                                                 class="img-thumbnail goodsimg" alt="Cinque Terre">
                                         </div>
                                         <div class="col-sm-5 panel panel-default" >
@@ -183,4 +211,5 @@
 
 </body>
 
-</html>
+</html><?php }
+}
