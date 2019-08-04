@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-02 20:43:11
+/* Smarty version 3.1.33, created on 2019-08-04 18:56:25
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d44843fde3e98_29754931',
+  'unifunc' => 'content_5d470e39e24808_74374359',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2c1c3fb3d0e8c4a780393b1b1dc0e218660554a5' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\index.html',
-      1 => 1564771160,
+      1 => 1564937717,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d44843fde3e98_29754931 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d470e39e24808_74374359 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -155,7 +155,7 @@ goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
-goods/cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href=""><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
