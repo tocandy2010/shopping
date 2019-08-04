@@ -81,6 +81,17 @@
             -webkit-box-orient: vertical;
         }
 
+        .gless {
+            position: absolute;
+            top: 3px;
+            left: -8%;
+        }
+
+        .add {
+            position: absolute;
+            top: 3px;
+            left: 89%
+        }
     </style>
 </head>
 
@@ -109,7 +120,7 @@
                     {{if $loginflag|default:false}}
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
-                        Myorder</a></li>
+                            Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
                     {{else}}
@@ -136,7 +147,7 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th >商品名稱</th>
+                                <th>商品名稱</th>
                                 <th>單價</th>
                                 <th>購買數量</th>
                                 <th>小計</th>
@@ -151,12 +162,43 @@
                                             style="max-width: 30%;margin:auto;" alt="Cinque Terre">
                                     </a>
                                 </td>
-                                <td><a href='#'><span class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a></td>
+                                <td><a href='#'><span
+                                            class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a>
+                                </td>
                                 <td>NT$<span>123</span></td>
                                 <td>
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" type="number" min='1' id="example-number-input">
+                                            <input type="button" data-gid="1" class="gless" value="-" class='gless'>
+                                            <input class="form-control gnum" type="number" data-gid="1" min='1' id="gnum1" value="1"
+                                                id="">
+                                            <input type="button" data-gid="1" class='add' value="+" class='add'>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>NT$<span>123456</span></div>
+                                </td>
+                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="">
+                                        <img class="img-responsive" src="{{URL}}public/homeimg/goodsimg/test.png"
+                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
+                                    </a>
+                                </td>
+                                <td><a href='#'><span
+                                            class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a>
+                                </td>
+                                <td>NT$<span>123</span></td>
+                                <td>
+                                    <div class="form-group row">
+                                        <div class="col-md-7">
+                                            <input type="button" data-gid="2" class="gless" value="-" class='gless'>
+                                            <input class="form-control gnum" type="number" data-gid="2" min='1' id="gnum2" value="1"
+                                                >
+                                            <input type="button" data-gid="2" class='add' value="+" class='add'>
                                         </div>
                                     </div>
                                 </td>
@@ -167,7 +209,7 @@
                             </tr>
                             <tr>
                                 <td id='Checkout' colspan="6">
-                                        <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
+                                    <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -183,3 +225,39 @@
 </body>
 
 </html>
+
+<script>
+    $('.add').click(function () {
+        let gid = $(this).attr("data-gid");
+        let gnum = $("#gnum" + gid).val();
+        $("#gnum" + gid).val(parseInt(gnum) + 1);
+        $('#gnum' + gid).change();
+    })
+
+    $('.gless').click(function () {
+        let gid = $(this).attr("data-gid");
+        let gnum = $("#gnum" + gid).val();
+        if (gnum > 1) {
+            $("#gnum" + gid).val(parseInt(gnum) - 1);
+        } else {
+            $("#gnum" + gid).val(1);
+        }
+        $('#gnum' + gid).change();
+    })
+
+    $('.gnum').change(function () {
+        let gnum = $(this).val();
+        let gid = $(this).attr("data-gid");
+        $.ajax({
+            url: 'setCart/' +　gid,
+            type: 'POST',
+            data: {
+                'gnum' : gnum,
+            },
+            success: function (result) {
+                console.log(result)
+            }
+        });
+    })
+
+</script>

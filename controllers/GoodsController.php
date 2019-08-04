@@ -107,7 +107,4 @@ class GoodsController extends Controller
         return $this->smarty->display('home/goods/goodsdetial.html');
 
     }
-
-    public function cart()
-    { }
 }

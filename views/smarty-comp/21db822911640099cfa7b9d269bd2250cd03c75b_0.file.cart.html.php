@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-02 11:45:31
+/* Smarty version 3.1.33, created on 2019-08-04 17:10:14
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d44063ba54b51_46800034',
+  'unifunc' => 'content_5d46f5562dc968_22512279',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '21db822911640099cfa7b9d269bd2250cd03c75b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1564739118,
+      1 => 1564931406,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d44063ba54b51_46800034 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d46f5562dc968_22512279 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -108,6 +108,17 @@ function content_5d44063ba54b51_46800034 (Smarty_Internal_Template $_smarty_tpl)
             -webkit-box-orient: vertical;
         }
 
+        .gless {
+            position: absolute;
+            top: 3px;
+            left: -8%;
+        }
+
+        .add {
+            position: absolute;
+            top: 3px;
+            left: 89%
+        }
     </style>
 </head>
 
@@ -142,7 +153,7 @@ goods/index/yoga">Yoga</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
-                        Myorder</a></li>
+                            Myorder</a></li>
                     <li><a href="<?php echo URL;?>
 login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -171,7 +182,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <thead>
                             <tr>
                                 <th></th>
-                                <th >商品名稱</th>
+                                <th>商品名稱</th>
                                 <th>單價</th>
                                 <th>購買數量</th>
                                 <th>小計</th>
@@ -187,12 +198,44 @@ public/homeimg/goodsimg/test.png"
                                             style="max-width: 30%;margin:auto;" alt="Cinque Terre">
                                     </a>
                                 </td>
-                                <td><a href='#'><span class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a></td>
+                                <td><a href='#'><span
+                                            class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a>
+                                </td>
                                 <td>NT$<span>123</span></td>
                                 <td>
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" type="number" min='1' id="example-number-input">
+                                            <input type="button" data-gid="1" class="gless" value="-" class='gless'>
+                                            <input class="form-control gnum" type="number" data-gid="1" min='1' id="gnum1" value="1"
+                                                id="">
+                                            <input type="button" data-gid="1" class='add' value="+" class='add'>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>NT$<span>123456</span></div>
+                                </td>
+                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="">
+                                        <img class="img-responsive" src="<?php echo URL;?>
+public/homeimg/goodsimg/test.png"
+                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
+                                    </a>
+                                </td>
+                                <td><a href='#'><span
+                                            class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a>
+                                </td>
+                                <td>NT$<span>123</span></td>
+                                <td>
+                                    <div class="form-group row">
+                                        <div class="col-md-7">
+                                            <input type="button" data-gid="2" class="gless" value="-" class='gless'>
+                                            <input class="form-control gnum" type="number" data-gid="2" min='1' id="gnum2" value="1"
+                                                >
+                                            <input type="button" data-gid="2" class='add' value="+" class='add'>
                                         </div>
                                     </div>
                                 </td>
@@ -203,7 +246,7 @@ public/homeimg/goodsimg/test.png"
                             </tr>
                             <tr>
                                 <td id='Checkout' colspan="6">
-                                        <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
+                                    <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -218,5 +261,43 @@ public/homeimg/goodsimg/test.png"
     </footer>
 </body>
 
-</html><?php }
+</html>
+
+<?php echo '<script'; ?>
+>
+    $('.add').click(function () {
+        let gid = $(this).attr("data-gid");
+        let gnum = $("#gnum" + gid).val();
+        $("#gnum" + gid).val(parseInt(gnum) + 1);
+        $('#gnum' + gid).change();
+    })
+
+    $('.gless').click(function () {
+        let gid = $(this).attr("data-gid");
+        let gnum = $("#gnum" + gid).val();
+        if (gnum > 1) {
+            $("#gnum" + gid).val(parseInt(gnum) - 1);
+        } else {
+            $("#gnum" + gid).val(1);
+        }
+        $('#gnum' + gid).change();
+    })
+
+    $('.gnum').change(function () {
+        let gnum = $(this).val();
+        let gid = $(this).attr("data-gid");
+        $.ajax({
+            url: 'setCart/' +　gid,
+            type: 'POST',
+            data: {
+                'gnum' : gnum,
+            },
+            success: function (result) {
+                console.log(result)
+            }
+        });
+    })
+
+<?php echo '</script'; ?>
+><?php }
 }
