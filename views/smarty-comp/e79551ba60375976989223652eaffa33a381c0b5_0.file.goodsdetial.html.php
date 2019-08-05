@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-05 09:06:54
+  from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\goodsdetial.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d47d58eeed727_66731353',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'e79551ba60375976989223652eaffa33a381c0b5' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goodsdetial.html',
+      1 => 1564986998,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d47d58eeed727_66731353 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -110,15 +137,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+index/index">Home</a>
                 <span class="navbar-brand" id='username'>Username</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}goods/index/boxing">Boxing</a></li>
-                    <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/jog">Jog</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/ski">Ski</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/boxing">Boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="./login.html"><span class="glyphicon glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -136,9 +168,11 @@
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="{{URL}}index/index">Home</a></li>
+                    <li><a href="<?php echo URL;?>
+index/index">Home</a></li>
                     <li><a href="#">typename</a></li>
-                    <li>{{$goodsinfo['name']}}</li>
+                    <li><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+</li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
                 <div class="container-fluid">
@@ -148,19 +182,25 @@
                                 <div class="container-fluid">
                                     <div class="row-content">
                                         <div class="col-sm-6">
-                                            <img src="{{URL}}public/homeimg/goodsimg/test.png"
+                                            <img src="<?php echo URL;?>
+public/homeimg/goodsimg/test.png"
                                                 class=" goodsimg" alt="Cinque Terre">
                                         </div>
                                         <div class="col-sm-5 panel panel-default">
-                                            <p class="goodsname">商品名稱&nbsp:&nbsp<span>{{$goodsinfo['name']}}</span></p>
-                                            <p class="goodsprice">NT$<span>{{$goodsinfo['price']}}</span></p>
-                                            <p class="goodsprice">庫存數量&nbsp:&nbsp<span>{{$goodsinfo['stock']}}</span></p>
+                                            <p class="goodsname">商品名稱&nbsp:&nbsp<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+</span></p>
+                                            <p class="goodsprice">NT$<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
+</span></p>
+                                            <p class="goodsprice">庫存數量&nbsp:&nbsp<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
+</span></p>
                                             <p>
-                                                {{if $incartflag}}
-                                                <td><button type="button" class="btn btn-danger btn-block" disabled =true data-gid="{{$goodsinfo['gid']}}" id="addcart">已在入購物車中</button></td>
-                                                {{else}}
-                                                <td><button type="button" class="btn btn-danger  btn-block" data-gid="{{$goodsinfo['gid']}}" id="addcart">加入購物車</button></td>
-                                                {{/if}}
+                                                <?php if ($_smarty_tpl->tpl_vars['incartflag']->value) {?>
+                                                <td><button type="button" class="btn btn-danger btn-block" disabled =true data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" id="addcart">已在入購物車中</button></td>
+                                                <?php } else { ?>
+                                                <td><button type="button" class="btn btn-danger  btn-block" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" id="addcart">加入購物車</button></td>
+                                                <?php }?>
                                             </p>
                                         </div>
                                     </div>
@@ -202,7 +242,8 @@
 
 </html>
 
-<script>
+<?php echo '<script'; ?>
+>
 
 $('#addcart').click(function(){
     let gid = $(this).attr("data-gid");
@@ -229,4 +270,6 @@ $('#addcart').click(function(){
         });
 })
 
-</script>
+<?php echo '</script'; ?>
+><?php }
+}

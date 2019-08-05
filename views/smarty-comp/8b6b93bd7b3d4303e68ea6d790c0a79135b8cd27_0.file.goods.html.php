@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-02 12:14:48
+/* Smarty version 3.1.33, created on 2019-08-05 06:06:14
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d440d18c5e7a7_21559983',
+  'unifunc' => 'content_5d47ab363ef932_79820814',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8b6b93bd7b3d4303e68ea6d790c0a79135b8cd27' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1564740827,
+      1 => 1564977973,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d440d18c5e7a7_21559983 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d47ab363ef932_79820814 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -199,7 +199,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="container text-center"></div>
     </div>
 
-    <div class="container-fluid" style="margin-bottom: 20px">
+    <div class="container-fluid" >
         <div class="row content" style="margin-left:50px">
             <div class="col-sm-2 sidenav">
                 <div class="list-group" id='typelist'>
@@ -212,7 +212,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="<?php echo URL;?>
+index/index">Home</a></li>
                     <li><a href="#">typename</a></li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
@@ -222,13 +223,15 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='#'><img src="<?php echo URL;?>
+                                    <a href='<?php echo URL;?>
+goods/create/1'><img src="<?php echo URL;?>
 /public/homeimg/goodsimg/test2.png"
                                             class="img-responsive goodsimg" alt="Image"></a>
                                 </div>
                                 <div class="panel-heading">
                                     <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
+                                    <a href='<?php echo URL;?>
+goods/show/1'>
                                         <p class='goodsname'>
                                             產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
                                     </a>

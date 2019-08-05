@@ -55,21 +55,4 @@ class OrderController extends Controller
     {
         echo "delete";
     }
-
-    public function cart()
-    {
-        ##判斷使用者登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $userInfo = [];
-        } else {
-            $DBCustomer = $this->DBCustomer;
-            $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
-            if (!empty($userInfo)) {
-                $this->smarty->assign('loginflag', true);
-            }
-        }
-
-        $this->smarty->assign('userinfo', $userInfo);
-        return $this->smarty->display('home/goods/cart.html');
-    }
 }

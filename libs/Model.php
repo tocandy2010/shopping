@@ -24,7 +24,7 @@ class Model
         $sql = rtrim($sql, ',');
         $sql .= ") values(";
         $sql .= str_repeat('?,', $count);
-        $sql = rtrim($sql, ',') . ")";    
+        $sql = rtrim($sql, ',') . ")";
         $res = $this->db->prepare($sql);
          foreach (array_values($array) as $k => $v) {
             $res->bindValue(($k+1), $v);
