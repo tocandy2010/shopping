@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-01 19:52:02
+/* Smarty version 3.1.33, created on 2019-08-05 17:14:59
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\reg.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4326c265c0f7_39040787',
+  'unifunc' => 'content_5d4847f36949d6_14234359',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '34ccf35d68c3579f708482165ac6e8c9363d093f' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\reg.html',
-      1 => 1564681918,
+      1 => 1565018052,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4326c265c0f7_39040787 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4847f36949d6_14234359 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +58,7 @@ function content_5d4326c265c0f7_39040787 (Smarty_Internal_Template $_smarty_tpl)
         footer {
             background-color: #444444;
             padding: 25px;
-            color:white;
+            color: white;
         }
 
         #username {
@@ -111,7 +111,7 @@ index/index">Home</a>
                     <li><a href="<?php echo URL;?>
 /goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/boxing">boxing</a></li>
+/goods/index/Boxing">boxing</a></li>
                     <li><a href="<?php echo URL;?>
 /goods/index/yoga">Yoga</a></li>
                 </ul>
@@ -135,8 +135,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <div class="col-md-4">
                             <input id="email" name="email" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">請輸入一個目前可用的Email
+                                <span class="errorinfo" id='emailinfo'></span>
                             </span>
                         </div>
                     </div>
@@ -147,8 +147,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <div class="col-md-4">
                             <input id="password" name="password" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">請輸入6~20位
+                                <span class="errorinfo" id="passwordinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -159,8 +159,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <div class="col-md-4">
                             <input id="repassword" name="repassword" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">請再輸入一次密碼
+                                <span class="errorinfo" id="repasswordinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -171,8 +171,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <div class="col-md-4">
                             <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
-                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~50字&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~30字&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="nameinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -184,7 +184,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
                             <span class="help-block">請輸入您的手機號碼&nbsp例如:&nbsp09xxxxxxxx&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                                <span class="errorinfo" id="phoneinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -196,7 +196,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <input id="address" name="address" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
                             <span class="help-block">請輸入您的地址&nbsp&nbsp&nbsp
-                                <span class="errorinfo">錯誤訊息測試</span>
+                                <span class="errorinfo" id="addressinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -209,7 +209,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <a href="<?php echo URL;?>
 login/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
-                            <span class="errorinfo">錯誤訊息測試</span>
+                            <span class="errorinfo" id='errorinfo'></span>
                         </div>
                     </div>
                 </form>
@@ -230,6 +230,11 @@ login/index"><button type="button"
             let name = $('#name').val();
             let phone = $('#phone').val();
             let address = $('#address').val();
+            let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
+
+            for (error of formname) {
+                $('#' + error + 'info').html("");
+            }
 
             $.ajax({
                 url: "add",
@@ -244,15 +249,18 @@ login/index"><button type="button"
                     'address': address,
                 },
                 success: function (result) {
+                    console.log(result);
                     if (result.reginfo === 'success') {
                         $(window).attr('location', '<?php echo URL;?>
 /login/index');
                     } else if (result.reginfo === 'fail') {
-
+                        $('#errorinfo').html("註冊失敗");
                     } else if (result.reginfo) {
-
+                        for (error of formname) {
+                            $('#' + error + 'info').html(result.reginfo[error]);
+                        }
                     } else {
-
+                        $('#errorinfo').html("錯誤");
                     }
                 }
             });

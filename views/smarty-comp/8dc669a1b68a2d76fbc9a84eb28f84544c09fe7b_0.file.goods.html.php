@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-04 19:14:06
+/* Smarty version 3.1.33, created on 2019-08-05 17:15:22
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d47125ead5fb6_21061480',
+  'unifunc' => 'content_5d48480a9e3852_10481736',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dc669a1b68a2d76fbc9a84eb28f84544c09fe7b' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1564805107,
+      1 => 1565017201,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d47125ead5fb6_21061480 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d48480a9e3852_10481736 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -224,7 +224,7 @@ index/index">Home</a></li>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
                                     <a href='<?php echo URL;?>
-goods/show/1'><img src="<?php echo URL;?>
+goods/create/1'><img src="<?php echo URL;?>
 /public/homeimg/goodsimg/test2.png"
                                             class="img-responsive goodsimg" alt="Image"></a>
                                 </div>

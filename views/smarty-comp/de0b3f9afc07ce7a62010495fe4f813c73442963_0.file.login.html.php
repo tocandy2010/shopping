@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-04 19:15:36
+/* Smarty version 3.1.33, created on 2019-08-05 17:14:49
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4712b8d59640_17873945',
+  'unifunc' => 'content_5d4847e9a85f43_38565542',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'de0b3f9afc07ce7a62010495fe4f813c73442963' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
-      1 => 1564771160,
+      1 => 1565018088,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4712b8d59640_17873945 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4847e9a85f43_38565542 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -165,7 +165,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <label for="email">Email</label>
                             <input id="email" name="email" type="text" placeholder="your E-mail"
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
+                            <span class="help-block">
                                 <span class="errorinfo" id='emailinfo'></span></span>
                         </div>
                     </div>
@@ -177,7 +177,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <label for="password">password</label>
                             <input id="password" name="password" type="password" placeholder="your password"
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">不可輸入符號&nbsp&nbsp6~10位包含英文大小寫&nbsp&nbsp&nbsp
+                            <span class="help-block">
                                 <span class="errorinfo" id='passwordinfo'></span></span>
                         </div>
                     </div>

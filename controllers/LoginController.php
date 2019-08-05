@@ -80,8 +80,13 @@ class LoginController extends Controller
         }
 
         ##密碼加密.姓名符號過濾.產生註冊時間
-        $reginfo['password'] = password_hash($reginfo['password'], PASSWORD_DEFAULT);
         $reginfo['name'] = htmlspecialchars($this->helper->removeAllSpace($reginfo['name'], ENT_QUOTES));
+        if ($reginfo['name'] === '') {
+            echo json_encode(['reginfo' => ['name' => "請輸入姓名"]]);
+            exit;
+        }
+        $reginfo['password'] = htmlspecialchars($reginfo['password'], ENT_QUOTES);
+        $reginfo['password'] = password_hash($reginfo['password'], PASSWORD_DEFAULT);
         $reginfo['regTime'] = time();
 
         ##寫入DB

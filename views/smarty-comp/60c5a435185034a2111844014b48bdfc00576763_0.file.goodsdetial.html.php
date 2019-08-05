@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-03 06:21:07
+/* Smarty version 3.1.33, created on 2019-08-05 17:15:23
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goodsdetial.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d450bb378ff93_29159819',
+  'unifunc' => 'content_5d48480b9b7169_56564649',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '60c5a435185034a2111844014b48bdfc00576763' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goodsdetial.html',
-      1 => 1564806063,
+      1 => 1565017201,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d48480b9b7169_56564649 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -98,8 +98,8 @@ function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl)
         .goodsimg {
             position: relative;
             left: 20%;
-            width:60%;
-            height:auto;
+            width: 50%;
+            height: auto;
         }
 
         .goodsname {
@@ -109,10 +109,9 @@ function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl)
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             letter-spacing: 0.8px;
-
             font: bold 20px Microsoft JhengHei;
             color: #202528;
-            padding-top:10px;
+            padding-top:25px;
         }
 
         .goodsprice {
@@ -120,7 +119,11 @@ function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl)
             font-family: fantasy;
             font-size: 20px;
             color: black;
-            letter-spacing: 1px
+            letter-spacing: 1px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: right;
+            
         }
     </style>
 </head>
@@ -134,15 +137,20 @@ function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl)
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./index.html">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+index/index">Home</a>
                 <span class="navbar-brand" id='username'>Username</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">跑步</a></li>
-                    <li><a href="#">滑雪</a></li>
-                    <li><a href="#">拳擊</a></li>
-                    <li><a href="#">瑜珈</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/jog">Jog</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/ski">Ski</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/boxing">Boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="./login.html"><span class="glyphicon glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -160,9 +168,11 @@ function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="<?php echo URL;?>
+index/index">Home</a></li>
                     <li><a href="#">typename</a></li>
-                    <li>goodsname</li>
+                    <li><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+</li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
                 <div class="container-fluid">
@@ -174,18 +184,23 @@ function content_5d450bb378ff93_29159819 (Smarty_Internal_Template $_smarty_tpl)
                                         <div class="col-sm-6">
                                             <img src="<?php echo URL;?>
 public/homeimg/goodsimg/test.png"
-                                                class="img-thumbnail goodsimg" alt="Cinque Terre">
+                                                class=" goodsimg" alt="Cinque Terre">
                                         </div>
-                                        <div class="col-sm-5 panel panel-default" >
-                                            <p class="goodsname">超級登山杖超級登山杖超級登山杖超級登山杖超級登山杖超級登山杖超級登山杖超級登山杖超級登山杖超級登山杖</p>
-                                            <p class="goodsprice">NT$<span>600</span></p>
-                                            <p style="padding:10px">庫存數量&nbsp<span>600</span></p>
-                                            <p style = "padding-top: 10%">
-                                                    <input class="form-control" type="number" min='1'
-                                                        id="example-number-input" value='1'>
-                                            </p>
+                                        <div class="col-sm-5 panel panel-default">
+                                            <p class="goodsname">商品名稱&nbsp:&nbsp<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+</span></p>
+                                            <p class="goodsprice">NT$<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
+</span></p>
+                                            <p class="goodsprice">庫存數量&nbsp:&nbsp<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
+</span></p>
                                             <p>
-                                                <td><button type="button" class="btn btn-danger">加入購物車</button></td>
+                                                <?php if ($_smarty_tpl->tpl_vars['incartflag']->value) {?>
+                                                <td><button type="button" class="btn btn-danger btn-block" disabled =true data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" id="addcart">已在入購物車中</button></td>
+                                                <?php } else { ?>
+                                                <td><button type="button" class="btn btn-danger  btn-block" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" id="addcart">加入購物車</button></td>
+                                                <?php }?>
                                             </p>
                                         </div>
                                     </div>
@@ -194,16 +209,30 @@ public/homeimg/goodsimg/test.png"
                         </div>
                     </div>
                     <div class="row">
-                            <div class="panel panel-default">
-                                <div class="panel-body" >
-
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h3>商品資訊</h3>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <label>運動範圍 : </label>
+                                            <span class="value">滑降滑雪(DOWNHILL SKIING), 自由式單板滑雪, 自由式滑雪( FREESTYLE
+                                                SKIING), 花式單板滑雪, 花式滑雪( FREERIDE SKIING)</span>
+                                        </li>
+                                        <li>
+                                            <label>材質 : </label>
+                                            <span class="value">泡棉 : 100.0% 聚苯乙烯泡沫 外層布料 : 100.0% ABS樹脂</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-2 sidenav"></div>
         </div>
+        <div class="col-sm-2 sidenav"></div>
+    </div>
     </div>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
@@ -211,5 +240,36 @@ public/homeimg/goodsimg/test.png"
 
 </body>
 
-</html><?php }
+</html>
+
+<?php echo '<script'; ?>
+>
+
+$('#addcart').click(function(){
+    let gid = $(this).attr("data-gid");
+    if (gid < 1) {
+        alert('新增購物車失敗');
+        return false;
+    }
+
+    $.ajax({
+            url: '../add',
+            dataType: "json",
+            type: 'POST',
+            data: {
+                'gid' : gid,
+            },
+            success: function (result) {
+                if (result.addinfo === "success") {
+                    $("#addcart").attr('disabled', true);
+                    $("#addcart").html("已加入購物車");
+                } else {
+                    alert("新增購物車失敗");
+                }
+            }
+        });
+})
+
+<?php echo '</script'; ?>
+><?php }
 }

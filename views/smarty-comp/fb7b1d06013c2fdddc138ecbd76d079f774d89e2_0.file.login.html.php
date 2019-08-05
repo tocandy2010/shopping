@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-05 18:27:09
+  from 'D:\xampp\htdocs\TaiwanGYM\views\back\login\login.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d4858dd04cd76_75402077',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'fb7b1d06013c2fdddc138ecbd76d079f774d89e2' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\login.html',
+      1 => 1565022427,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d4858dd04cd76_75402077 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -103,17 +130,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">Boxing</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/jog">訂單管理</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/ski">會員管理</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/boxing">新增商品</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -127,9 +160,9 @@
                 <form class="form-horizontal">
                     <!-- Text input-->
                     <div class="form-group">
-                        <h1>會員登入</h1>
+                        <h1>員工登入</h1>
                         <div class="col-md-10">
-                            <label for="email">Email</label>
+                            <label for="email">account</label>
                             <input id="email" name="email" type="text" placeholder="your E-mail"
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
@@ -158,15 +191,14 @@
                                 autocomplete="off">
                             <span class="help-block">點圖片換驗證碼</span>
                         </div>
-                        <img src="{{URL}}public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
+                        <img src="<?php echo URL;?>
+public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
                     </div>
 
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <div class="col-md-8">
                             <label for="button1id"></label>
-                            <a href="{{URL}}login/create"><button type="button" class="btn btn-default">Join
-                                    us</button></a>
                             <button type="button" id="loginsend" class="btn btn-success ">Login</button>
                             <span class="errorinfo" id='errorinfo'></span>
                         </div>
@@ -184,10 +216,12 @@
 
 </html>
 
-<script>
+<?php echo '<script'; ?>
+>
 
     $('#vcodeimg').click(function () {
-        this.src = "{{URL}}public/vcode/vcode.php?" + Math.random();
+        this.src = "<?php echo URL;?>
+public/vcode/vcode.php?" + Math.random();
     })
 
     $("#loginsend").click(function () {
@@ -211,7 +245,8 @@
             },
             success: function (result) {
                 if (result.logininfo === 'success') {
-                    $(window).attr('location', '{{URL}}/index/index');
+                    $(window).attr('location', '<?php echo URL;?>
+/index/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
                 } else if (result.logininfo) {
@@ -226,4 +261,6 @@
     })
 
 
-</script>
+<?php echo '</script'; ?>
+><?php }
+}

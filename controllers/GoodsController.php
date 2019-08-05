@@ -111,11 +111,14 @@ class GoodsController extends Controller
         $incartflag = false;
         if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart']) && !is_null($_COOKIE['cart'])) {
             $cart = json_decode($_COOKIE['cart']);
-            foreach($cart as $cgid => $cgnum) {
-                if ($cgid === $res[0]) {
-                    $incartflag = true;
+            if (!is_null($cart)) {
+                foreach($cart as $cgid => $cgnum) {
+                    if ($cgid === $res[0]) {
+                        $incartflag = true;
+                    }
                 }
             }
+
         }
 
         $this->smarty->assign('userinfo', $userInfo);

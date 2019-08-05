@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-04 18:57:39
+/* Smarty version 3.1.33, created on 2019-08-05 17:01:16
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d470e832b6b19_62610722',
+  'unifunc' => 'content_5d4844bc603839_29342992',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '311e6a4c0f34b608e7e923c0dfeb9c6548f53378' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1564937717,
+      1 => 1565017201,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d470e832b6b19_62610722 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4844bc603839_29342992 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -96,7 +96,7 @@ function content_5d470e832b6b19_62610722 (Smarty_Internal_Template $_smarty_tpl)
         }
 
         td {
-            width: 20%;
+            width: 10%;
         }
 
         .goodsname {
@@ -187,9 +187,15 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                                 <th>購買數量</th>
                                 <th>小計</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['goods']->value, 'goodsinfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
+?>
                             <tr>
                                 <td>
                                     <a href="">
@@ -199,25 +205,43 @@ public/homeimg/goodsimg/test.png"
                                     </a>
                                 </td>
                                 <td><a href='#'><span
-                                            class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a>
+                                            class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+<span></a>
                                 </td>
-                                <td>NT$<span>123</span></td>
+                                <td>NT$<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
+</span></td>
                                 <td>
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input type="button" data-gid="1" class="gless" value="-" class='gless'>
-                                            <input class="form-control gnum" type="number" data-gid="1" min='1' id="gnum1" value="1"
-                                                id="">
-                                            <input type="button" data-gid="1" class='add' value="+" class='add'>
+                                            <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" class="gless" value="-">
+                                            <input class="form-control gnum" type="number" 
+                                            data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" min='1' max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
+" 
+                                            id="gnum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" value="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['buynum'];?>
+">
+                                            <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" class='add' data-max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
+" value="+">
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <div>NT$<span>123456</span></div>
+                                    <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+"><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['sumprice'];?>
+</span></div>
                                 </td>
-                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                                <td  data-gid="1" class='del'><button type="button" class="btn btn-danger">Delete</button></td>
+                                <td id="errorstock<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+"></td>
                             </tr>
-                            <tr>
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                            <!-- <tr>
                                 <td>
                                     <a href="">
                                         <img class="img-responsive" src="<?php echo URL;?>
@@ -232,23 +256,24 @@ public/homeimg/goodsimg/test.png"
                                 <td>
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input type="button" data-gid="2" class="gless" value="-" class='gless'>
+                                            <input type="button" data-gid="2" class="gless" value="-">
                                             <input class="form-control gnum" type="number" data-gid="2" min='1' id="gnum2" value="1"
                                                 >
-                                            <input type="button" data-gid="2" class='add' value="+" class='add'>
+                                            <input type="button" data-gid="2" data-max="20" class='add' value="+">
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <div>NT$<span>123456</span></div>
+                                    <div>NT$<span id='sum2'>123456</span></div>
                                 </td>
-                                <td><button type="button" class="btn btn-danger">Delete</button></td>
-                            </tr>
+                                <td class='del' data-gid="2" ><button type="button" class="btn btn-danger" >Delete</button></td>
+                            </tr> -->
                             <tr>
-                                <td id='Checkout' colspan="6">
+                                <td id='Checkout' colspan="7">
                                     <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
                                 </td>
                             </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -267,8 +292,14 @@ public/homeimg/goodsimg/test.png"
 >
     $('.add').click(function () {
         let gid = $(this).attr("data-gid");
+        let max = $(this).attr("data-max");
         let gnum = $("#gnum" + gid).val();
-        $("#gnum" + gid).val(parseInt(gnum) + 1);
+        if (parseInt(gnum) < parseInt(max)) {
+            $("#gnum" + gid).val(parseInt(gnum) + 1);
+        } else {
+            $("#gnum" + gid).val(max);
+        }
+        
         $('#gnum' + gid).change();
     })
 
@@ -286,17 +317,78 @@ public/homeimg/goodsimg/test.png"
     $('.gnum').change(function () {
         let gnum = $(this).val();
         let gid = $(this).attr("data-gid");
+        let max = $(this).attr("max");
+        if (gnum < 1) {
+            $(this).val(1);
+            gnum = 1;
+        }
+        if (parseInt(gnum) > parseInt(max)) {
+            $(this).val(5);
+            gnum = max;
+        }
         $.ajax({
             url: 'setCart/' +　gid,
+            dataType: "json",
             type: 'POST',
             data: {
                 'gnum' : gnum,
             },
             success: function (result) {
-                console.log(result)
+                console.log(result);
+                if (result.setcartinfo === 'fail') {
+                    alert("新增失敗");
+                } else if (result.setcartinfo) {
+                    $('#sum' + gid).html(result.setcartinfo);
+                }
             }
         });
     })
+
+    $('.del').click(function () {
+        let gid = $(this).attr("data-gid");
+        let _this = this;
+        $.ajax({
+            url: 'delete/' +　gid,
+            dataType: "json",
+            type: 'DELETE',
+            data: {
+                'gid' : gid,
+            },
+            success: function (result) {
+                if (result.setcartinfo === 'success') {
+                    $(_this).parent().remove();
+                } else {
+                    alert('刪除失敗');
+                }
+            }
+        });
+    })
+
+    $('#checkout').click(function () {
+        $.ajax({
+            url: 'checkout',
+            dataType: "json",
+            type: 'POST',
+            data: {
+            },
+            success: function (result) {
+                if (result.checkoutinfo === 'fail') {
+                    alert('結帳失敗');
+                } else if (result.checkoutinfo === 'success') {
+                    $(window).attr('location', '<?php echo URL;?>
+/order/index');
+                    alert('訂單已成立')
+                } else if (result.checkoutinfo){
+                    for (id of result.checkoutinfo) {
+                        $("#errorstock"+id).html("庫存不足");
+                    }
+                }
+            }
+        });
+    })
+
+
+
 
 <?php echo '</script'; ?>
 ><?php }
