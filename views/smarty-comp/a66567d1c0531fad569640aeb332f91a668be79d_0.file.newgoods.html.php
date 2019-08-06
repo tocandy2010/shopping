@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 05:35:49
-  from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\reg.html' */
+/* Smarty version 3.1.33, created on 2019-08-06 08:44:49
+  from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\newgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d48f595ec23b1_23297121',
+  'unifunc' => 'content_5d4921e11bc8b8_21435265',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'a336c738f39c0fda711b7520119c46805064fac3' => 
+    'a66567d1c0531fad569640aeb332f91a668be79d' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\reg.html',
-      1 => 1565053747,
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\newgoods.html',
+      1 => 1565073875,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d48f595ec23b1_23297121 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4921e11bc8b8_21435265 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -102,18 +102,16 @@ function content_5d48f595ec23b1_23297121 (Smarty_Internal_Template $_smarty_tpl)
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
-index/index">Home</a>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-/goods/index/jog">Jog</a></li>
+/goods/index/jog">訂單管理</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/ski">Ski</a></li>
+/goods/index/ski">會員管理</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/Boxing">boxing</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/yoga">Yoga</a></li>
+/goods/index/yoga">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
@@ -128,75 +126,99 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id='addgoodsform' enctype="multipart/form-data">
+                    <!-- Single button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="tnum">商品分類</label>
+                        <div class="col-md-4">
+                            <select name='tnum' class="form-control">
+                                <option selected disabled>Type</option>
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['type']->value, 'typeinfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['typeinfo']->value) {
+?>
+                                <option value="<?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['tnum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['name'];?>
+</option>
+                                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                            </select>
+                            <span class="help-block">請選擇此商品所屬分類
+                                <span class="errorinfo" id='tnuminfo'></span>
+                            </span>
+                        </div>
+                    </div>
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="email">Email</label>
-                        <div class="col-md-4">
-                            <input id="email" name="email" type="text" placeholder="" class="form-control input-md"
-                                autocomplete="off">
-                            <span class="help-block">請輸入一個目前可用的Email
-                                <span class="errorinfo" id='emailinfo'></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Password input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">password</label>
-                        <div class="col-md-4">
-                            <input id="password" name="password" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
-                            <span class="help-block">請輸入6~20位
-                                <span class="errorinfo" id="passwordinfo"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Password input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">repassword</label>
-                        <div class="col-md-4">
-                            <input id="repassword" name="repassword" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
-                            <span class="help-block">請再輸入一次密碼
-                                <span class="errorinfo" id="repasswordinfo"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="address">name</label>
+                        <label class="col-md-4 control-label" for="name">商品名稱</label>
                         <div class="col-md-4">
                             <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
-                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~30字&nbsp&nbsp&nbsp
-                                <span class="errorinfo" id="nameinfo"></span>
+                            <span class="help-block">最多文字限制20
+                                <span class="errorinfo" id='nameinfo'></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="price">商品價格</label>
+                        <div class="col-md-4">
+                            <input id="price" name="price" type="number" placeholder="" class="form-control input-md"
+                                autocomplete="off" min='1'>
+                            <span class="help-block">請輸入整數價格&nbsp1~100,000
+                                <span class="errorinfo" id="priceinfo"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="stock">上架數量</label>
+                        <div class="col-md-4">
+                            <input id="stock" name="stock" type="number" placeholder="" class="form-control input-md"
+                                autocomplete="off" min='1'>
+                            <span class="help-block">請輸入整數數字&nbsp1~50,000
+                                <span class="errorinfo" id="stockinfo"></span>
                             </span>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="phone">phone</label>
+                        <label class="col-md-4 control-label" for="uses">商品用途</label>
                         <div class="col-md-4">
-                            <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"
+                            <input id="uses" name="uses" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off">
-                            <span class="help-block">請輸入您的手機號碼&nbsp例如:&nbsp09xxxxxxxx&nbsp&nbsp&nbsp
-                                <span class="errorinfo" id="phoneinfo"></span>
+                            <span class="help-block">請說明商品用途 文字限制30
+                                <span class="errorinfo" id="usesinfo"></span>
                             </span>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="address">address</label>
+                        <label class="col-md-4 control-label" for="material	">商品材質</label>
                         <div class="col-md-4">
-                            <input id="address" name="address" type="text" placeholder="" class="form-control input-md"
+                            <input id="material	" name="material" type="text" placeholder=""
+                                class="form-control input-md" autocomplete="off">
+                            <span class="help-block">請說明商品用途 文字限制30
+                                <span class="errorinfo" id="materialinfo"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="gimg">商品圖片</label>
+                        <div class="col-md-4">
+                            <input id="gimg" name="gimg" type="file" placeholder="" class="form-control-file"
                                 autocomplete="off">
-                            <span class="help-block">請輸入您的地址&nbsp&nbsp&nbsp
-                                <span class="errorinfo" id="addressinfo"></span>
+                            <span class="help-block">請上傳商品圖片
+                                <span class="errorinfo" id="gimginfo"></span>
                             </span>
                         </div>
                     </div>
@@ -205,9 +227,9 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="regsend" class="btn btn-info">Create an account</button>
+                            <button type="button" id="addgoodssend" class="btn btn-info">Create</button>
                             <a href="<?php echo URL;?>
-login/index"><button type="button"
+goodsback/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo" id='errorinfo'></span>
                         </div>
@@ -222,16 +244,9 @@ login/index"><button type="button"
     </footer>
     <?php echo '<script'; ?>
 >
-        //style="border:3px solid crimson"
-        $("#regsend").click(function () {
-            let eamil = $('#email').val();
-            let password = $('#password').val();
-            let repassword = $('#repassword').val();
-            let name = $('#name').val();
-            let phone = $('#phone').val();
-            let address = $('#address').val();
-            let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
-
+        $("#addgoodssend").click(function () {
+            var formData = new FormData($('#addgoodsform')[0]);
+            let formname = ['name','tnum' , 'price', 'stock', 'uses', 'material', 'gimg'];
             for (error of formname) {
                 $('#' + error + 'info').html("");
             }
@@ -240,24 +255,21 @@ login/index"><button type="button"
                 url: "add",
                 type: "POST",
                 dataType: "json",
-                data: {
-                    'email': eamil,
-                    'password': password,
-                    'repassword': repassword,
-                    'name': name,
-                    'phone': phone,
-                    'address': address,
-                },
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: formData,
                 success: function (result) {
-                    console.log(result);
-                    if (result.reginfo === 'success') {
+                    console.log(result.addinfo);
+                    if (result.addinfo === 'success') {
+                        alert("新增商品成功");
                         $(window).attr('location', '<?php echo URL;?>
-/login/index');
-                    } else if (result.reginfo === 'fail') {
-                        $('#errorinfo').html("註冊失敗");
-                    } else if (result.reginfo) {
+goodsback/index');
+                    } else if (result.addinfo === 'fail') {
+                        $('#errorinfo').html("新增商品失敗");
+                    } else if (result.addinfo) {
                         for (error of formname) {
-                            $('#' + error + 'info').html(result.reginfo[error]);
+                            $('#' + error + 'info').html(result.addinfo[error]);
                         }
                     } else {
                         $('#errorinfo').html("錯誤");

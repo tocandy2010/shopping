@@ -80,7 +80,6 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{URL}}/goods/index/jog">訂單管理</a></li>
                     <li><a href="{{URL}}/goods/index/ski">會員管理</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">新增商品</a></li>
                     <li><a href="{{URL}}/goods/index/yoga">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -95,7 +94,22 @@
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id='addgoodsform' enctype="multipart/form-data">
+                    <!-- Single button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="tnum">商品分類</label>
+                        <div class="col-md-4">
+                            <select name='tnum' class="form-control">
+                                <option selected disabled>Type</option>
+                                {{foreach from=$type item=$typeinfo}}
+                                <option value="{{$typeinfo['tnum']}}">{{$typeinfo['name']}}</option>
+                                {{/foreach}}
+                            </select>
+                            <span class="help-block">請選擇此商品所屬分類
+                                <span class="errorinfo" id='tnuminfo'></span>
+                            </span>
+                        </div>
+                    </div>
                     <!-- Text input-->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="name">商品名稱</label>
@@ -112,10 +126,10 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="price">商品價格</label>
                         <div class="col-md-4">
-                            <input id="price" name="price" type="number" placeholder=""
-                                class="form-control input-md" autocomplete="off" min='1'>
-                            <span class="help-block">請輸入整數價格
-                                <span class="errorinfo" id="passwordinfo"></span>
+                            <input id="price" name="price" type="number" placeholder="" class="form-control input-md"
+                                autocomplete="off" min='1'>
+                            <span class="help-block">請輸入整數價格&nbsp1~100,000
+                                <span class="errorinfo" id="priceinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -124,10 +138,34 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="stock">上架數量</label>
                         <div class="col-md-4">
-                            <input id="stock" name="stock" type="text" placeholder=""
-                                class="form-control input-md" autocomplete="off" min='1'>
-                            <span class="help-block">請輸入整數數字
+                            <input id="stock" name="stock" type="number" placeholder="" class="form-control input-md"
+                                autocomplete="off" min='1'>
+                            <span class="help-block">請輸入整數數字&nbsp1~50,000
                                 <span class="errorinfo" id="stockinfo"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="uses">商品用途</label>
+                        <div class="col-md-4">
+                            <input id="uses" name="uses" type="text" placeholder="" class="form-control input-md"
+                                autocomplete="off">
+                            <span class="help-block">請說明商品用途 文字限制30
+                                <span class="errorinfo" id="usesinfo"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="material	">商品材質</label>
+                        <div class="col-md-4">
+                            <input id="material	" name="material" type="text" placeholder=""
+                                class="form-control input-md" autocomplete="off">
+                            <span class="help-block">請說明商品用途 文字限制30
+                                <span class="errorinfo" id="materialinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -144,36 +182,12 @@
                         </div>
                     </div>
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="uses">商品用途</label>
-                        <div class="col-md-4">
-                            <input id="uses" name="uses" type="text" placeholder="" class="form-control input-md"
-                                autocomplete="off">
-                            <span class="help-block">請說明商品用途 文字限制50
-                                <span class="errorinfo" id="usesinfo"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="material	">商品材質</label>
-                        <div class="col-md-4">
-                            <input id="material	" name="material" type="text" placeholder="" class="form-control input-md"
-                                autocomplete="off">
-                            <span class="help-block">請說明商品用途 文字限制50
-                                <span class="errorinfo" id="material	info"></span>
-                            </span>
-                        </div>
-                    </div>
-
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="regsend" class="btn btn-info">Create an account</button>
-                            <a href="{{URL}}login/index"><button type="button"
+                            <button type="button" id="addgoodssend" class="btn btn-info">Create</button>
+                            <a href="{{URL}}goodsback/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo" id='errorinfo'></span>
                         </div>
@@ -187,16 +201,9 @@
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
     <script>
-        //style="border:3px solid crimson"
-        $("#regsend").click(function () {
-            let eamil = $('#email').val();
-            let password = $('#password').val();
-            let repassword = $('#repassword').val();
-            let name = $('#name').val();
-            let phone = $('#phone').val();
-            let address = $('#address').val();
-            let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
-
+        $("#addgoodssend").click(function () {
+            var formData = new FormData($('#addgoodsform')[0]);
+            let formname = ['name','tnum' , 'price', 'stock', 'uses', 'material', 'gimg'];
             for (error of formname) {
                 $('#' + error + 'info').html("");
             }
@@ -205,23 +212,20 @@
                 url: "add",
                 type: "POST",
                 dataType: "json",
-                data: {
-                    'email': eamil,
-                    'password': password,
-                    'repassword': repassword,
-                    'name': name,
-                    'phone': phone,
-                    'address': address,
-                },
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: formData,
                 success: function (result) {
-                    console.log(result);
-                    if (result.reginfo === 'success') {
-                        $(window).attr('location', '{{URL}}/login/index');
-                    } else if (result.reginfo === 'fail') {
-                        $('#errorinfo').html("註冊失敗");
-                    } else if (result.reginfo) {
+                    console.log(result.addinfo);
+                    if (result.addinfo === 'success') {
+                        alert("新增商品成功");
+                        $(window).attr('location', '{{URL}}goodsback/index');
+                    } else if (result.addinfo === 'fail') {
+                        $('#errorinfo').html("新增商品失敗");
+                    } else if (result.addinfo) {
                         for (error of formname) {
-                            $('#' + error + 'info').html(result.reginfo[error]);
+                            $('#' + error + 'info').html(result.addinfo[error]);
                         }
                     } else {
                         $('#errorinfo').html("錯誤");

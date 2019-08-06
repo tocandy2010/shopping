@@ -40,7 +40,7 @@
         }
 
         #headerimg {
-            background-image: url('{{URL}}public/homeimg/headerimg/{{$headimg}}.png');
+            background-image: url('{{URL}}public/homeimg/headerimg/{{$typename}}.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
             height: 700px;
@@ -119,6 +119,10 @@
             max-width: 100%;
             margin: auto;
         }
+
+        #checkcookie {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -143,7 +147,8 @@
                     <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     {{if $loginflag|default:false}}
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
@@ -160,153 +165,46 @@
 
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
+        <div id='checkcookie'></div>
     </div>
 
-    <div class="container-fluid" >
+    <div class="container-fluid">
         <div class="row content" style="margin-left:50px">
             <div class="col-sm-2 sidenav">
-                <div class="list-group" id='typelist'>
+                <!-- <div class="list-group" id='typelist'>
                     <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
                     <a href="#" class="list-group-item typelist">type1</a>
                     <a href="#" class="list-group-item typelist">type2</a>
                     <a href="#" class="list-group-item typelist">type3</a>
-                </div>
+                </div> -->
             </div>
 
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
                     <li><a href="{{URL}}index/index">Home</a></li>
-                    <li><a href="#">typename</a></li>
+                    <li>{{$typename}}</li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
                 <div class="container-fluid">
                     <div class="row">
+                        {{foreach from=$goods item=$goodsinfo}}
                         <div class="col-sm-2 goodswall">
                             <div>
                                 <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
                                 <div class="panel-body">
-                                    <a href='{{URL}}goods/create/1'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive goodsimg" alt="Image"></a>
+                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
+                                        <img src="{{URL}}{{$goodsinfo['gimg']}}" class="img-responsive goodsimg">
+                                    </a>
                                 </div>
                                 <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='{{URL}}goods/show/1'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
+                                    <p class='goodsprice'><span>NT$</span>{{$goodsinfo['price']}}</p>
+                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
+                                        <p class='goodsname'>{{$goodsinfo['name']}}</p>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <div class="panel-body">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <div class="panel-body">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body" style="padding: -100%">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href='#'><img src="{{URL}}/public/homeimg/goodsimg/test2.png"
-                                            class="img-responsive" style="max-width: 100%;margin:auto;" alt="Image"></a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>123456</p>
-                                    <a href='#'>
-                                        <p class='goodsname'>
-                                            產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔產品名稱可能會溢出邊界喔</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        {{/foreach}}
                     </div>
                 </div>
             </div>
@@ -320,3 +218,20 @@
 </body>
 
 </html>
+
+<script>
+
+    $().ready(function () {
+        let checkcookie = $("#checkcookie");
+        if (navigator.cookieEnabled == true) {
+            checkcookie.html();
+            checkcookie.attr('class', "");
+        }
+        else {
+            checkcookie.attr('class', "alert alert-danger");
+            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
+
+        }
+    })
+
+</script>

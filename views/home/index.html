@@ -96,6 +96,10 @@
             margin-bottom: 10%;
             font-size: 25px;
         }
+
+        #checkcookie {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -120,7 +124,8 @@
                     <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     {{if $loginflag|default:false}}
                     <li><a href=""><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
@@ -137,6 +142,7 @@
 
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
+        <div id='checkcookie'></div>
     </div>
     <div class="container">
         <ul class="nav nav-pills">
@@ -167,3 +173,20 @@
 </body>
 
 </html>
+
+<script>
+
+    $().ready(function () {
+        let checkcookie = $("#checkcookie");
+        if (navigator.cookieEnabled == true) {
+            checkcookie.html();
+            checkcookie.attr('class', "");
+        }
+        else {
+            checkcookie.attr('class', "alert alert-danger");
+            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
+
+        }
+    })
+
+</script>

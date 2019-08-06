@@ -87,6 +87,7 @@ class LoginController extends Controller
         }
         $reginfo['password'] = htmlspecialchars($reginfo['password'], ENT_QUOTES);
         $reginfo['password'] = password_hash($reginfo['password'], PASSWORD_DEFAULT);
+        date_default_timezone_set("Asia/Taipei");
         $reginfo['regTime'] = time();
 
         ##寫入DB
@@ -111,7 +112,9 @@ class LoginController extends Controller
      *  修改處理
      */
     public function update($id = false)
-    { }
+    { 
+        
+    }
 
     /*
      *  登出
@@ -130,23 +133,22 @@ class LoginController extends Controller
         $loginInfo['email'] = $_POST['email'];
         $loginInfo['password'] = $_POST['password'];
         $loginInfo['vcode'] = $_POST['vcode'];
-
+        
         ##檢查驗證碼
         Session::init();
         if (Session::get('vcode') !== $loginInfo['vcode']) {
-            echo json_encode(['reginfo' => ['error' => '驗證碼錯誤']]);
+            echo json_encode(['reginfo' => ['error' => '123']]);
             exit;
         } else {
             Session::destroy();
         }
-
         ## 設定傳入資料要驗證的格式
         $verification = [
             'email' => array('email' => '0'),
             'password' => array('length' => "6~20"),
             'vcode' => array('notempty' => '0'),
         ];
-
+        
         ##針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($loginInfo, $verification);
         if (!empty($this->helper->checkForm($loginInfo, $verification))) {

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-04 09:33:18
+/* Smarty version 3.1.33, created on 2019-08-06 12:08:30
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d468a3e0ae4c5_00786013',
+  'unifunc' => 'content_5d49519eb47c52_04135385',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7e5deadc749d2849bd958b01add38fb7a3ed1c4f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\index.html',
-      1 => 1564903996,
+      1 => 1565086108,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d468a3e0ae4c5_00786013 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d49519eb47c52_04135385 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -124,6 +124,10 @@ public/homeimg/headerimg/index.png');
             margin-bottom: 10%;
             font-size: 25px;
         }
+
+        #checkcookie {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -155,7 +159,8 @@ goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href=""><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
@@ -175,6 +180,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
+        <div id='checkcookie'></div>
     </div>
     <div class="container">
         <ul class="nav nav-pills">
@@ -204,5 +210,24 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
 </body>
 
-</html><?php }
+</html>
+
+<?php echo '<script'; ?>
+>
+
+    $().ready(function () {
+        let checkcookie = $("#checkcookie");
+        if (navigator.cookieEnabled == true) {
+            checkcookie.html();
+            checkcookie.attr('class', "");
+        }
+        else {
+            checkcookie.attr('class', "alert alert-danger");
+            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
+
+        }
+    })
+
+<?php echo '</script'; ?>
+><?php }
 }

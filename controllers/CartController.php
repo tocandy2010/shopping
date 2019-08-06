@@ -11,18 +11,19 @@ class CartController extends controller
         if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart'])) {
             $cart = json_decode($_COOKIE['cart']);
             $cartgoods = [];
-            foreach ($cart as $k=>$v) {
-                if (is_numeric($k) ||  $k > 0) {
-                    $cartgoods[$k] = $v;
+            foreach ($cart as $gid => $cgnum) {
+                if ((is_numeric($gid) &&  $gid > 0) && (is_numeric($cgnum) &&  $cgnum > 0)) {
+                    $cartgoods[$gid] = $cgnum;
                 }
             }
             $DBGoods = $this->DBGoods;
             $gid = implode(',', array_keys($cartgoods));
             $gid = $gid === '' ?-1:$gid;
             $goods = $DBGoods->getAll("gid in (" . $gid . ")");
+            ## 判斷購物車商品大於庫存則為庫存最大值
             foreach($goods as $key => $goodsInfo) {
                 if (array_key_exists($goodsInfo['gid'], $cartgoods)) {
-                    $goods[$key]['buynum'] = $cartgoods[$goodsInfo['gid']];
+                    $goods[$key]['buynum'] = $cartgoods[$goodsInfo['gid']] >= $goodsInfo['stock'] ? $goodsInfo['stock'] : $cartgoods[$goodsInfo['gid']] ;
                     $goods[$key]['sumprice'] = $goods[$key]['price'] * $goods[$key]['buynum'];
                 }
             }
@@ -30,6 +31,9 @@ class CartController extends controller
             $cart[0] = 'cart';
             setcookie('cart',  json_encode($cart), time()+3600, "/");
         }
+
+        if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart']))
+
         $this->smarty->assign('goods',$goods);
         $this->smarty->display('home/goods/cart.html');
     }
@@ -156,15 +160,9 @@ class CartController extends controller
             $errorStockId = [];
             foreach ($goodsInfo as $key => $goods) {
                 $orderInfo = [];
-                // if ($goods['stock'] >= $goods['gid']) {
-                //     $goodsInfo[$key]['num'] = $cartdata[$goods['gid']];
-                // } else {
-                //     $goodsInfo[$key]['num'] = $goodsInfo[$key]['stock'];
-                // }
-
                 $goodsInfo[$key]['num'] = $cartdata[$goods['gid']];
-
                 $DBGoods->update(['stock' => ($goods['stock'] - $goodsInfo[$key]['num'])], $goods['gid']);
+
                 if (($goods['stock'] - $goodsInfo[$key]['num']) < 0) {
                     array_push($errorStockId, $goods['gid']);
                 }
@@ -176,6 +174,7 @@ class CartController extends controller
                 $orderInfo['price'] = $goods['price'];
                 $orderInfo['number'] = $goodsInfo[$key]['num'];
                 $orderInfo['address'] = $userInfo['address'];
+                date_default_timezone_set("Asia/Taipei");
                 $orderInfo['createTime'] = time();
                 if ($DBOrders->add($orderInfo) !== 1 ) {
                     $checkOutInfo = ['checkoutinfo' => 'fail'];

@@ -13,7 +13,8 @@ class Helper
             'length' => '輸入長度有誤',
             'notempty' => '不可空白',
             'email' => '請輸入正確email',
-            'phone' => '手機號碼錯誤'
+            'phone' => '手機號碼錯誤',
+            'between' => "超過數字範圍"
         ];
 
         if (!empty($this->errorInfo)) {
@@ -59,6 +60,10 @@ class Helper
                 break;
             case 'email':
                 return !filter_var($data, FILTER_VALIDATE_EMAIL) === false; //驗證是否為email格式
+                break;
+            case 'between':
+                $res = explode('~', $v);
+                return ($data >= $res[0] && $data <= $res[1]); //驗證是否為email格式
                 break;
             case 'phone':
                 return !(preg_match_all('/[0][9][0-9]{8}$/', $data) === 0);

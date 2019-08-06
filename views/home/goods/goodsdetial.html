@@ -84,7 +84,7 @@
             letter-spacing: 0.8px;
             font: bold 20px Microsoft JhengHei;
             color: #202528;
-            padding-top:25px;
+            padding-top: 25px;
         }
 
         .goodsprice {
@@ -96,7 +96,11 @@
             padding-top: 10px;
             padding-bottom: 10px;
             text-align: right;
-            
+
+        }
+
+        #checkcookie {
+            text-align: center;
         }
     </style>
 </head>
@@ -111,7 +115,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{URL}}index/index">Home</a>
-                <span class="navbar-brand" id='username'>Username</span>
+                <span class="navbar-brand" id='username'>&nbsp
+                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -124,7 +129,8 @@
                     <li><a href="./login.html"><span class="glyphicon glyphicon glyphicon-log-in"></span> Login</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> Uaername</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
@@ -137,10 +143,11 @@
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
                     <li><a href="{{URL}}index/index">Home</a></li>
-                    <li><a href="#">typename</a></li>
+                    <li><a href="{{URL}}goods/index/{{$typename}}">{{$typename}}</a></li>
                     <li>{{$goodsinfo['name']}}</li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
+                <div id='checkcookie'></div>
                 <div class="container-fluid">
                     <div class="row" style="margin-top: 40px">
                         <div class="panel panel-default">
@@ -148,18 +155,23 @@
                                 <div class="container-fluid">
                                     <div class="row-content">
                                         <div class="col-sm-6">
-                                            <img src="{{URL}}public/homeimg/goodsimg/test.png"
-                                                class=" goodsimg" alt="Cinque Terre">
+                                            <img src="{{URL}}{{$goodsinfo['gimg']}}" class=" goodsimg"
+                                                alt="Cinque Terre">
                                         </div>
                                         <div class="col-sm-5 panel panel-default">
                                             <p class="goodsname">商品名稱&nbsp:&nbsp<span>{{$goodsinfo['name']}}</span></p>
                                             <p class="goodsprice">NT$<span>{{$goodsinfo['price']}}</span></p>
-                                            <p class="goodsprice">庫存數量&nbsp:&nbsp<span>{{$goodsinfo['stock']}}</span></p>
+                                            <p class="goodsprice">庫存數量&nbsp:&nbsp<span>{{$goodsinfo['stock']}}</span>
+                                            </p>
                                             <p>
                                                 {{if $incartflag}}
-                                                <td><button type="button" class="btn btn-danger btn-block" disabled =true data-gid="{{$goodsinfo['gid']}}" id="addcart">已在入購物車中</button></td>
+                                                <td><button type="button" class="btn btn-danger btn-block" disabled=true
+                                                        data-gid="{{$goodsinfo['gid']}}" id="addcart">已在入購物車中</button>
+                                                </td>
                                                 {{else}}
-                                                <td><button type="button" class="btn btn-danger  btn-block" data-gid="{{$goodsinfo['gid']}}" id="addcart">加入購物車</button></td>
+                                                <td><button type="button" class="btn btn-danger  btn-block"
+                                                        data-gid="{{$goodsinfo['gid']}}" id="addcart">加入購物車</button>
+                                                </td>
                                                 {{/if}}
                                             </p>
                                         </div>
@@ -176,12 +188,11 @@
                                     <ul>
                                         <li>
                                             <label>運動範圍 : </label>
-                                            <span class="value">滑降滑雪(DOWNHILL SKIING), 自由式單板滑雪, 自由式滑雪( FREESTYLE
-                                                SKIING), 花式單板滑雪, 花式滑雪( FREERIDE SKIING)</span>
+                                            <span class="value">{{$goodsinfo['uses']}}</span>
                                         </li>
                                         <li>
                                             <label>材質 : </label>
-                                            <span class="value">泡棉 : 100.0% 聚苯乙烯泡沫 外層布料 : 100.0% ABS樹脂</span>
+                                            <span class="value">{{$goodsinfo['material']}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -204,19 +215,31 @@
 
 <script>
 
-$('#addcart').click(function(){
-    let gid = $(this).attr("data-gid");
-    if (gid < 1) {
-        alert('新增購物車失敗');
-        return false;
-    }
+    $().ready(function () {
+        let checkcookie = $("#checkcookie");
+        if (navigator.cookieEnabled == true) {
+            checkcookie.html();
+            checkcookie.attr('class', "");
+        }
+        else {
+            checkcookie.attr('class', "alert alert-danger");
+            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
+        }
+    })
 
-    $.ajax({
+    $('#addcart').click(function () {
+        let gid = $(this).attr("data-gid");
+        if (gid < 1) {
+            alert('新增購物車失敗');
+            return false;
+        }
+
+        $.ajax({
             url: '../add',
             dataType: "json",
             type: 'POST',
             data: {
-                'gid' : gid,
+                'gid': gid,
             },
             success: function (result) {
                 if (result.addinfo === "success") {
@@ -227,6 +250,6 @@ $('#addcart').click(function(){
                 }
             }
         });
-})
+    })
 
 </script>

@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-06 12:12:06
+  from 'C:\xampp\htdocs\TaiwanGYM\views\back\index.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d49527639cc83_37033492',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'af448bb39bb231caa242154f1e69e2b7eb3b6235' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\index.html',
+      1 => 1565086325,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d49527639cc83_37033492 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -51,7 +78,8 @@
         }
 
         #index {
-            background-image: url("{{URL}}public/backimg/index.png");
+            background-image: url("<?php echo URL;?>
+public/backimg/index.png");
             background-repeat: no-repeat;
             background-size: 100% 100%;
             height: 700px;
@@ -81,16 +109,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}goods/index/jog">訂單管理</a></li>
-                    <li><a href="{{URL}}goods/index/ski">會員管理</a></li>
-                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/jog">訂單管理</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/ski">會員管理</a></li>
+                    <li><a href="<?php echo URL;?>
+goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -107,7 +140,8 @@
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <script>
+    <?php echo '<script'; ?>
+>
         //style="border:3px solid crimson"
         $("#regsend").click(function () {
             let eamil = $('#email').val();
@@ -137,7 +171,8 @@
                 success: function (result) {
                     console.log(result);
                     if (result.reginfo === 'success') {
-                        $(window).attr('location', '{{URL}}/login/index');
+                        $(window).attr('location', '<?php echo URL;?>
+/login/index');
                     } else if (result.reginfo === 'fail') {
                         $('#errorinfo').html("註冊失敗");
                     } else if (result.reginfo) {
@@ -153,7 +188,9 @@
 
 
 
-    </script>
+    <?php echo '</script'; ?>
+>
 </body>
 
-</html>
+</html><?php }
+}

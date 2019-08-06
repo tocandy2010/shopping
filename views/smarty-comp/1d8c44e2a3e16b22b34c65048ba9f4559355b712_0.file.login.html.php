@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 03:10:45
-  from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
+/* Smarty version 3.1.33, created on 2019-08-06 03:10:57
+  from 'C:\xampp\htdocs\TaiwanGYM\views\back\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d48d3950d9d41_12028042',
+  'unifunc' => 'content_5d48d3a14264a7_39418482',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'd1b3d0ee98eca8a92b35c549743021159f63433a' => 
+    '1d8c44e2a3e16b22b34c65048ba9f4559355b712' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\login.html',
       1 => 1565053747,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d48d3950d9d41_12028042 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d48d3a14264a7_39418482 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -131,18 +131,18 @@ function content_5d48d3950d9d41_12028042 (Smarty_Internal_Template $_smarty_tpl)
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
-index/index">Home</a>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-/goods/index/jog">Jog</a></li>
+/goods/index/jog">訂單管理</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/ski">Ski</a></li>
+/goods/index/ski">會員管理</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/boxing">Boxing</a></li>
+/goods/index/boxing">新增商品</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/yoga">Yoga</a></li>
+/goods/index/yoga">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
@@ -160,9 +160,9 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                 <form class="form-horizontal">
                     <!-- Text input-->
                     <div class="form-group">
-                        <h1>會員登入</h1>
+                        <h1>員工登入</h1>
                         <div class="col-md-10">
-                            <label for="email">Email</label>
+                            <label for="email">account</label>
                             <input id="email" name="email" type="text" placeholder="your E-mail"
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
@@ -199,9 +199,6 @@ public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
                     <div class="form-group">
                         <div class="col-md-8">
                             <label for="button1id"></label>
-                            <a href="<?php echo URL;?>
-login/create"><button type="button" class="btn btn-default">Join
-                                    us</button></a>
                             <button type="button" id="loginsend" class="btn btn-success ">Login</button>
                             <span class="errorinfo" id='errorinfo'></span>
                         </div>

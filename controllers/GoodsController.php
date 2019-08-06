@@ -13,10 +13,18 @@ class GoodsController extends Controller
     public function index($reg = false)
     {
         ##不符合商品分類則轉到首頁
-        $goodstype = ['jog', 'ski', 'boxing', 'yoga'];
-        if (!in_array(strtolower($reg[0]), $goodstype)) {
-            header("location: ../../index/index");
-            exit;
+        $DBGtype = $this->DBGtype;
+        $gtype = $DBGtype->getAll();
+        $flag = false;
+        $tnum = "";
+        foreach ($gtype as $type) {
+            if ($reg[0] == $type['name']) {
+                $flag = true;
+                $tnum = $type['tnum'];
+            }
+        }
+        if ($flag === false) {
+            header("Location: ../../index/index");
         }
 
         ##判斷使用者登入
@@ -30,7 +38,12 @@ class GoodsController extends Controller
             }
         }
 
-        $this->smarty->assign('headimg', $reg[0]);
+        ## 取得分類所有產品
+        $DBGoods = $this->DBGoods;
+        $goodsInfo = $DBGoods->getTypeAll($tnum);
+
+        $this->smarty->assign('goods', $goodsInfo);
+        $this->smarty->assign('typename', $reg[0]);
         $this->smarty->assign('userinfo', $userInfo);
         return $this->smarty->display('home/goods/goods.html');
     }
@@ -99,9 +112,18 @@ class GoodsController extends Controller
                 $this->smarty->assign('loginflag', true);
             }
         }
+
         ##取得商品資訊
         $DBgoods = $this->DBgoods;
         $goodsInfo = $DBgoods->findOne($res[0]);
+        if (empty($goodsInfo)) {
+            header('Location:../index/index');
+            exit;
+        }
+
+        ## 取得商品分類名稱
+        $DBGtype = $this->DBGtype;
+        $typeInfo = $DBGtype->getOne(['tnum' => $goodsInfo['tnum']]);
         if (empty($goodsInfo)) {
             header('Location:../index/index');
             exit;
@@ -122,6 +144,7 @@ class GoodsController extends Controller
         }
 
         $this->smarty->assign('userinfo', $userInfo);
+        $this->smarty->assign('typename', $typeInfo['name']);
         $this->smarty->assign('incartflag', $incartflag);
         $this->smarty->assign('goodsinfo', $goodsInfo);
         return $this->smarty->display('home/goods/goodsdetial.html');
