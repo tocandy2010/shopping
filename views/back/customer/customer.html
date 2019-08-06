@@ -68,9 +68,7 @@
             margin: auto;
         }
 
-        td {
-            width:5%;
-        }
+
 
         .goodsname {
             text-align: left;
@@ -110,8 +108,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -145,42 +141,36 @@
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
                     <p>
-                        <h2>商品管理</h2>
-                        <a href="{{URL}}goodsback/create" id='newbtn'><button type="button" class="btn btn-primary btn-lg glyphicon glyphicon-plus">&nbspNew</button></a>
+                        <h2>會員管理</h2>
                     </p>
                     <p>&nbsp</p>
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>商品圖片</th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>庫存量</th>
-                                <th>上架時間</th>
+                                <th>會員Email</th>
+                                <th>會員姓名</th>
+                                <th>手機號碼</th>
+                                <th>註冊地址</th>
+                                <th>註冊時間</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{foreach from=$goods item=$goodsinfo}}
+                            {{foreach from=$customer item=$customerinfo}}
                             <tr>
-                                <td>
-                                    <a href="">
-                                        <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
-                                </td>
-                                <td><a href='#'><span class='goodsname'>{{$goodsinfo['name']}}<span></a></td>
-                                <td>NT$<span>{{$goodsinfo['price']}}</span></td>
-                                <td>{{$goodsinfo['stock']}}</td>
-                                <td>{{$goodsinfo['addTime']}}</td>
+                                <td><span class='goodsname'>{{$customerinfo['email']}}<span></td>
+                                <td>{{$customerinfo['name']}}</span></td>
+                                <td>{{$customerinfo['phone']}}</td>
+                                <td>{{$customerinfo['address']}}</td>
+                                <td>{{$customerinfo['regTime']}}</td>
                                 <td  data-gid="1" class='del'>
                                     <button type="button" class="btn btn-info">Edit</button>
-                                    {{if $goodsinfo['released'] === '1'}}
+                                    {{if $customerinfo['released'] === '1'}}
                                     <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="{{$goodsinfo['gid']}}">Open</button>
+                                    data-value='1' data-gid="{{$customerinfo['gid']}}">Open</button>
                                     {{else}}
                                     <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="{{$goodsinfo['gid']}}">Hide</button>
+                                        data-value='0' data-gid="{{$customerinfo['gid']}}">Hide</button>
                                     {{/if}}
                                 </td>
                             </tr>

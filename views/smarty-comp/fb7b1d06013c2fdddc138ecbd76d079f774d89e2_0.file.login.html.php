@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-05 18:27:09
+/* Smarty version 3.1.33, created on 2019-08-06 18:19:33
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4858dd04cd76_75402077',
+  'unifunc' => 'content_5d49a89532edd2_17939672',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fb7b1d06013c2fdddc138ecbd76d079f774d89e2' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\login.html',
-      1 => 1565022427,
+      1 => 1565108372,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4858dd04cd76_75402077 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d49a89532edd2_17939672 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -140,13 +140,11 @@ indexback/index">Home</a>
                     <li><a href="<?php echo URL;?>
 /goods/index/ski">會員管理</a></li>
                     <li><a href="<?php echo URL;?>
-/goods/index/boxing">新增商品</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/yoga">商品管理</a></li>
+goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -163,10 +161,10 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <h1>員工登入</h1>
                         <div class="col-md-10">
                             <label for="email">account</label>
-                            <input id="email" name="email" type="text" placeholder="your E-mail"
+                            <input id="account" name="account" type="text" placeholder=""
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
-                                <span class="errorinfo" id='emailinfo'></span></span>
+                                <span class="errorinfo" id='accountinfo'></span></span>
                         </div>
                     </div>
 
@@ -175,7 +173,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
                         <div class="col-md-10">
                             <label for="password">password</label>
-                            <input id="password" name="password" type="password" placeholder="your password"
+                            <input id="password" name="password" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
                                 <span class="errorinfo" id='passwordinfo'></span></span>
@@ -225,10 +223,10 @@ public/vcode/vcode.php?" + Math.random();
     })
 
     $("#loginsend").click(function () {
-        let eamil = $('#email').val();
+        let account = $('#account').val();
         let password = $('#password').val();
         let vcode = $('#vcode').val();
-        let formname = ['email', 'password', 'error'];
+        let formname = ['account', 'password', 'error'];
 
         for(error of formname) {
                 $('#' + error + 'info').html("");
@@ -239,14 +237,15 @@ public/vcode/vcode.php?" + Math.random();
             type: "POST",
             dataType: "json",
             data: {
-                'email': eamil,
+                'account': account,
                 'password': password,
                 'vcode': vcode,
             },
             success: function (result) {
+                console.log(result.logininfo)
                 if (result.logininfo === 'success') {
                     $(window).attr('location', '<?php echo URL;?>
-/index/index');
+indexback/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
                 } else if (result.logininfo) {

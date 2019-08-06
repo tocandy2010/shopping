@@ -1,18 +1,12 @@
 <?php
 
-class IndexbackController extends Controller
+class CustomerbackController extends controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /*
-     *  首頁
+     * 會員管理
      */
-    public function index($reg = false)
+    public function index()
     {
-
         if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
             header("Location: ../loginback/index");
             exit;
@@ -24,9 +18,17 @@ class IndexbackController extends Controller
                 exit;
             }
         }
-
         $loginflag = true;
+        $DBCustomer = $this->DBCustomer;
+        $customer = $DBCustomer->getAll();
+        ## 轉換顯示時間格式
+        if (!empty($customer)) {
+            foreach ($customer as $key=>$info) {
+                $customer[$key]['regTime'] = date('Y-m-d H:i:s', $info['regTime']);
+            }
+        }
         $this->smarty->assign('loginflag', $loginflag);
-        return $this->smarty->display('back/index.html');
+        $this->smarty->assign('customer', $customer);
+        $this->smarty->display("back/customer/customer.html");
     }
 }

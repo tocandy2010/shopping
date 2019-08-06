@@ -137,7 +137,7 @@ class LoginController extends Controller
         ##檢查驗證碼
         Session::init();
         if (Session::get('vcode') !== $loginInfo['vcode']) {
-            echo json_encode(['reginfo' => ['error' => '123']]);
+            echo json_encode(['reginfo' => ['error' => '驗證碼錯誤']]);
             exit;
         } else {
             Session::destroy();

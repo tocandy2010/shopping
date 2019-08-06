@@ -109,11 +109,10 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{URL}}/goods/index/jog">訂單管理</a></li>
                     <li><a href="{{URL}}/goods/index/ski">會員管理</a></li>
-                    <li><a href="{{URL}}/goods/index/boxing">新增商品</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">商品管理</a></li>
+                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -130,10 +129,10 @@
                         <h1>員工登入</h1>
                         <div class="col-md-10">
                             <label for="email">account</label>
-                            <input id="email" name="email" type="text" placeholder="your E-mail"
+                            <input id="account" name="account" type="text" placeholder=""
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
-                                <span class="errorinfo" id='emailinfo'></span></span>
+                                <span class="errorinfo" id='accountinfo'></span></span>
                         </div>
                     </div>
 
@@ -142,7 +141,7 @@
 
                         <div class="col-md-10">
                             <label for="password">password</label>
-                            <input id="password" name="password" type="password" placeholder="your password"
+                            <input id="password" name="password" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
                                 <span class="errorinfo" id='passwordinfo'></span></span>
@@ -189,10 +188,10 @@
     })
 
     $("#loginsend").click(function () {
-        let eamil = $('#email').val();
+        let account = $('#account').val();
         let password = $('#password').val();
         let vcode = $('#vcode').val();
-        let formname = ['email', 'password', 'error'];
+        let formname = ['account', 'password', 'error'];
 
         for(error of formname) {
                 $('#' + error + 'info').html("");
@@ -203,13 +202,14 @@
             type: "POST",
             dataType: "json",
             data: {
-                'email': eamil,
+                'account': account,
                 'password': password,
                 'vcode': vcode,
             },
             success: function (result) {
+                console.log(result.logininfo)
                 if (result.logininfo === 'success') {
-                    $(window).attr('location', '{{URL}}/index/index');
+                    $(window).attr('location', '{{URL}}indexback/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
                 } else if (result.logininfo) {

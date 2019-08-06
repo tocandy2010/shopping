@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-05 17:01:16
+/* Smarty version 3.1.33, created on 2019-08-06 19:06:14
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4844bc603839_29342992',
+  'unifunc' => 'content_5d49b3863bf818_79569934',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '311e6a4c0f34b608e7e923c0dfeb9c6548f53378' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565017201,
+      1 => 1565102655,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4844bc603839_29342992 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d49b3863bf818_79569934 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +44,7 @@ function content_5d4844bc603839_29342992 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 691px
+            height: 711px
         }
 
         /* Set gray background color and 100% height */
@@ -88,6 +88,10 @@ function content_5d4844bc603839_29342992 (Smarty_Internal_Template $_smarty_tpl)
                 height: auto;
             }
 
+            tr {
+                width: auto
+            }
+
         }
 
         .goodsimg {
@@ -100,7 +104,7 @@ function content_5d4844bc603839_29342992 (Smarty_Internal_Template $_smarty_tpl)
         }
 
         .goodsname {
-            text-align: center;
+            text-align: left;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -111,13 +115,23 @@ function content_5d4844bc603839_29342992 (Smarty_Internal_Template $_smarty_tpl)
         .gless {
             position: absolute;
             top: 3px;
-            left: -8%;
+            left: -4%;
         }
 
         .add {
             position: absolute;
             top: 3px;
-            left: 89%
+            left: 93%
+        }
+
+        #checkcookie {
+            text-align: center;
+        }
+
+        .errorinfo {
+            color: darkred;
+            font-weight: bold;
+            letter-spacing: 0.5px
         }
     </style>
 </head>
@@ -171,12 +185,13 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="container text-center"></div>
     </div>
 
-    <div class="container-fluid" style="margin-bottom: 20px">
-        <div class="row content" style="margin-left:50px">
+    <div class="container-fluid">
+        <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
                     <h2>我的購物車</h2>
+                    <div id='checkcookie'></div>
                     <p>&nbsp</p>
                     <table class="table table-hover">
                         <thead>
@@ -186,8 +201,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                                 <th>單價</th>
                                 <th>購買數量</th>
                                 <th>小計</th>
-                                <th></th>
-                                <th></th>
+                                <th>取消購買</th>
+                                <th>備註</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -199,43 +214,54 @@ foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
                             <tr>
                                 <td>
                                     <a href="">
-                                        <img class="img-responsive" src="<?php echo URL;?>
-public/homeimg/goodsimg/test.png"
+                                        <img class="img-responsive" src="<?php echo URL;
+echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
+"
                                             style="max-width: 30%;margin:auto;" alt="Cinque Terre">
                                     </a>
                                 </td>
-                                <td><a href='#'><span
-                                            class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+                                <td><a href='#'><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
 <span></a>
                                 </td>
                                 <td>NT$<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></td>
                                 <td>
                                     <div class="form-group row">
-                                        <div class="col-md-7">
+                                        <div class="col-md-10">
                                             <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class="gless" value="-">
-                                            <input class="form-control gnum" type="number" 
-                                            data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" class="gless"
+                                                value="-">
+                                            <input class="form-control gnum" type="number"
+                                                data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 " min='1' max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-" 
-                                            id="gnum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+"
+                                                id="gnum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 " value="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['buynum'];?>
 ">
                                             <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class='add' data-max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
+" class='add'
+                                                data-max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
 " value="+">
                                         </div>
                                     </div>
+                                    <!-- <form class="form-inline">
+                                            <button type="submit" class="btn btn-default glyphicon glyphicon-minus"></button>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" style="width:50%">
+                                            </div>
+                                            <button type="submit" class="btn btn-default glyphicon glyphicon-plus"></button>
+                                          </form> -->
                                 </td>
                                 <td>
                                     <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['sumprice'];?>
 </span></div>
                                 </td>
-                                <td  data-gid="1" class='del'><button type="button" class="btn btn-danger">Delete</button></td>
-                                <td id="errorstock<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-"></td>
+                                <td data-gid="1" class='del'>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </td>
+                                <td><span class='errorinfo' id="errorstock<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+"></span></td>
                             </tr>
                             <?php
 }
@@ -273,7 +299,7 @@ public/homeimg/goodsimg/test.png"
                                     <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
                                 </td>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -290,6 +316,19 @@ public/homeimg/goodsimg/test.png"
 
 <?php echo '<script'; ?>
 >
+
+    $().ready(function () {
+        let checkcookie = $("#checkcookie");
+        if (navigator.cookieEnabled == true) {
+            checkcookie.html();
+            checkcookie.attr('class', "");
+        }
+        else {
+            checkcookie.attr('class', "alert alert-danger");
+            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
+        }
+    })
+
     $('.add').click(function () {
         let gid = $(this).attr("data-gid");
         let max = $(this).attr("data-max");
@@ -299,7 +338,7 @@ public/homeimg/goodsimg/test.png"
         } else {
             $("#gnum" + gid).val(max);
         }
-        
+
         $('#gnum' + gid).change();
     })
 
@@ -327,11 +366,11 @@ public/homeimg/goodsimg/test.png"
             gnum = max;
         }
         $.ajax({
-            url: 'setCart/' +　gid,
+            url: 'setCart/' + gid,
             dataType: "json",
             type: 'POST',
             data: {
-                'gnum' : gnum,
+                'gnum': gnum,
             },
             success: function (result) {
                 console.log(result);
@@ -348,11 +387,11 @@ public/homeimg/goodsimg/test.png"
         let gid = $(this).attr("data-gid");
         let _this = this;
         $.ajax({
-            url: 'delete/' +　gid,
+            url: 'delete/' + gid,
             dataType: "json",
             type: 'DELETE',
             data: {
-                'gid' : gid,
+                'gid': gid,
             },
             success: function (result) {
                 if (result.setcartinfo === 'success') {
@@ -377,18 +416,21 @@ public/homeimg/goodsimg/test.png"
                 } else if (result.checkoutinfo === 'success') {
                     $(window).attr('location', '<?php echo URL;?>
 /order/index');
-                    alert('訂單已成立')
-                } else if (result.checkoutinfo){
+                    alert('訂單已成立');
+                } else if (result.checkoutinfo === 'notlogin') {
+                    alert('請先登入會員');
+                    $(window).attr('location', '<?php echo URL;?>
+/login/index');
+                } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
-                        $("#errorstock"+id).html("庫存不足");
+                        $("#errorstock" + id).html("此庫存不足");
                     }
+                } else {
+                    alert("發生錯誤");
                 }
             }
         });
     })
-
-
-
 
 <?php echo '</script'; ?>
 ><?php }

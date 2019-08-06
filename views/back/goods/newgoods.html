@@ -221,7 +221,10 @@
                     if (result.addinfo === 'success') {
                         alert("新增商品成功");
                         $(window).attr('location', '{{URL}}goodsback/index');
-                    } else if (result.addinfo === 'fail') {
+                    } else if (result.addinfo === 'notlogin') {
+                        alert("請先登入");
+                        $(window).attr('location', '{{URL}}loginback/index');
+                    }else if (result.addinfo === 'fail') {
                         $('#errorinfo').html("新增商品失敗");
                     } else if (result.addinfo) {
                         for (error of formname) {

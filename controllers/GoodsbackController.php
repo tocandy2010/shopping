@@ -12,9 +12,17 @@ class GoodsbackController extends Controller
      */
     public function index($reg = false)
     {
-        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-        //     header("Location: ../loginback/index");
-        // }
+        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+            header("Location: ../loginback/index");
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['token']]);
+            if (empty($userInfo)) {
+                header("Location: ../loginback/index");
+                exit;
+            }
+        }
 
         $DBGoods = $this->DBGoods;
         $goodsInfo = $DBGoods->getAll();
@@ -40,6 +48,17 @@ class GoodsbackController extends Controller
 
     public function add()
     {
+        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+            echo json_encode(['addinfo' => "notlogin"]);
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['token']]);
+            if (empty($userInfo)) {
+                echo json_encode(['addinfo' => "notlogin"]);
+                exit;
+            }
+        }
 
         ## 檢查商品分類
         if (isset($_POST['tnum'])) {
@@ -144,6 +163,18 @@ class GoodsbackController extends Controller
 
     public function setGoodStatus()
     {
+        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+            echo json_encode(['setstatus' => "notlogin"]);
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['token']]);
+            if (empty($userInfo)) {
+                echo json_encode(['setstatus' => "notlogin"]);
+                exit;
+            }
+        }
+        
         $gid = $_POST['gid'];
         $status = $_POST['status'];
         $DBGoods = $this->DBGoods;
