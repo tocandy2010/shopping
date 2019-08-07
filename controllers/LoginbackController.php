@@ -138,7 +138,103 @@ class LoginbackController extends Controller
 
     public function logout()
     {
-        setcookie('admintoken', 0, time()-10, "/");
+        setcookie('admintoken', 0, time() - 10, "/");
         header("Location:index");
+    }
+
+
+    public function edit($reg = false)
+    {
+        ## 檢查是否登入
+        $path = URL . "loginback/index";
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+            setcookie('admintoken', 0, time() - 10, "/");
+            header("Location: {$path}");
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+            if (empty($userInfo)) {
+                setcookie('admintoken', 0, time() - 10, "/");
+                header("Location: {$path}");
+                exit;
+            }
+        }
+
+        $loginFlag = !empty($userInfo);
+
+        $this->smarty->assign('userinfo', $userInfo);
+        $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->display("back/login/edit.html");
+    }
+
+    public function update()
+    {
+        ## 檢查是否登入
+        $path = URL . "loginback/index";
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+            setcookie('admintoken', 0, time() - 10, "/");
+            header("Location: {$path}");
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+            if (empty($userInfo)) {
+                setcookie('admintoken', 0, time() - 10, "/");
+                header("Location: {$path}");
+                exit;
+            }
+        }
+
+        ##接收參數
+        parse_str(file_get_contents('php://input'), $editInfo);
+        foreach ($editInfo as $key => $info) {
+            $editInfo[$key] = htmlspecialchars($info, ENT_QUOTES);
+        }
+
+        if ($editInfo['aid'] != $userInfo['aid']) {
+            setcookie('admintoken', 0, time() - 10, "/");
+            header("Location: {$path}");
+            exit;
+        } else {
+            $aid = $editInfo['aid'];
+        }
+
+        ## 設定傳入資料要驗證的格式
+        $verification = [
+            'oldpassword' => array('notempty' => "0"),
+            'password' => array('length' => "6~20"),
+            'repassword' => array('length' => "6~20"),
+        ];
+
+        ##針對設定格式驗證表單
+        $errorMessage = $this->helper->checkForm($editInfo, $verification);
+        if (!empty($this->helper->checkForm($editInfo, $verification))) {
+            echo json_encode(['editinfo' => $errorMessage]);
+            exit;
+        }
+
+        if (!password_verify($editInfo['oldpassword'], $userInfo['password'])) {
+            $error['oldpassword'] = "舊密碼不正確";
+            echo json_encode(['editinfo' => $error]);
+            exit;
+        } 
+
+        if ($editInfo['password'] !== $editInfo['repassword']) {
+            $error['repassword'] = "確認密碼不正確";
+            echo json_encode(['editinfo' => $error]);
+            exit;
+        }
+
+        unset($editInfo['aid']);
+        unset($editInfo['repassword']);
+        unset($editInfo['oldpassword']);
+        $password =  password_hash($editInfo['password'], PASSWORD_DEFAULT);
+        if ($DBAdmin->update(['password' => $password], $aid) !== 1) {
+            echo json_encode(['editinfo' => "fail"]);
+            exit;
+        }
+        echo json_encode(['editinfo' => "success"]);
+            exit;
     }
 }

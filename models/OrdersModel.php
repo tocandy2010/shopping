@@ -1,6 +1,6 @@
 <?php
 
-class OrdersModel extends Model 
+class OrdersModel extends Model
 {
     protected $table = "orders";
 
@@ -22,10 +22,14 @@ class OrdersModel extends Model
     /*
      * 根據使用者取得該所有訂單紀錄
      */
-    public function getMyOrdersNum($id)
+    public function getOrders($id = false)
     {
-        $sql = "select count(onum) as buynum,onum,address,createTime from {$this->table} ";
-        $sql .= "where cid = {$id} group by onum order by createTime desc";
+        $sql = "select count(onum) as buynum,onum,sum(price*number) as total,address,createTime from {$this->table} ";
+        if ($id !== false) {
+            $sql .= "where cid = {$id} group by onum order by createTime desc";
+        } else {
+            $sql .= "group by onum order by createTime desc";
+        }
         $res = $this->db->prepare($sql);
         $res->execute();
         return $res->fetchAll(PDO::FETCH_ASSOC);

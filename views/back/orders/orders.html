@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>Myorder</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -39,6 +39,17 @@
             color: white;
         }
 
+        #username {
+            cursor: default;
+            color: white;
+            font-size: 16px;
+        }
+
+        #username:hover {
+            cursor: default;
+            color: white;
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -61,14 +72,13 @@
             -webkit-box-orient: vertical;
         }
 
-        .address{
-            width:30%
+        .address {
+            width: 40%
         }
 
-        .edit {
-            width:20%
+        .checkorder {
+            font-size: 15px;
         }
-
     </style>
 </head>
 
@@ -113,37 +123,32 @@
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
                     <p>
-                        <h2>會員管理</h2>
+                        <h2>訂單管理</h2>
                     </p>
                     <p>&nbsp</p>
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>會員Email</th>
-                                <th>會員姓名</th>
-                                <th>手機號碼</th>
-                                <th>註冊地址</th>
-                                <th>註冊時間</th>
-                                <th>操作</th>
+                                <th>訂單編號</th>
+                                <th>商品總件數</th>
+                                <th>商品總價格</th>
+                                <th>商品</th>
+                                <th>收件地址</th>
+                                <th>成立時間</th>
+                                <th>訂單狀態</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{foreach from=$customer item=$customerinfo}}
+                            {{foreach from=$orders item=$ordersinfo}}
                             <tr>
-                                <td><span class='eamil'>{{$customerinfo['email']}}<span></td>
-                                <td>{{$customerinfo['name']}}</span></td>
-                                <td>{{$customerinfo['phone']}}</td>
-                                <td class='address'>{{$customerinfo['address']}}</td>
-                                <td>{{$customerinfo['regTime']}}</td>
-                                <td class='edit'>
-                                    {{if $customerinfo['released'] === '1'}}
-                                    <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="{{$customerinfo['cid']}}">Open</button>
-                                    {{else}}
-                                    <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="{{$customerinfo['cid']}}">Hide</button>
-                                    {{/if}}
-                                </td>
+                                <td class='eamil'>{{$ordersinfo['onum']}}</td>
+                                <td>{{$ordersinfo['buynum']}}</td>
+                                <td>{{$ordersinfo['total']}}</td>
+                                <td class="checkorder"><a
+                                        href="{{URL}}orderback/showGoods/{{$ordersinfo['onum']}}">查看訂單商品</a></td>
+                                <td class='address'>{{$ordersinfo['address']}}</td>
+                                <td>{{$ordersinfo['createTime']}}</td>
+                                <td>訂單成立</td>
                             </tr>
                             {{/foreach}}
                         </tbody>
@@ -161,39 +166,5 @@
 </html>
 
 <script>
-
-    //變更商品狀態商品
-    $('.released').click(function(){
-        let status = $(this).attr('data-value');
-        let cid = $(this).attr('data-gid');
-        let _this = this;
-        $.ajax({
-            url: 'setCustonerStatus',
-            dataType: "json",
-            type: 'PUT',
-            data: {
-                'cid' : cid,
-                'status' : status,
-            },
-            success: function (result) {
-                if (result.setstatus === 'fail') {
-                    alert("操作失敗");
-                } else if (result.setstatus === 'notlogin') {
-                    alert("請先登入");
-                    $(window).attr('location', '{{URL}}loginback/index');
-                } else if (result.setstatus === 'success') {
-                    if (status === '1') {
-                        $(_this).attr('class', "btn btn-danger released");
-                        $(_this).attr('data-value', "0");
-                        $(_this).html("Hide");
-                    } else {
-                        $(_this).attr('class', "btn btn-success released");
-                        $(_this).attr('data-value', "1");
-                        $(_this).html("Open");
-                    }
-                }
-            }
-        });
-    });
 
 </script>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-05 17:15:23
+/* Smarty version 3.1.33, created on 2019-08-07 18:34:45
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goodsdetial.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d48480b9b7169_56564649',
+  'unifunc' => 'content_5d4afda539a443_36097770',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '60c5a435185034a2111844014b48bdfc00576763' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goodsdetial.html',
-      1 => 1565017201,
+      1 => 1565185767,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d48480b9b7169_56564649 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4afda539a443_36097770 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -111,7 +111,7 @@ function content_5d48480b9b7169_56564649 (Smarty_Internal_Template $_smarty_tpl)
             letter-spacing: 0.8px;
             font: bold 20px Microsoft JhengHei;
             color: #202528;
-            padding-top:25px;
+            padding-top: 25px;
         }
 
         .goodsprice {
@@ -123,7 +123,11 @@ function content_5d48480b9b7169_56564649 (Smarty_Internal_Template $_smarty_tpl)
             padding-top: 10px;
             padding-bottom: 10px;
             text-align: right;
-            
+
+        }
+
+        #checkcookie {
+            text-align: center;
         }
     </style>
 </head>
@@ -139,7 +143,9 @@ function content_5d48480b9b7169_56564649 (Smarty_Internal_Template $_smarty_tpl)
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
 index/index">Home</a>
-                <span class="navbar-brand" id='username'>Username</span>
+                <span class="navbar-brand" id='username'>&nbsp
+                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
+</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -153,11 +159,19 @@ goods/index/boxing">Boxing</a></li>
 goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="./login.html"><span class="glyphicon glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Uaername</a></li>
+                    <li><a href="<?php echo URL;?>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
+                    <li><a href="<?php echo URL;?>
+login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                            Login</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -170,11 +184,15 @@ goods/index/yoga">Yoga</a></li>
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
                     <li><a href="<?php echo URL;?>
 index/index">Home</a></li>
-                    <li><a href="#">typename</a></li>
+                    <li><a href="<?php echo URL;?>
+goods/index/<?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
+</a></li>
                     <li><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
 </li>
                     <!-- <li class="active">goodsname</li> -->
                 </ol>
+                <div id='checkcookie'></div>
                 <div class="container-fluid">
                     <div class="row" style="margin-top: 40px">
                         <div class="panel panel-default">
@@ -182,9 +200,10 @@ index/index">Home</a></li>
                                 <div class="container-fluid">
                                     <div class="row-content">
                                         <div class="col-sm-6">
-                                            <img src="<?php echo URL;?>
-public/homeimg/goodsimg/test.png"
-                                                class=" goodsimg" alt="Cinque Terre">
+                                            <img src="<?php echo URL;
+echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
+" class=" goodsimg"
+                                                alt="Cinque Terre">
                                         </div>
                                         <div class="col-sm-5 panel panel-default">
                                             <p class="goodsname">商品名稱&nbsp:&nbsp<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
@@ -192,14 +211,19 @@ public/homeimg/goodsimg/test.png"
                                             <p class="goodsprice">NT$<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></p>
                                             <p class="goodsprice">庫存數量&nbsp:&nbsp<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-</span></p>
+</span>
+                                            </p>
                                             <p>
                                                 <?php if ($_smarty_tpl->tpl_vars['incartflag']->value) {?>
-                                                <td><button type="button" class="btn btn-danger btn-block" disabled =true data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" id="addcart">已在入購物車中</button></td>
+                                                <td><button type="button" class="btn btn-danger btn-block" disabled=true
+                                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" id="addcart">已在入購物車中</button>
+                                                </td>
                                                 <?php } else { ?>
-                                                <td><button type="button" class="btn btn-danger  btn-block" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" id="addcart">加入購物車</button></td>
+                                                <td><button type="button" class="btn btn-danger  btn-block"
+                                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" id="addcart">加入購物車</button>
+                                                </td>
                                                 <?php }?>
                                             </p>
                                         </div>
@@ -216,12 +240,13 @@ public/homeimg/goodsimg/test.png"
                                     <ul>
                                         <li>
                                             <label>運動範圍 : </label>
-                                            <span class="value">滑降滑雪(DOWNHILL SKIING), 自由式單板滑雪, 自由式滑雪( FREESTYLE
-                                                SKIING), 花式單板滑雪, 花式滑雪( FREERIDE SKIING)</span>
+                                            <span class="value"><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['uses'];?>
+</span>
                                         </li>
                                         <li>
                                             <label>材質 : </label>
-                                            <span class="value">泡棉 : 100.0% 聚苯乙烯泡沫 外層布料 : 100.0% ABS樹脂</span>
+                                            <span class="value"><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['material'];?>
+</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -245,19 +270,31 @@ public/homeimg/goodsimg/test.png"
 <?php echo '<script'; ?>
 >
 
-$('#addcart').click(function(){
-    let gid = $(this).attr("data-gid");
-    if (gid < 1) {
-        alert('新增購物車失敗');
-        return false;
-    }
+    $().ready(function () {
+        let checkcookie = $("#checkcookie");
+        if (navigator.cookieEnabled == true) {
+            checkcookie.html();
+            checkcookie.attr('class', "");
+        }
+        else {
+            checkcookie.attr('class', "alert alert-danger");
+            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
+        }
+    })
 
-    $.ajax({
+    $('#addcart').click(function () {
+        let gid = $(this).attr("data-gid");
+        if (gid < 1) {
+            alert('新增購物車失敗');
+            return false;
+        }
+
+        $.ajax({
             url: '../add',
             dataType: "json",
             type: 'POST',
             data: {
-                'gid' : gid,
+                'gid': gid,
             },
             success: function (result) {
                 if (result.addinfo === "success") {
@@ -268,7 +305,7 @@ $('#addcart').click(function(){
                 }
             }
         });
-})
+    })
 
 <?php echo '</script'; ?>
 ><?php }

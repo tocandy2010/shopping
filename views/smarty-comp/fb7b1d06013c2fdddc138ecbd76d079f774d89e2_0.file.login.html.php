@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 18:19:33
+/* Smarty version 3.1.33, created on 2019-08-07 15:51:25
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d49a89532edd2_17939672',
+  'unifunc' => 'content_5d4ad75dc9c628_86528587',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fb7b1d06013c2fdddc138ecbd76d079f774d89e2' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\login.html',
-      1 => 1565108372,
+      1 => 1565185767,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d49a89532edd2_17939672 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4ad75dc9c628_86528587 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -135,12 +135,7 @@ indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-/goods/index/jog">訂單管理</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/ski">會員管理</a></li>
-                    <li><a href="<?php echo URL;?>
-goodsback/index">商品管理</a></li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
@@ -216,7 +211,6 @@ public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
 
 <?php echo '<script'; ?>
 >
-
     $('#vcodeimg').click(function () {
         this.src = "<?php echo URL;?>
 public/vcode/vcode.php?" + Math.random();
@@ -248,16 +242,23 @@ public/vcode/vcode.php?" + Math.random();
 indexback/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
+                    changevcode()
                 } else if (result.logininfo) {
                     for (error of formname) {
                         $('#' + error + 'info').html(result.logininfo[error]);
                     }
+                    changevcode()
                 } else {
                     $('#errorinfo').html("錯誤");
+                    changevcode()
                 }
             }
         });
     })
+
+    function changevcode() {
+        $("#vcodeimg").click();
+    }
 
 
 <?php echo '</script'; ?>

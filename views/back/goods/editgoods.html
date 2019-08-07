@@ -68,13 +68,20 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}ordersback/index">訂單管理</a></li>
+                    <li><a href="{{URL}}orderback/index">訂單管理</a></li>
                     <li><a href="{{URL}}Customerback/index">會員管理</a></li>
                     <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    {{if $loginflag|default:false}}
+                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    {{else}}
+                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -92,7 +99,11 @@
                             <select name='tnum' class="form-control">
                                 <option selected disabled>Type</option>
                                 {{foreach from=$type item=$typeinfo}}
+                                {{if $goods['tnum'] !==  {{$typeinfo['tnum']}}}}
                                 <option value="{{$typeinfo['tnum']}}">{{$typeinfo['name']}}</option>
+                                {{else}}
+                                <option value="{{$typeinfo['tnum']}}" selected>{{$typeinfo['name']}}</option>
+                                {{/if}}
                                 {{/foreach}}
                             </select>
                             <span class="help-block">請選擇此商品所屬分類
@@ -105,7 +116,7 @@
                         <label class="col-md-4 control-label" for="name">商品名稱</label>
                         <div class="col-md-4">
                             <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
-                                autocomplete="off">
+                                autocomplete="off" value="{{$goods['name']}}">
                             <span class="help-block">最多文字限制20
                                 <span class="errorinfo" id='nameinfo'></span>
                             </span>
@@ -117,7 +128,7 @@
                         <label class="col-md-4 control-label" for="price">商品價格</label>
                         <div class="col-md-4">
                             <input id="price" name="price" type="number" placeholder="" class="form-control input-md"
-                                autocomplete="off" min='1'>
+                                autocomplete="off" min='1' value="{{$goods['price']}}">
                             <span class="help-block">請輸入整數價格&nbsp1~100,000
                                 <span class="errorinfo" id="priceinfo"></span>
                             </span>
@@ -129,7 +140,7 @@
                         <label class="col-md-4 control-label" for="stock">上架數量</label>
                         <div class="col-md-4">
                             <input id="stock" name="stock" type="number" placeholder="" class="form-control input-md"
-                                autocomplete="off" min='1'>
+                                autocomplete="off" min='1' value="{{$goods['stock']}}">
                             <span class="help-block">請輸入整數數字&nbsp1~50,000
                                 <span class="errorinfo" id="stockinfo"></span>
                             </span>
@@ -141,7 +152,7 @@
                         <label class="col-md-4 control-label" for="uses">商品用途</label>
                         <div class="col-md-4">
                             <input id="uses" name="uses" type="text" placeholder="" class="form-control input-md"
-                                autocomplete="off">
+                                autocomplete="off" value="{{$goods['uses']}}">
                             <span class="help-block">請說明商品用途 文字限制30
                                 <span class="errorinfo" id="usesinfo"></span>
                             </span>
@@ -153,7 +164,7 @@
                         <label class="col-md-4 control-label" for="material	">商品材質</label>
                         <div class="col-md-4">
                             <input id="material	" name="material" type="text" placeholder=""
-                                class="form-control input-md" autocomplete="off">
+                                class="form-control input-md" autocomplete="off" value="{{$goods['material']}}">
                             <span class="help-block">請說明商品用途 文字限制30
                                 <span class="errorinfo" id="materialinfo"></span>
                             </span>
@@ -169,6 +180,7 @@
                             <span class="help-block">請上傳商品圖片
                                 <span class="errorinfo" id="gimginfo"></span>
                             </span>
+                            <img src="{{URL}}{{$goods['gimg']}}" alt="">
                         </div>
                     </div>
 
@@ -199,8 +211,8 @@
             }
 
             $.ajax({
-                url: "add",
-                type: "POST",
+                url: "../update",
+                type: "PUT",
                 dataType: "json",
                 cache: false,
                 processData: false,

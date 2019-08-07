@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-05 17:14:49
+/* Smarty version 3.1.33, created on 2019-08-07 15:52:41
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4847e9a85f43_38565542',
+  'unifunc' => 'content_5d4ad7a9a5e975_38168878',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'de0b3f9afc07ce7a62010495fe4f813c73442963' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
-      1 => 1565018088,
+      1 => 1565185767,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4847e9a85f43_38565542 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4ad7a9a5e975_38168878 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -78,8 +78,8 @@ function content_5d4847e9a85f43_38565542 (Smarty_Internal_Template $_smarty_tpl)
         }
 
         .loginwall {
-            border: 1px solid gray;
-            width: 30%;
+            border: 2px solid gray;
+            width: 33%;
             box-shadow: 3px 3px 5px 6px #b9b5b5;
         }
 
@@ -146,6 +146,8 @@ index/index">Home</a>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    <li><a href="<?php echo URL;?>
 login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
@@ -166,7 +168,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <input id="email" name="email" type="text" placeholder="your E-mail"
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
-                                <span class="errorinfo" id='emailinfo'></span></span>
+                                <span class="errorinfo" id='emailinfo'>&nbsp</span></span>
                         </div>
                     </div>
 
@@ -178,7 +180,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             <input id="password" name="password" type="password" placeholder="your password"
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
-                                <span class="errorinfo" id='passwordinfo'></span></span>
+                                <span class="errorinfo" id='passwordinfo'>&nbsp</span></span>
                         </div>
                     </div>
 
@@ -203,7 +205,7 @@ public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
 login/create"><button type="button" class="btn btn-default">Join
                                     us</button></a>
                             <button type="button" id="loginsend" class="btn btn-success ">Login</button>
-                            <span class="errorinfo" id='errorinfo'></span>
+                            <span class="errorinfo" id='errorinfo'>&nbsp</span>
                         </div>
                     </div>
                 </form>
@@ -232,9 +234,8 @@ public/vcode/vcode.php?" + Math.random();
         let password = $('#password').val();
         let vcode = $('#vcode').val();
         let formname = ['email', 'password', 'error'];
-
         for(error of formname) {
-                $('#' + error + 'info').html("");
+                $('#' + error + 'info').html("&nbsp");
             }
 
         $.ajax({
@@ -252,16 +253,23 @@ public/vcode/vcode.php?" + Math.random();
 /index/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
+                    changevcode()
                 } else if (result.logininfo) {
                     for (error of formname) {
                         $('#' + error + 'info').html(result.logininfo[error]);
                     }
+                    changevcode()
                 } else {
                     $('#errorinfo').html("錯誤");
+                    changevcode()
                 }
             }
         });
     })
+
+    function changevcode() {
+        $("#vcodeimg").click();
+    }
 
 
 <?php echo '</script'; ?>

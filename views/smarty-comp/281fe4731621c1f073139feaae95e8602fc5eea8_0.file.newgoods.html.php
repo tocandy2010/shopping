@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-07 17:31:44
+  from 'D:\xampp\htdocs\TaiwanGYM\views\back\goods\newgoods.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d4aeee0144f34_00587510',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '281fe4731621c1f073139feaae95e8602fc5eea8' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\newgoods.html',
+      1 => 1565191607,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d4aeee0144f34_00587510 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -64,16 +91,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}ordersback/index">訂單管理</a></li>
-                    <li><a href="{{URL}}Customerback/index">會員管理</a></li>
-                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
+                    <li><a href="<?php echo URL;?>
+ordersback/index">訂單管理</a></li>
+                    <li><a href="<?php echo URL;?>
+Customerback/index">會員管理</a></li>
+                    <li><a href="<?php echo URL;?>
+goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -91,9 +123,18 @@
                         <div class="col-md-4">
                             <select name='tnum' class="form-control">
                                 <option selected disabled>Type</option>
-                                {{foreach from=$type item=$typeinfo}}
-                                <option value="{{$typeinfo['tnum']}}">{{$typeinfo['name']}}</option>
-                                {{/foreach}}
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['type']->value, 'typeinfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['typeinfo']->value) {
+?>
+                                <option value="<?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['tnum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['name'];?>
+</option>
+                                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             </select>
                             <span class="help-block">請選擇此商品所屬分類
                                 <span class="errorinfo" id='tnuminfo'></span>
@@ -177,7 +218,8 @@
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
                             <button type="button" id="addgoodssend" class="btn btn-info">Create</button>
-                            <a href="{{URL}}goodsback/index"><button type="button"
+                            <a href="<?php echo URL;?>
+goodsback/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo" id='errorinfo'></span>
                         </div>
@@ -190,7 +232,8 @@
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <script>
+    <?php echo '<script'; ?>
+>
         $("#addgoodssend").click(function () {
             var formData = new FormData($('#addgoodsform')[0]);
             let formname = ['name', 'tnum', 'price', 'stock', 'uses', 'material', 'gimg'];
@@ -210,10 +253,12 @@
                     console.log(result.addinfo);
                     if (result.addinfo === 'success') {
                         alert("新增商品成功");
-                        $(window).attr('location', '{{URL}}goodsback/index');
+                        $(window).attr('location', '<?php echo URL;?>
+goodsback/index');
                     } else if (result.addinfo === 'notlogin') {
                         alert("請先登入");
-                        $(window).attr('location', '{{URL}}loginback/index');
+                        $(window).attr('location', '<?php echo URL;?>
+loginback/index');
                     } else if (result.addinfo === 'fail') {
                         $('#errorinfo').html("新增商品失敗");
                     } else if (result.addinfo) {
@@ -229,7 +274,9 @@
 
 
 
-    </script>
+    <?php echo '</script'; ?>
+>
 </body>
 
-</html>
+</html><?php }
+}

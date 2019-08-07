@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-07 19:32:19
+  from 'D:\xampp\htdocs\TaiwanGYM\views\back\goods\editgoods.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d4b0b2364d167_21560703',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'a2b369ed0fbe4206a1f9605d9ffdbc706a76e5ad' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\editgoods.html',
+      1 => 1565199137,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d4b0b2364d167_21560703 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -64,17 +91,32 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}ordersback/index">訂單管理</a></li>
-                    <li><a href="{{URL}}Customerback/index">會員管理</a></li>
-                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
+                    <li><a href="<?php echo URL;?>
+orderback/index">訂單管理</a></li>
+                    <li><a href="<?php echo URL;?>
+Customerback/index">會員管理</a></li>
+                    <li><a href="<?php echo URL;?>
+goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
+                    <li><a href="<?php echo URL;?>
+loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
+"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -91,9 +133,27 @@
                         <div class="col-md-4">
                             <select name='tnum' class="form-control">
                                 <option selected disabled>Type</option>
-                                {{foreach from=$type item=$typeinfo}}
-                                <option value="{{$typeinfo['tnum']}}">{{$typeinfo['name']}}</option>
-                                {{/foreach}}
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['type']->value, 'typeinfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['typeinfo']->value) {
+?>
+                                <?php ob_start();
+echo $_smarty_tpl->tpl_vars['typeinfo']->value['tnum'];
+$_prefixVariable1 = ob_get_clean();
+if ($_smarty_tpl->tpl_vars['goods']->value['tnum'] !== $_prefixVariable1) {?>
+                                <option value="<?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['tnum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['name'];?>
+</option>
+                                <?php } else { ?>
+                                <option value="<?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['tnum'];?>
+" selected><?php echo $_smarty_tpl->tpl_vars['typeinfo']->value['name'];?>
+</option>
+                                <?php }?>
+                                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             </select>
                             <span class="help-block">請選擇此商品所屬分類
                                 <span class="errorinfo" id='tnuminfo'></span>
@@ -105,7 +165,8 @@
                         <label class="col-md-4 control-label" for="name">商品名稱</label>
                         <div class="col-md-4">
                             <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
-                                autocomplete="off">
+                                autocomplete="off" value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['name'];?>
+">
                             <span class="help-block">最多文字限制20
                                 <span class="errorinfo" id='nameinfo'></span>
                             </span>
@@ -117,7 +178,8 @@
                         <label class="col-md-4 control-label" for="price">商品價格</label>
                         <div class="col-md-4">
                             <input id="price" name="price" type="number" placeholder="" class="form-control input-md"
-                                autocomplete="off" min='1'>
+                                autocomplete="off" min='1' value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['price'];?>
+">
                             <span class="help-block">請輸入整數價格&nbsp1~100,000
                                 <span class="errorinfo" id="priceinfo"></span>
                             </span>
@@ -129,7 +191,8 @@
                         <label class="col-md-4 control-label" for="stock">上架數量</label>
                         <div class="col-md-4">
                             <input id="stock" name="stock" type="number" placeholder="" class="form-control input-md"
-                                autocomplete="off" min='1'>
+                                autocomplete="off" min='1' value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['stock'];?>
+">
                             <span class="help-block">請輸入整數數字&nbsp1~50,000
                                 <span class="errorinfo" id="stockinfo"></span>
                             </span>
@@ -141,7 +204,8 @@
                         <label class="col-md-4 control-label" for="uses">商品用途</label>
                         <div class="col-md-4">
                             <input id="uses" name="uses" type="text" placeholder="" class="form-control input-md"
-                                autocomplete="off">
+                                autocomplete="off" value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['uses'];?>
+">
                             <span class="help-block">請說明商品用途 文字限制30
                                 <span class="errorinfo" id="usesinfo"></span>
                             </span>
@@ -153,7 +217,8 @@
                         <label class="col-md-4 control-label" for="material	">商品材質</label>
                         <div class="col-md-4">
                             <input id="material	" name="material" type="text" placeholder=""
-                                class="form-control input-md" autocomplete="off">
+                                class="form-control input-md" autocomplete="off" value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['material'];?>
+">
                             <span class="help-block">請說明商品用途 文字限制30
                                 <span class="errorinfo" id="materialinfo"></span>
                             </span>
@@ -169,6 +234,9 @@
                             <span class="help-block">請上傳商品圖片
                                 <span class="errorinfo" id="gimginfo"></span>
                             </span>
+                            <img src="<?php echo URL;
+echo $_smarty_tpl->tpl_vars['goods']->value['gimg'];?>
+" alt="">
                         </div>
                     </div>
 
@@ -177,7 +245,8 @@
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
                             <button type="button" id="addgoodssend" class="btn btn-info">Create</button>
-                            <a href="{{URL}}goodsback/index"><button type="button"
+                            <a href="<?php echo URL;?>
+goodsback/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo" id='errorinfo'></span>
                         </div>
@@ -190,7 +259,8 @@
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <script>
+    <?php echo '<script'; ?>
+>
         $("#addgoodssend").click(function () {
             var formData = new FormData($('#addgoodsform')[0]);
             let formname = ['name', 'tnum', 'price', 'stock', 'uses', 'material', 'gimg'];
@@ -199,8 +269,8 @@
             }
 
             $.ajax({
-                url: "add",
-                type: "POST",
+                url: "../update",
+                type: "PUT",
                 dataType: "json",
                 cache: false,
                 processData: false,
@@ -210,10 +280,12 @@
                     console.log(result.addinfo);
                     if (result.addinfo === 'success') {
                         alert("新增商品成功");
-                        $(window).attr('location', '{{URL}}goodsback/index');
+                        $(window).attr('location', '<?php echo URL;?>
+goodsback/index');
                     } else if (result.addinfo === 'notlogin') {
                         alert("請先登入");
-                        $(window).attr('location', '{{URL}}loginback/index');
+                        $(window).attr('location', '<?php echo URL;?>
+loginback/index');
                     } else if (result.addinfo === 'fail') {
                         $('#errorinfo').html("新增商品失敗");
                     } else if (result.addinfo) {
@@ -229,7 +301,9 @@
 
 
 
-    </script>
+    <?php echo '</script'; ?>
+>
 </body>
 
-</html>
+</html><?php }
+}

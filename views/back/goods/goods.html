@@ -102,13 +102,13 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}ordersback/index">訂單管理</a></li>
+                    <li><a href="{{URL}}orderback/index">訂單管理</a></li>
                     <li><a href="{{URL}}Customerback/index">會員管理</a></li>
                     <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {{if $loginflag|default:false}}
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
                     {{else}}
@@ -149,17 +149,15 @@
                             {{foreach from=$goods item=$goodsinfo}}
                             <tr>
                                 <td>
-                                    <a href="">
                                         <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
                                             style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
                                 </td>
-                                <td><a href='#'><span class='goodsname'>{{$goodsinfo['name']}}<span></a></td>
+                                <td><span class='goodsname'>{{$goodsinfo['name']}}<span></td>
                                 <td>NT$<span>{{$goodsinfo['price']}}</span></td>
                                 <td>{{$goodsinfo['stock']}}</td>
                                 <td>{{$goodsinfo['addTime']}}</td>
                                 <td  data-gid="1" class='edit'>
-                                    <button type="button" class="btn btn-info">Edit</button>
+                                    <a href="{{URL}}goodsback/edit/{{$goodsinfo['gid']}}"><button type="button" class="btn btn-info">Edit</button></a>
                                     {{if $goodsinfo['released'] === '1'}}
                                     <button type="button" class="btn btn-success released" 
                                     data-value='1' data-gid="{{$goodsinfo['gid']}}">Open</button>

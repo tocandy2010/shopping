@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 00:41:04
-  from 'D:\xampp\htdocs\TaiwanGYM\views\back\customer\customer.html' */
+/* Smarty version 3.1.33, created on 2019-08-08 00:40:41
+  from 'D:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4aff20ef0aa4_00380326',
+  'unifunc' => 'content_5d4aff097229c5_91045405',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '12fb3d66bbd58a7a32197c69b2dd0cdcea02f56b' => 
+    '29f579936f0044b7492026702eb6d7e6384f8ec5' => 
     array (
-      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\customer\\customer.html',
-      1 => 1565196063,
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
+      1 => 1565195999,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4aff20ef0aa4_00380326 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4aff097229c5_91045405 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>Myorder</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -66,6 +66,17 @@ function content_5d4aff20ef0aa4_00380326 (Smarty_Internal_Template $_smarty_tpl)
             color: white;
         }
 
+        #username {
+            cursor: default;
+            color: white;
+            font-size: 16px;
+        }
+
+        #username:hover {
+            cursor: default;
+            color: white;
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -88,14 +99,13 @@ function content_5d4aff20ef0aa4_00380326 (Smarty_Internal_Template $_smarty_tpl)
             -webkit-box-orient: vertical;
         }
 
-        .address{
-            width:30%
+        .address {
+            width: 40%
         }
 
-        .edit {
-            width:20%
+        .checkorder {
+            font-size: 15px;
         }
-
     </style>
 </head>
 
@@ -148,48 +158,43 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
                     <p>
-                        <h2>會員管理</h2>
+                        <h2>訂單管理</h2>
                     </p>
                     <p>&nbsp</p>
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>會員Email</th>
-                                <th>會員姓名</th>
-                                <th>手機號碼</th>
-                                <th>註冊地址</th>
-                                <th>註冊時間</th>
-                                <th>操作</th>
+                                <th>訂單編號</th>
+                                <th>商品總件數</th>
+                                <th>商品總價格</th>
+                                <th>商品</th>
+                                <th>收件地址</th>
+                                <th>成立時間</th>
+                                <th>訂單狀態</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['customer']->value, 'customerinfo');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['orders']->value, 'ordersinfo');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['customerinfo']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['ordersinfo']->value) {
 ?>
                             <tr>
-                                <td><span class='eamil'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['email'];?>
-<span></td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['name'];?>
-</span></td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['phone'];?>
+                                <td class='eamil'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
 </td>
-                                <td class='address'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['address'];?>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['buynum'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['regTime'];?>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['total'];?>
 </td>
-                                <td class='edit'>
-                                    <?php if ($_smarty_tpl->tpl_vars['customerinfo']->value['released'] === '1') {?>
-                                    <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
-">Open</button>
-                                    <?php } else { ?>
-                                    <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
-">Hide</button>
-                                    <?php }?>
-                                </td>
+                                <td class="checkorder"><a
+                                        href="<?php echo URL;?>
+orderback/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+">查看訂單商品</a></td>
+                                <td class='address'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['address'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
+</td>
+                                <td>訂單成立</td>
                             </tr>
                             <?php
 }
@@ -211,41 +216,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
 <?php echo '<script'; ?>
 >
-
-    //變更商品狀態商品
-    $('.released').click(function(){
-        let status = $(this).attr('data-value');
-        let cid = $(this).attr('data-gid');
-        let _this = this;
-        $.ajax({
-            url: 'setCustonerStatus',
-            dataType: "json",
-            type: 'PUT',
-            data: {
-                'cid' : cid,
-                'status' : status,
-            },
-            success: function (result) {
-                if (result.setstatus === 'fail') {
-                    alert("操作失敗");
-                } else if (result.setstatus === 'notlogin') {
-                    alert("請先登入");
-                    $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                } else if (result.setstatus === 'success') {
-                    if (status === '1') {
-                        $(_this).attr('class', "btn btn-danger released");
-                        $(_this).attr('data-value', "0");
-                        $(_this).html("Hide");
-                    } else {
-                        $(_this).attr('class', "btn btn-success released");
-                        $(_this).attr('data-value', "1");
-                        $(_this).html("Open");
-                    }
-                }
-            }
-        });
-    });
 
 <?php echo '</script'; ?>
 ><?php }

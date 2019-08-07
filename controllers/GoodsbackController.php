@@ -12,14 +12,16 @@ class GoodsbackController extends Controller
      */
     public function index($reg = false)
     {
+        $path = URL . "loginback/index";
         if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            header("Location: ../loginback/index");
+            header("Location: {$path}");
             exit;
         } else {
             $DBAdmin = $this->DBAdmin;
             $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
             if (empty($userInfo)) {
-                header("Location: ../loginback/index");
+                setcookie('admintoken', 0, time() - 10, "/");
+                header("Location: {$path}");
                 exit;
             }
         }
@@ -37,14 +39,29 @@ class GoodsbackController extends Controller
         $loginFlag = true;
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->assign('userinfo', $userInfo);
         return $this->smarty->display('back/goods/goods.html');
     }
 
     public function create()
     {
+        $path = URL . "loginback/index";
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+            header("Location: {$path}");
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+            if (empty($userInfo)) {
+                setcookie('admin', 0, time() - 10, "/");
+                header("Location: {$path}");
+                exit;
+            }
+        }
+
         $DBGtype = $this->DBGtype;
         $typeinfo = $DBGtype->getAll();
-        $this->smarty->assign('type',$typeinfo);
+        $this->smarty->assign('type', $typeinfo);
         return $this->smarty->display('back/goods/newgoods.html');
     }
 
@@ -80,9 +97,9 @@ class GoodsbackController extends Controller
         ## 檢查上傳圖片
         $gimg = $_FILES['gimg'];
         if ($gimg['error'] === 4) {
-            $error['gimg'] ='未上傳商品圖片';
+            $error['gimg'] = '未上傳商品圖片';
         } else if ($gimg['error'] !== 0) {
-            $addInfo['gimg'] ='上傳失敗';
+            $addInfo['gimg'] = '上傳失敗';
         }
         if (!empty($error)) {
             echo json_encode(['addinfo' => $error]);
@@ -90,7 +107,7 @@ class GoodsbackController extends Controller
         }
         $gimgtype = explode('/', $gimg['type']);
         if ($gimgtype[0] !== 'image') {
-            $error['gimg'] ='上傳了非圖片文件';
+            $error['gimg'] = '上傳了非圖片文件';
         }
         if (!empty($error)) {
             echo json_encode(['addinfo' => $error]);
@@ -122,7 +139,7 @@ class GoodsbackController extends Controller
         } else {
             $addInfo['tnum'] = $typeinfo['tnum'];
         }
-        
+
         ## 檢查商品名稱是否重複
         $DBGoods = $this->DBGoods;
         $checkName = $DBGoods->getOne(['name' => $addInfo['name']]);
@@ -134,10 +151,10 @@ class GoodsbackController extends Controller
 
         ## 上傳商品圖片到指定資料夾
         $path = "public/homeimg/goodsimg/";
-        if (move_uploaded_file($gimg['tmp_name'], $path . $addInfo['name'] .".png")) {
-            $addInfo['gimg'] = $path . $addInfo['name'] .".png";
+        if (move_uploaded_file($gimg['tmp_name'], $path . $addInfo['name'] . ".png")) {
+            $addInfo['gimg'] = $path . $addInfo['name'] . ".png";
         } else {
-            $error['gimg'] ='上傳失敗';
+            $error['gimg'] = '上傳失敗';
             echo json_encode(['addinfo' => $error]);
             exit;
         }
@@ -148,7 +165,7 @@ class GoodsbackController extends Controller
         $addInfo['uses'] = htmlspecialchars($addInfo['uses'], ENT_QUOTES);
         $addInfo['material'] = htmlspecialchars($addInfo['material'], ENT_QUOTES);
 
-        if (file_exists($path . $addInfo['name'] .".png")) {
+        if (file_exists($path . $addInfo['name'] . ".png")) {
             if ($DBGoods->add($addInfo) === 1) {
                 echo json_encode(['addinfo' => 'success']);
                 exit;
@@ -157,7 +174,7 @@ class GoodsbackController extends Controller
                 exit;
             }
         } else {
-            $error['gimg'] ='上傳失敗';
+            $error['gimg'] = '上傳失敗';
             echo json_encode(['addinfo' => $error]);
             exit;
         }
@@ -170,13 +187,13 @@ class GoodsbackController extends Controller
             exit;
         } else {
             $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+            $userInfo = $DBAdmin->getOne(['admintoken' => $_COOKIE['admintoken']]);
             if (empty($userInfo)) {
                 echo json_encode(['setstatus' => "notlogin"]);
                 exit;
             }
         }
-        
+
         parse_str(file_get_contents('php://input'), $data);
         if (!isset($data) || empty($data)) {
             echo json_encode(['setstatus' => "fail"]);
@@ -204,5 +221,58 @@ class GoodsbackController extends Controller
             echo json_encode(['setstatus' => "fail"]);
             exit;
         }
+    }
+
+    public function edit($reg = false)
+    {
+        ## 檢查是否登入
+        $path = URL . "loginback/index";
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+            setcookie('admintoken', 0, time() - 10, "/");
+            header("Location: {$path}");
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+            if (empty($userInfo)) {
+                setcookie('admintoken', 0, time() - 10, "/");
+                header("Location: {$path}");
+                exit;
+            }
+        }
+
+        if (!is_numeric($reg[0])) {
+            $path = URL . "loginback/index";
+            setcookie('admintoken', 0, time() - 10, "/");
+            header("Location: {$path}");
+        } else {
+            $gid = $reg[0];
+        }
+
+        ## 根據 id 找商品
+        $DBGoods = $this->DBGoods;
+        $goodsInfo = $DBGoods->findOne($gid);
+        if (empty($goodsInfo)) {
+            $path = URL . "loginback/index";
+            setcookie('admintoken', 0, time() - 10, "/");
+            header("Location: {$path}");
+        }
+
+        $DBGtype = $this->DBGtype;
+        $typeinfo = $DBGtype->getAll();
+        $loginFlag = !empty($userInfo);
+
+        
+        $this->smarty->assign('type', $typeinfo);
+        $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->assign('goods', $goodsInfo);
+        $this->smarty->display("back/goods/editgoods.html");
+    }
+
+    public function update()
+    {
+        parse_str(file_get_contents('php://input'), $editInfo);
+        var_dump($editInfo);
+        var_dump($_POST);
     }
 }

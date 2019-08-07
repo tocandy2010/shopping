@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 00:27:32
+/* Smarty version 3.1.33, created on 2019-08-08 00:44:17
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d49aa742e6ad6_87657521',
+  'unifunc' => 'content_5d4affe12888b4_89604072',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '74572e67c1f93c8bfe1518c4599c45b152998faf' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\goods.html',
-      1 => 1565108837,
+      1 => 1565196232,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d49aa742e6ad6_87657521 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4affe12888b4_89604072 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -63,17 +63,6 @@ function content_5d49aa742e6ad6_87657521 (Smarty_Internal_Template $_smarty_tpl)
         footer {
             background-color: #444444;
             padding: 25px;
-            color: white;
-        }
-
-        #username {
-            cursor: default;
-            color: white;
-            font-size: 16px;
-        }
-
-        #username:hover {
-            cursor: default;
             color: white;
         }
 
@@ -138,14 +127,11 @@ function content_5d49aa742e6ad6_87657521 (Smarty_Internal_Template $_smarty_tpl)
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
 indexback/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
-</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-ordersback/index">訂單管理</a></li>
+orderback/index">訂單管理</a></li>
                     <li><a href="<?php echo URL;?>
 Customerback/index">會員管理</a></li>
                     <li><a href="<?php echo URL;?>
@@ -153,9 +139,9 @@ goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
-                            Myorder</a></li>
+                    <li><a href="<?php echo URL;?>
+loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
+"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -203,23 +189,23 @@ foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
 ?>
                             <tr>
                                 <td>
-                                    <a href="">
                                         <img class="img-responsive" src="<?php echo URL;
 echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 "
                                             style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
                                 </td>
-                                <td><a href='#'><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
-<span></a></td>
+                                <td><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+<span></td>
                                 <td>NT$<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
 </td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['addTime'];?>
 </td>
-                                <td  data-gid="1" class='del'>
-                                    <button type="button" class="btn btn-info">Edit</button>
+                                <td  data-gid="1" class='edit'>
+                                    <a href="<?php echo URL;?>
+goodsback/edit/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+"><button type="button" class="btn btn-info">Edit</button></a>
                                     <?php if ($_smarty_tpl->tpl_vars['goodsinfo']->value['released'] === '1') {?>
                                     <button type="button" class="btn btn-success released" 
                                     data-value='1' data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
@@ -260,7 +246,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         $.ajax({
             url: 'setGoodStatus',
             dataType: "json",
-            type: 'POST',
+            type: 'PUT',
             data: {
                 'gid' : gid,
                 'status' : status,

@@ -1,6 +1,6 @@
 <?php
 
-class OrderController extends Controller
+class OrderbackController extends Controller
 {
     public function __construct()
     {
@@ -12,23 +12,24 @@ class OrderController extends Controller
      */
     public function index($reg = false)
     {
+        $path = URL . "loginback/index";
         ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            header("Location:../index/index");
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+            header("Location:{$path}");
             exit;
         }
 
         ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            header("Location:../index/index");
+        $token = $_COOKIE['admintoken'];
+        $DBAdmin = $this->DBAdmin;
+        $userInfo = $DBAdmin->getOne(['token' => $token]);
+        if (empty($userInfo)) {
+            header("Location:{$path}");
             exit;
         }
 
         $DBOrders = $this->DBOrders;
-        $orderInfo = $DBOrders->getOrders($userInfo['cid']);
+        $orderInfo = $DBOrders->getOrders();
         if (!empty($orderInfo)) {
             foreach ($orderInfo as $key => $info) {
                 date_default_timezone_set("Asia/Taipei");
@@ -41,31 +42,29 @@ class OrderController extends Controller
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('loginflag', $loginFlag);
         $this->smarty->assign('orders', $orderInfo);
-        $this->smarty->display("home/orders/myorders.html");
+        $this->smarty->display("back/orders/orders.html");
     }
 
     public function showGoods($reg = false)
     {
+        $path = URL . "loginback/index";
         ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $path = URL . "login/index";
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             header("Location: {$path}");
             exit;
         }
 
         ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            $path = URL . "login/index";
+        $token = $_COOKIE['admintoken'];
+        $DBAdmin = $this->DBAdmin;
+        $userInfo = $DBAdmin->getOne(['token' => $token]);
+        if (empty($userInfo)) {
             header("Location: {$path}");
             exit;
         }
 
         ## 檢查訂單編號
         if (empty($reg[0]) || !is_numeric($reg[0])) {
-            $path = URL . "index/index";
             header("Location: {$path}");
             exit;
         } else {
@@ -75,8 +74,7 @@ class OrderController extends Controller
         ## 檢查訂單是否存 並且屬於該登入使用者
         $DBOrders = $this->DBOrders;
         $orderInfo = $DBOrders->getOne(['onum' => $onum]);
-        if (empty($orderInfo) || $orderInfo['cid'] !== $userInfo['cid']) {
-            $path = URL . "index/index";
+        if (empty($orderInfo)) {
             header("Location: {$path}");
             exit;
         }
@@ -88,6 +86,6 @@ class OrderController extends Controller
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->assign('loginflag', $loginFlag);
-        $this->smarty->display("home/orders/ordergoods.html");
+        $this->smarty->display("back/orders/ordergoods.html");
     }
 }
