@@ -107,9 +107,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">訂單管理</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">會員管理</a></li>
-                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
@@ -182,7 +180,6 @@
 </html>
 
 <script>
-
     $('#vcodeimg').click(function () {
         this.src = "{{URL}}public/vcode/vcode.php?" + Math.random();
     })
@@ -212,16 +209,23 @@
                     $(window).attr('location', '{{URL}}indexback/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
+                    changevcode()
                 } else if (result.logininfo) {
                     for (error of formname) {
                         $('#' + error + 'info').html(result.logininfo[error]);
                     }
+                    changevcode()
                 } else {
                     $('#errorinfo').html("錯誤");
+                    changevcode()
                 }
             }
         });
     })
+
+    function changevcode() {
+        $("#vcodeimg").click();
+    }
 
 
 </script>

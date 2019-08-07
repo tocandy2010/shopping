@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>Myorder</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 737px
+            height: 711px
         }
 
         /* Set gray background color and 100% height */
@@ -37,13 +37,6 @@
             background-color: #444444;
             padding: 25px;
             color: white;
-        }
-
-        #headerimg {
-            background-image: url('{{URL}}public/homeimg/headerimg/{{$typename}}.png');
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            height: 700px;
         }
 
         #username {
@@ -70,58 +63,21 @@
 
         }
 
-        #typelist {
-            position: relative;
-            top: 15%;
-            text-align: center;
-        }
-
-        .typelist {
-            border: 1px solid white;
-        }
-
-        #breadcrumbs {
-            background-color: white;
-            font-size: 18px;
-        }
-
-        .goodsprice {
-            width: 97%;
-            text-align: right;
-            font-family: fantasy;
-            font-size: 14px;
-            color: black;
-            letter-spacing: 0.8px
-        }
-
-        .goodsname {
-            text-align: center;
-            width: 100%;
+        .eamil {
+            text-align: left;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            letter-spacing: 0.8px;
-            color: black;
-            font-family: "Microsoft JhengHei";
         }
 
-        .goodswall {
-            border: 1px solid white
+        .address {
+            width: 40%
         }
 
-        .goodswall:hover {
-            border: 1px solid rgb(57, 122, 175)
-        }
-
-        .goodsimg {
-            max-width: 100%;
-            margin: auto;
-        }
-
-        #checkcookie {
-            text-align: center;
+        .checkorder {
+            font-size: 15px;
         }
     </style>
 </head>
@@ -165,47 +121,41 @@
 
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
-        <div id='checkcookie'></div>
     </div>
 
     <div class="container-fluid">
-        <div class="row content" style="margin-left:50px">
-            <div class="col-sm-2 sidenav">
-                <!-- <div class="list-group" id='typelist'>
-                    <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
-                    <a href="#" class="list-group-item typelist">type1</a>
-                    <a href="#" class="list-group-item typelist">type2</a>
-                    <a href="#" class="list-group-item typelist">type3</a>
-                </div> -->
-            </div>
-
+        <div class="row content">
+            <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="{{URL}}index/index">Home</a></li>
-                    <li>{{$typename}}</li>
-                    <!-- <li class="active">goodsname</li> -->
-                </ol>
                 <div class="container-fluid">
-                    <div class="row">
-                        {{foreach from=$goods item=$goodsinfo}}
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
-                                        <img src="{{URL}}{{$goodsinfo['gimg']}}" class="img-responsive goodsimg">
-                                    </a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span>{{$goodsinfo['price']}}</p>
-                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
-                                        <p class='goodsname'>{{$goodsinfo['name']}}</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        {{/foreach}}
-                    </div>
+                    <p>
+                        <h2>我的訂單紀錄</h2>
+                    </p>
+                    <p>&nbsp</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>訂單編號</th>
+                                <th>購買商品總件數</th>
+                                <th>商品</th>
+                                <th>收件地址</th>
+                                <th>成立時間</th>
+                                <th>訂單狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{foreach from=$orders item=$ordersinfo}}
+                            <tr>
+                                <td class='eamil'>{{$ordersinfo['onum']}}</td>
+                                <td>{{$ordersinfo['buynum']}}</td>
+                                <td class="checkorder"><a href="{{URL}}order/showGoods/{{$ordersinfo['onum']}}">查看訂單商品</a></td>
+                                <td class='address'>{{$ordersinfo['address']}}</td>
+                                <td>{{$ordersinfo['createTime']}}</td>
+                                <td>訂單成立</td>
+                            </tr>
+                            {{/foreach}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="col-sm-2 sidenav"></div>
@@ -214,24 +164,10 @@
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-
 </body>
 
 </html>
 
 <script>
-
-    $().ready(function () {
-        let checkcookie = $("#checkcookie");
-        if (navigator.cookieEnabled == true) {
-            checkcookie.html();
-            checkcookie.attr('class', "");
-        }
-        else {
-            checkcookie.attr('class', "alert alert-danger");
-            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
-
-        }
-    })
 
 </script>

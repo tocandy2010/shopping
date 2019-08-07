@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-07 03:41:18
+  from 'C:\xampp\htdocs\TaiwanGYM\views\back\customer\customer.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d4a2c3e94c810_74871049',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '93d29022629b99431fb0e26f64bb0586bb5a5de5' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\customer\\customer.html',
+      1 => 1565141918,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d4a2c3e94c810_74871049 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -81,23 +108,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}ordersback/index">訂單管理</a></li>
-                    <li><a href="{{URL}}Customerback/index">會員管理</a></li>
-                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
+                    <li><a href="<?php echo URL;?>
+ordersback/index">訂單管理</a></li>
+                    <li><a href="<?php echo URL;?>
+Customerback/index">會員管理</a></li>
+                    <li><a href="<?php echo URL;?>
+goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{if $loginflag|default:false}}
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                    <li><a href="<?php echo URL;?>
+loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
-                    {{/if}}
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -128,25 +161,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{foreach from=$customer item=$customerinfo}}
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['customer']->value, 'customerinfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['customerinfo']->value) {
+?>
                             <tr>
-                                <td><span class='eamil'>{{$customerinfo['email']}}<span></td>
-                                <td>{{$customerinfo['name']}}</span></td>
-                                <td>{{$customerinfo['phone']}}</td>
-                                <td class='address'>{{$customerinfo['address']}}</td>
-                                <td>{{$customerinfo['regTime']}}</td>
+                                <td><span class='eamil'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['email'];?>
+<span></td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['name'];?>
+</span></td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['phone'];?>
+</td>
+                                <td class='address'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['address'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['regTime'];?>
+</td>
                                 <td class='edit'>
                                     <button type="button" class="btn btn-info">Edit</button>
-                                    {{if $customerinfo['released'] === '1'}}
+                                    <?php if ($_smarty_tpl->tpl_vars['customerinfo']->value['released'] === '1') {?>
                                     <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="{{$customerinfo['cid']}}">Open</button>
-                                    {{else}}
+                                    data-value='1' data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
+">Open</button>
+                                    <?php } else { ?>
                                     <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="{{$customerinfo['cid']}}">Hide</button>
-                                    {{/if}}
+                                        data-value='0' data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
+">Hide</button>
+                                    <?php }?>
                                 </td>
                             </tr>
-                            {{/foreach}}
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </tbody>
                     </table>
                 </div>
@@ -161,7 +208,8 @@
 
 </html>
 
-<script>
+<?php echo '<script'; ?>
+>
 
     //變更商品狀態商品
     $('.released').click(function(){
@@ -181,7 +229,8 @@
                     alert("操作失敗");
                 } else if (result.setstatus === 'notlogin') {
                     alert("請先登入");
-                    $(window).attr('location', '{{URL}}loginback/index');
+                    $(window).attr('location', '<?php echo URL;?>
+loginback/index');
                 } else if (result.setstatus === 'success') {
                     if (status === '1') {
                         $(_this).attr('class', "btn btn-danger released");
@@ -197,4 +246,6 @@
         });
     });
 
-</script>
+<?php echo '</script'; ?>
+><?php }
+}

@@ -112,7 +112,7 @@ class LoginbackController extends Controller
 
         $token = $this->getToken($userInfo['aid']);
         if ($DBAdmin->update(['token' => $token], $userInfo['aid']) === 1) {
-            setcookie('token', $token, time() + 3600, '/');
+            setcookie('admintoken', $token, time() + 3600, '/');
             $message = ['logininfo' => "success"];
             echo json_encode($message);
         } else {
@@ -138,7 +138,7 @@ class LoginbackController extends Controller
 
     public function logout()
     {
-        setcookie('token', 0, time()-10, "/");
+        setcookie('admintoken', 0, time()-10, "/");
         header("Location:index");
     }
 }

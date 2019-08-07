@@ -13,12 +13,12 @@ class IndexbackController extends Controller
     public function index($reg = false)
     {
 
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             header("Location: ../loginback/index");
             exit;
         } else {
             $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['token']]);
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
             if (empty($userInfo)) {
                 header("Location: ../loginback/index");
                 exit;

@@ -43,7 +43,7 @@ class LoginController extends Controller
             'repassword' => array('length' => "6~20"),
             'name' => array('length' => '3~30'),
             'phone' => array('phone' => '0'),
-            'address' => array('notempty' => '0'),
+            'address' => array('length' => "1~50"),
         ];
 
         ##針對設定格式驗證表單
@@ -137,7 +137,9 @@ class LoginController extends Controller
         ##檢查驗證碼
         Session::init();
         if (Session::get('vcode') !== $loginInfo['vcode']) {
-            echo json_encode(['reginfo' => ['error' => '驗證碼錯誤']]);
+            $error['error'] = '驗證碼錯誤';
+            echo json_encode(['logininfo' => $error]);
+            // echo json_encode(['logininfo' => ['error' => '驗證碼錯誤']]);
             exit;
         } else {
             Session::destroy();
@@ -152,7 +154,7 @@ class LoginController extends Controller
         ##針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($loginInfo, $verification);
         if (!empty($this->helper->checkForm($loginInfo, $verification))) {
-            echo json_encode(['reginfo' => $errorMessage]);
+            echo json_encode(['logininfo' => $errorMessage]);
             exit;
         }
 
@@ -163,7 +165,15 @@ class LoginController extends Controller
         $userInfo = $DBCustomer->getOne(['email' => $loginInfo['email']]);
         $password = password_verify($loginInfo['password'], $userInfo['password']);
         if (empty($userInfo) || $password === false) {
-            echo json_encode(['reginfo' => ['error' => 'Email或密碼錯誤']]);
+            $error['password'] = "Email或密碼不正確";
+            $error['email'] = "Email或密碼不正確";
+            echo json_encode(['logininfo' => $error]);
+            exit;
+        }
+
+        if ($userInfo['released'] === '0') {
+            $error['email'] = "此帳號已遭停權";
+            echo json_encode(['logininfo' => $error]);
             exit;
         }
 

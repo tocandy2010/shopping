@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 03:10:57
+/* Smarty version 3.1.33, created on 2019-08-07 05:22:38
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d48d3a14264a7_39418482',
+  'unifunc' => 'content_5d4a43fe7f0686_39513911',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1d8c44e2a3e16b22b34c65048ba9f4559355b712' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\login.html',
-      1 => 1565053747,
+      1 => 1565148157,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d48d3a14264a7_39418482 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4a43fe7f0686_39513911 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -135,18 +135,11 @@ indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-/goods/index/jog">訂單管理</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/ski">會員管理</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/boxing">新增商品</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/yoga">商品管理</a></li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                 </ul>
             </div>
@@ -163,10 +156,10 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <h1>員工登入</h1>
                         <div class="col-md-10">
                             <label for="email">account</label>
-                            <input id="email" name="email" type="text" placeholder="your E-mail"
+                            <input id="account" name="account" type="text" placeholder=""
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
-                                <span class="errorinfo" id='emailinfo'></span></span>
+                                <span class="errorinfo" id='accountinfo'></span></span>
                         </div>
                     </div>
 
@@ -175,7 +168,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
                         <div class="col-md-10">
                             <label for="password">password</label>
-                            <input id="password" name="password" type="password" placeholder="your password"
+                            <input id="password" name="password" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">
                                 <span class="errorinfo" id='passwordinfo'></span></span>
@@ -218,17 +211,16 @@ public/vcode/vcode.php" alt="驗證碼" id='vcodeimg'>
 
 <?php echo '<script'; ?>
 >
-
     $('#vcodeimg').click(function () {
         this.src = "<?php echo URL;?>
 public/vcode/vcode.php?" + Math.random();
     })
 
     $("#loginsend").click(function () {
-        let eamil = $('#email').val();
+        let account = $('#account').val();
         let password = $('#password').val();
         let vcode = $('#vcode').val();
-        let formname = ['email', 'password', 'error'];
+        let formname = ['account', 'password', 'error'];
 
         for(error of formname) {
                 $('#' + error + 'info').html("");
@@ -239,26 +231,34 @@ public/vcode/vcode.php?" + Math.random();
             type: "POST",
             dataType: "json",
             data: {
-                'email': eamil,
+                'account': account,
                 'password': password,
                 'vcode': vcode,
             },
             success: function (result) {
+                console.log(result.logininfo)
                 if (result.logininfo === 'success') {
                     $(window).attr('location', '<?php echo URL;?>
-/index/index');
+indexback/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
+                    changevcode()
                 } else if (result.logininfo) {
                     for (error of formname) {
                         $('#' + error + 'info').html(result.logininfo[error]);
                     }
+                    changevcode()
                 } else {
                     $('#errorinfo').html("錯誤");
+                    changevcode()
                 }
             }
         });
     })
+
+    function changevcode() {
+        $("#vcodeimg").click();
+    }
 
 
 <?php echo '</script'; ?>

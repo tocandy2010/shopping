@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 11:39:33
-  from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
+/* Smarty version 3.1.33, created on 2019-08-07 09:55:08
+  from 'C:\xampp\htdocs\TaiwanGYM\views\home\orders\myorders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4a9c55cf3876_77833968',
+  'unifunc' => 'content_5d4a83dc671310_15074510',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '8b6b93bd7b3d4303e68ea6d790c0a79135b8cd27' => 
+    '60e5fc6dac335c8bd869f988d17eec02d58cbcd6' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1565170773,
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\myorders.html',
+      1 => 1565164478,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4a9c55cf3876_77833968 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4a83dc671310_15074510 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>Myorder</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -44,7 +44,7 @@ function content_5d4a9c55cf3876_77833968 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 737px
+            height: 711px
         }
 
         /* Set gray background color and 100% height */
@@ -64,15 +64,6 @@ function content_5d4a9c55cf3876_77833968 (Smarty_Internal_Template $_smarty_tpl)
             background-color: #444444;
             padding: 25px;
             color: white;
-        }
-
-        #headerimg {
-            background-image: url('<?php echo URL;?>
-public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
-.png');
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            height: 700px;
         }
 
         #username {
@@ -99,58 +90,21 @@ public/homeimg/headerimg/<?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
 
         }
 
-        #typelist {
-            position: relative;
-            top: 15%;
-            text-align: center;
-        }
-
-        .typelist {
-            border: 1px solid white;
-        }
-
-        #breadcrumbs {
-            background-color: white;
-            font-size: 18px;
-        }
-
-        .goodsprice {
-            width: 97%;
-            text-align: right;
-            font-family: fantasy;
-            font-size: 14px;
-            color: black;
-            letter-spacing: 0.8px
-        }
-
-        .goodsname {
-            text-align: center;
-            width: 100%;
+        .eamil {
+            text-align: left;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            letter-spacing: 0.8px;
-            color: black;
-            font-family: "Microsoft JhengHei";
         }
 
-        .goodswall {
-            border: 1px solid white
+        .address {
+            width: 40%
         }
 
-        .goodswall:hover {
-            border: 1px solid rgb(57, 122, 175)
-        }
-
-        .goodsimg {
-            max-width: 100%;
-            margin: auto;
-        }
-
-        #checkcookie {
-            text-align: center;
+        .checkorder {
+            font-size: 15px;
         }
     </style>
 </head>
@@ -204,64 +158,54 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
-        <div id='checkcookie'></div>
     </div>
 
     <div class="container-fluid">
-        <div class="row content" style="margin-left:50px">
-            <div class="col-sm-2 sidenav">
-                <!-- <div class="list-group" id='typelist'>
-                    <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
-                    <a href="#" class="list-group-item typelist">type1</a>
-                    <a href="#" class="list-group-item typelist">type2</a>
-                    <a href="#" class="list-group-item typelist">type3</a>
-                </div> -->
-            </div>
-
+        <div class="row content">
+            <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="<?php echo URL;?>
-index/index">Home</a></li>
-                    <li><?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
-</li>
-                    <!-- <li class="active">goodsname</li> -->
-                </ol>
                 <div class="container-fluid">
-                    <div class="row">
-                        <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['goods']->value, 'goodsinfo');
+                    <p>
+                        <h2>我的訂單紀錄</h2>
+                    </p>
+                    <p>&nbsp</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>訂單編號</th>
+                                <th>購買商品總件數</th>
+                                <th>商品</th>
+                                <th>收件地址</th>
+                                <th>成立時間</th>
+                                <th>訂單狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['orders']->value, 'ordersinfo');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['ordersinfo']->value) {
 ?>
-                        <div class="col-sm-2 goodswall">
-                            <div>
-                                <!-- <div class="panel-heading"  style = 'background-color: white'>商品1</div> -->
-                                <div class="panel-body">
-                                    <a href="<?php echo URL;?>
-goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">
-                                        <img src="<?php echo URL;
-echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
-" class="img-responsive goodsimg">
-                                    </a>
-                                </div>
-                                <div class="panel-heading">
-                                    <p class='goodsprice'><span>NT$</span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
-</p>
-                                    <a href="<?php echo URL;?>
-goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">
-                                        <p class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
-</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
+                            <tr>
+                                <td class='eamil'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['buynum'];?>
+</td>
+                                <td class="checkorder"><a href="<?php echo URL;?>
+order/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+">查看訂單商品</a></td>
+                                <td class='address'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['address'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
+</td>
+                                <td>訂單成立</td>
+                            </tr>
+                            <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="col-sm-2 sidenav"></div>
@@ -270,26 +214,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-
 </body>
 
 </html>
 
 <?php echo '<script'; ?>
 >
-
-    $().ready(function () {
-        let checkcookie = $("#checkcookie");
-        if (navigator.cookieEnabled == true) {
-            checkcookie.html();
-            checkcookie.attr('class', "");
-        }
-        else {
-            checkcookie.attr('class', "alert alert-danger");
-            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
-
-        }
-    })
 
 <?php echo '</script'; ?>
 ><?php }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 18:12:06
+/* Smarty version 3.1.33, created on 2019-08-07 09:40:34
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d495276cb42c5_93075730',
+  'unifunc' => 'content_5d4a2c12c74584_93251202',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7fbdec4cdcc6dea19e333cfb1dd51ff165831be6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\goods.html',
-      1 => 1565086247,
+      1 => 1565141960,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d495276cb42c5_93075730 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4a2c12c74584_93251202 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -63,17 +63,6 @@ function content_5d495276cb42c5_93075730 (Smarty_Internal_Template $_smarty_tpl)
         footer {
             background-color: #444444;
             padding: 25px;
-            color: white;
-        }
-
-        #username {
-            cursor: default;
-            color: white;
-            font-size: 16px;
-        }
-
-        #username:hover {
-            cursor: default;
             color: white;
         }
 
@@ -138,9 +127,6 @@ function content_5d495276cb42c5_93075730 (Smarty_Internal_Template $_smarty_tpl)
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
 indexback/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
-</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -154,8 +140,6 @@ goodsback/index">商品管理</a></li>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
-                            Myorder</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -218,7 +202,7 @@ echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 </td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['addTime'];?>
 </td>
-                                <td  data-gid="1" class='del'>
+                                <td  data-gid="1" class='edit'>
                                     <button type="button" class="btn btn-info">Edit</button>
                                     <?php if ($_smarty_tpl->tpl_vars['goodsinfo']->value['released'] === '1') {?>
                                     <button type="button" class="btn btn-success released" 
@@ -260,7 +244,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         $.ajax({
             url: 'setGoodStatus',
             dataType: "json",
-            type: 'POST',
+            type: 'PUT',
             data: {
                 'gid' : gid,
                 'status' : status,
@@ -268,6 +252,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             success: function (result) {
                 if (result.setstatus === 'fail') {
                     alert("操作失敗");
+                } else if (result.setstatus === 'notlogin') {
+                    alert("請先登入");
+                    $(window).attr('location', '<?php echo URL;?>
+loginback/index');
                 } else if (result.setstatus === 'success') {
                     if (status === '1') {
                         $(_this).attr('class', "btn btn-danger released");

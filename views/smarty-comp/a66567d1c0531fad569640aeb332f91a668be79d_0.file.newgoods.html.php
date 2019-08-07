@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 08:44:49
+/* Smarty version 3.1.33, created on 2019-08-07 11:33:03
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\newgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4921e11bc8b8_21435265',
+  'unifunc' => 'content_5d4a9acf24b1b1_84812003',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a66567d1c0531fad569640aeb332f91a668be79d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\newgoods.html',
-      1 => 1565073875,
+      1 => 1565141944,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4921e11bc8b8_21435265 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4a9acf24b1b1_84812003 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -58,16 +58,6 @@ function content_5d4921e11bc8b8_21435265 (Smarty_Internal_Template $_smarty_tpl)
         footer {
             background-color: #444444;
             padding: 25px;
-            color: white;
-        }
-
-        #username {
-            cursor: default;
-            color: white;
-        }
-
-        #username:hover {
-            cursor: default;
             color: white;
         }
 
@@ -265,7 +255,11 @@ goodsback/index"><button type="button"
                         alert("新增商品成功");
                         $(window).attr('location', '<?php echo URL;?>
 goodsback/index');
-                    } else if (result.addinfo === 'fail') {
+                    } else if (result.addinfo === 'notlogin') {
+                        alert("請先登入");
+                        $(window).attr('location', '<?php echo URL;?>
+loginback/index');
+                    }else if (result.addinfo === 'fail') {
                         $('#errorinfo').html("新增商品失敗");
                     } else if (result.addinfo) {
                         for (error of formname) {

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 03:36:06
-  from 'C:\xampp\htdocs\TaiwanGYM\views\back\index.html' */
+/* Smarty version 3.1.33, created on 2019-08-07 12:19:12
+  from 'C:\xampp\htdocs\TaiwanGYM\views\back\login\reg.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4a2b062a6db7_26793817',
+  'unifunc' => 'content_5d4aa5a0d7ce85_31861541',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'af448bb39bb231caa242154f1e69e2b7eb3b6235' => 
+    'bb6049832a13f6f7ab7782dc0d296e071c5be73e' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\index.html',
-      1 => 1565141764,
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\reg.html',
+      1 => 1565139922,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4a2b062a6db7_26793817 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4aa5a0d7ce85_31861541 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -38,13 +38,13 @@ function content_5d4a2b062a6db7_26793817 (Smarty_Internal_Template $_smarty_tpl)
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
-            margin-bottom: 70px;
+            margin-bottom: 100px;
             border-radius: 0px;
         }
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 767px
+            height: 737px
         }
 
         /* Set gray background color and 100% height */
@@ -77,14 +77,6 @@ function content_5d4a2b062a6db7_26793817 (Smarty_Internal_Template $_smarty_tpl)
             letter-spacing: 0.5px
         }
 
-        #index {
-            background-image: url("<?php echo URL;?>
-public/backimg/index.png");
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            height: 700px;
-        }
-
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -110,31 +102,24 @@ public/backimg/index.png");
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
-indexback/index">Home</a>
+index/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-goods/index/jog">訂單管理</a></li>
+/goods/index/jog">Jog</a></li>
                     <li><a href="<?php echo URL;?>
-customerback/index">會員管理</a></li>
+/goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-goodsback/index">商品管理</a></li>
+/goods/index/Boxing">boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
-loginback/logout"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                        Login</a></li>
-                    <?php }?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                            Login</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-
             </div>
         </div>
     </nav>
@@ -142,7 +127,56 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left" id='index'></div>
+            <div class="col-sm-8 text-left">
+                <form class="form-horizontal">
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="account">員工編號</label>
+                        <div class="col-md-4">
+                            <input id="account" name="account" type="text" placeholder="" class="form-control input-md"
+                                autocomplete="off">
+                            <span class="help-block">請輸入員工編號
+                                <span class="errorinfo" id='accountinfo'></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="password">密碼</label>
+                        <div class="col-md-4">
+                            <input id="password" name="password" type="password" placeholder=""
+                                class="form-control input-md" autocomplete="off">
+                            <span class="help-block">請輸入6~20位
+                                <span class="errorinfo" id="passwordinfo"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="password">確認密碼</label>
+                        <div class="col-md-4">
+                            <input id="repassword" name="repassword" type="password" placeholder=""
+                                class="form-control input-md" autocomplete="off">
+                            <span class="help-block">請再輸入一次密碼
+                                <span class="errorinfo" id="repasswordinfo"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Button (Double) -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="button1id"></label>
+                        <div class="col-md-8">
+                            <button type="button" id="regsend" class="btn btn-info">Create an account</button>
+                            <a href="<?php echo URL;?>
+loginback/index"><button type="button"
+                                    class="btn btn-danger">Cancel</button></a>
+                            <span class="errorinfo" id='errorinfo'></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
@@ -153,13 +187,10 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 >
         //style="border:3px solid crimson"
         $("#regsend").click(function () {
-            let eamil = $('#email').val();
+            let account = $('#account').val();
             let password = $('#password').val();
             let repassword = $('#repassword').val();
-            let name = $('#name').val();
-            let phone = $('#phone').val();
-            let address = $('#address').val();
-            let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
+            let formname = ['account', 'password', 'repassword'];
 
             for (error of formname) {
                 $('#' + error + 'info').html("");
@@ -170,18 +201,15 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                 type: "POST",
                 dataType: "json",
                 data: {
-                    'email': eamil,
+                    'account': account,
                     'password': password,
                     'repassword': repassword,
-                    'name': name,
-                    'phone': phone,
-                    'address': address,
                 },
                 success: function (result) {
                     console.log(result);
                     if (result.reginfo === 'success') {
                         $(window).attr('location', '<?php echo URL;?>
-/login/index');
+loginback/index');
                     } else if (result.reginfo === 'fail') {
                         $('#errorinfo').html("註冊失敗");
                     } else if (result.reginfo) {

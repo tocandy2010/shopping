@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 11:39:12
-  from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
+/* Smarty version 3.1.33, created on 2019-08-07 11:12:37
+  from 'C:\xampp\htdocs\TaiwanGYM\views\home\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4a9c40a82520_53096579',
+  'unifunc' => 'content_5d4a96053b6fb1_10373205',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '21db822911640099cfa7b9d269bd2250cd03c75b' => 
+    'bca90d9a09373503a9b0257b30257f8cd78412e2' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565170748,
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\ordergoods.html',
+      1 => 1565169156,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4a9c40a82520_53096579 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4a96053b6fb1_10373205 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>ordergoods</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -166,8 +166,7 @@ goods/index/yoga">Yoga</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-order/index"><span class="glyphicon glyphicon-list-alt"></span>
+                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
                     <li><a href="<?php echo URL;?>
 login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
@@ -191,7 +190,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
-                    <h2>我的購物車</h2>
+                    <h2>訂單商品</h2>
                     <div id='checkcookie'></div>
                     <p>&nbsp</p>
                     <table class="table table-hover">
@@ -202,8 +201,6 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                                 <th>單價</th>
                                 <th>購買數量</th>
                                 <th>小計</th>
-                                <th>取消購買</th>
-                                <th>備註</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -234,53 +231,18 @@ goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
                                 <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></td>
-                                <td>
-                                    <div class="form-group row">
-                                        <div class="col-md-10">
-                                            <!-- <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class="gless"
-                                                value="-"> -->
-                                            <input class="form-control gnum" type="number"
-                                                data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" min='1' max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-"
-                                                id="gnum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" value="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['buynum'];?>
-">
-                                            <!-- <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class='add'
-                                                data-max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-" value="+"> -->
-                                        </div>
-                                    </div>
-                                </td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['number'];?>
+</span></td>
                                 <td>
                                     <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['sumprice'];?>
 </span></div>
                                 </td>
-                                <td data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class='del'>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </td>
-                                <td><span class='errorinfo' id="errorstock<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-"></span></td>
                             </tr>
                             <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                            <tr>
-                                <td id='Checkout' colspan="7">
-                                    <?php if ($_smarty_tpl->tpl_vars['checkoutbtn']->value) {?>
-                                    <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
-                                    <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-block" disabled
-                                        id='checkout'>結帳</button>
-                                    <?php }?>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -320,7 +282,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     //         $("#gnum" + gid).val(max);
     //     }
 
-
+        
     //     //$('#gnum' + gid).blur();
     // })
 
@@ -336,18 +298,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     // })
 
     //計算小記價格
-    $('.gnum').click(function () {
+    $('.gnum').click(function() {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
         let gnum = $(this).val();
-        let price = parseInt($("#price" + gid).html());
+        let price = parseInt($("#price"+gid).html());
 
         if (gnum >= max) {
             gnum = max;
         }
         sum = price * gnum;
 
-        $("#sum" + gid).html(sum);
+        $("#sum"+gid).html(sum);
     })
 
     //將實際購買數量上傳到購物車內
@@ -423,7 +385,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     alert('目前購物車內沒有任何商品');
                     $("#checkout").attr('disabled', true);
 
-                } else if (result.checkoutinfo) {
+                }else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
                         $("#errorstock" + id).html("此庫存不足");
                     }

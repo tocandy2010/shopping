@@ -1,40 +1,13 @@
-<?php
-/* Smarty version 3.1.33, created on 2019-08-07 11:39:12
-  from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
-
-/* @var Smarty_Internal_Template $_smarty_tpl */
-if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '3.1.33',
-  'unifunc' => 'content_5d4a9c40a82520_53096579',
-  'has_nocache_code' => false,
-  'file_dependency' => 
-  array (
-    '21db822911640099cfa7b9d269bd2250cd03c75b' => 
-    array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565170748,
-      2 => 'file',
-    ),
-  ),
-  'includes' => 
-  array (
-  ),
-),false)) {
-function content_5d4a9c40a82520_53096579 (Smarty_Internal_Template $_smarty_tpl) {
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>ordergoods</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <?php echo '<script'; ?>
- src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -145,38 +118,29 @@ function content_5d4a9c40a82520_53096579 (Smarty_Internal_Template $_smarty_tpl)
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-index/index">Home</a>
+                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
-</span>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-goods/index/jog">Jog</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/ski">Ski</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/boxing">Boxing</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/yoga">Yoga</a></li>
+                    <li><a href="{{URL}}goods/index/jog">Jog</a></li>
+                    <li><a href="{{URL}}goods/index/ski">Ski</a></li>
+                    <li><a href="{{URL}}goods/index/boxing">Boxing</a></li>
+                    <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
+                    {{if $loginflag|default:false}}
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-order/index"><span class="glyphicon glyphicon-list-alt"></span>
+                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
-                    <li><a href="<?php echo URL;?>
-login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                    <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    {{else}}
+                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
-                    <?php }?>
+                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -191,7 +155,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
-                    <h2>我的購物車</h2>
+                    <h2>訂單商品</h2>
                     <div id='checkcookie'></div>
                     <p>&nbsp</p>
                     <table class="table table-hover">
@@ -202,85 +166,29 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                                 <th>單價</th>
                                 <th>購買數量</th>
                                 <th>小計</th>
-                                <th>取消購買</th>
-                                <th>備註</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['goods']->value, 'goodsinfo');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
-?>
+                            {{foreach from=$goods item=$goodsinfo}}
                             <tr>
                                 <td>
-                                    <a href="<?php echo URL;?>
-goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">
-                                        <img class="img-responsive" src="<?php echo URL;
-echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
-"
+                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
+                                        <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
                                             style="max-width: 30%;margin:auto;" alt="Cinque Terre">
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="<?php echo URL;?>
-goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">
-                                        <span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
-<span>
+                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
+                                        <span class='goodsname'>{{$goodsinfo['name']}}<span>
                                     </a>
                                 </td>
-                                <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-"><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
-</span></td>
+                                <td>NT$<span id="price{{$goodsinfo['gid']}}">{{$goodsinfo['price']}}</span></td>
+                                <td>{{$goodsinfo['number']}}</span></td>
                                 <td>
-                                    <div class="form-group row">
-                                        <div class="col-md-10">
-                                            <!-- <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class="gless"
-                                                value="-"> -->
-                                            <input class="form-control gnum" type="number"
-                                                data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" min='1' max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-"
-                                                id="gnum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" value="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['buynum'];?>
-">
-                                            <!-- <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class='add'
-                                                data-max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-" value="+"> -->
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-"><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['sumprice'];?>
-</span></div>
-                                </td>
-                                <td data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class='del'>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </td>
-                                <td><span class='errorinfo' id="errorstock<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-"></span></td>
-                            </tr>
-                            <?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                            <tr>
-                                <td id='Checkout' colspan="7">
-                                    <?php if ($_smarty_tpl->tpl_vars['checkoutbtn']->value) {?>
-                                    <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
-                                    <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btn-block" disabled
-                                        id='checkout'>結帳</button>
-                                    <?php }?>
+                                    <div>NT$<span id="sum{{$goodsinfo['gid']}}">{{$goodsinfo['sumprice']}}</span></div>
                                 </td>
                             </tr>
-
+                            {{/foreach}}
                         </tbody>
                     </table>
                 </div>
@@ -295,8 +203,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
 </html>
 
-<?php echo '<script'; ?>
->
+<script>
 
     $().ready(function () {
         let checkcookie = $("#checkcookie");
@@ -320,7 +227,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     //         $("#gnum" + gid).val(max);
     //     }
 
-
+        
     //     //$('#gnum' + gid).blur();
     // })
 
@@ -336,18 +243,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     // })
 
     //計算小記價格
-    $('.gnum').click(function () {
+    $('.gnum').click(function() {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
         let gnum = $(this).val();
-        let price = parseInt($("#price" + gid).html());
+        let price = parseInt($("#price"+gid).html());
 
         if (gnum >= max) {
             gnum = max;
         }
         sum = price * gnum;
 
-        $("#sum" + gid).html(sum);
+        $("#sum"+gid).html(sum);
     })
 
     //將實際購買數量上傳到購物車內
@@ -412,18 +319,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 if (result.checkoutinfo === 'fail') {
                     alert('結帳失敗');
                 } else if (result.checkoutinfo === 'success') {
-                    $(window).attr('location', '<?php echo URL;?>
-/order/index');
+                    $(window).attr('location', '{{URL}}/order/index');
                     alert('訂單已成立');
                 } else if (result.checkoutinfo === 'notlogin') {
                     alert('請先登入會員');
-                    $(window).attr('location', '<?php echo URL;?>
-/login/index');
+                    $(window).attr('location', '{{URL}}/login/index');
                 } else if (result.checkoutinfo === 'luckbtn') {
                     alert('目前購物車內沒有任何商品');
                     $("#checkout").attr('disabled', true);
 
-                } else if (result.checkoutinfo) {
+                }else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
                         $("#errorstock" + id).html("此庫存不足");
                     }
@@ -434,6 +339,4 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         });
     })
 
-<?php echo '</script'; ?>
-><?php }
-}
+</script>

@@ -133,7 +133,7 @@
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     {{if $loginflag|default:false}}
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
+                    <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -174,72 +174,47 @@
                             {{foreach from=$goods item=$goodsinfo}}
                             <tr>
                                 <td>
-                                    <a href="">
+                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
                                         <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
                                             style="max-width: 30%;margin:auto;" alt="Cinque Terre">
                                     </a>
                                 </td>
-                                <td><a href='#'><span class='goodsname'>{{$goodsinfo['name']}}<span></a>
+                                <td>
+                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
+                                        <span class='goodsname'>{{$goodsinfo['name']}}<span>
+                                    </a>
                                 </td>
-                                <td>NT$<span>{{$goodsinfo['price']}}</span></td>
+                                <td>NT$<span id="price{{$goodsinfo['gid']}}">{{$goodsinfo['price']}}</span></td>
                                 <td>
                                     <div class="form-group row">
                                         <div class="col-md-10">
-                                            <input type="button" data-gid="{{$goodsinfo['gid']}}" class="gless"
-                                                value="-">
+                                            <!-- <input type="button" data-gid="{{$goodsinfo['gid']}}" class="gless"
+                                                value="-"> -->
                                             <input class="form-control gnum" type="number"
                                                 data-gid="{{$goodsinfo['gid']}}" min='1' max="{{$goodsinfo['stock']}}"
                                                 id="gnum{{$goodsinfo['gid']}}" value="{{$goodsinfo['buynum']}}">
-                                            <input type="button" data-gid="{{$goodsinfo['gid']}}" class='add'
-                                                data-max="{{$goodsinfo['stock']}}" value="+">
+                                            <!-- <input type="button" data-gid="{{$goodsinfo['gid']}}" class='add'
+                                                data-max="{{$goodsinfo['stock']}}" value="+"> -->
                                         </div>
                                     </div>
-                                    <!-- <form class="form-inline">
-                                            <button type="submit" class="btn btn-default glyphicon glyphicon-minus"></button>
-                                            <div class="form-group">
-                                                <input type="number" class="form-control" style="width:50%">
-                                            </div>
-                                            <button type="submit" class="btn btn-default glyphicon glyphicon-plus"></button>
-                                          </form> -->
                                 </td>
                                 <td>
                                     <div>NT$<span id="sum{{$goodsinfo['gid']}}">{{$goodsinfo['sumprice']}}</span></div>
                                 </td>
-                                <td data-gid="1" class='del'>
+                                <td data-gid="{{$goodsinfo['gid']}}" class='del'>
                                     <button type="button" class="btn btn-danger">Delete</button>
                                 </td>
                                 <td><span class='errorinfo' id="errorstock{{$goodsinfo['gid']}}"></span></td>
                             </tr>
                             {{/foreach}}
-                            <!-- <tr>
-                                <td>
-                                    <a href="">
-                                        <img class="img-responsive" src="{{URL}}public/homeimg/goodsimg/test.png"
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
-                                </td>
-                                <td><a href='#'><span
-                                            class='goodsname'>商品名商品名稱商品名稱商品商品名稱商品名稱商品名稱名稱稱商品名稱商品名稱商品名稱商品名稱商品名稱<span></a>
-                                </td>
-                                <td>NT$<span>123</span></td>
-                                <td>
-                                    <div class="form-group row">
-                                        <div class="col-md-7">
-                                            <input type="button" data-gid="2" class="gless" value="-">
-                                            <input class="form-control gnum" type="number" data-gid="2" min='1' id="gnum2" value="1"
-                                                >
-                                            <input type="button" data-gid="2" data-max="20" class='add' value="+">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>NT$<span id='sum2'>123456</span></div>
-                                </td>
-                                <td class='del' data-gid="2" ><button type="button" class="btn btn-danger" >Delete</button></td>
-                            </tr> -->
                             <tr>
                                 <td id='Checkout' colspan="7">
+                                    {{if $checkoutbtn}}
                                     <button type="button" class="btn btn-primary btn-block" id='checkout'>結帳</button>
+                                    {{else}}
+                                    <button type="button" class="btn btn-primary btn-block" disabled
+                                        id='checkout'>結帳</button>
+                                    {{/if}}
                                 </td>
                             </tr>
 
@@ -271,31 +246,48 @@
         }
     })
 
-    $('.add').click(function () {
-        let gid = $(this).attr("data-gid");
+    // $('.add').click(function () {
+    //     let gid = $(this).attr("data-gid");
+    //     let max = $(this).attr("data-max");
+    //     let gnum = $("#gnum" + gid).val();
+    //     if (parseInt(gnum) < parseInt(max)) {
+    //         $("#gnum" + gid).val(parseInt(gnum) + 1);
+    //     } else {
+    //         $("#gnum" + gid).val(max);
+    //     }
+
+
+    //     //$('#gnum' + gid).blur();
+    // })
+
+    // $('.gless').click(function () {
+    //     let gid = $(this).attr("data-gid");
+    //     let gnum = $("#gnum" + gid).val();
+    //     if (gnum > 1) {
+    //         $("#gnum" + gid).val(parseInt(gnum) - 1);
+    //     } else {
+    //         $("#gnum" + gid).val(1);
+    //     }
+    //     $('#gnum' + gid).blur();
+    // })
+
+    //計算小記價格
+    $('.gnum').click(function () {
         let max = $(this).attr("data-max");
-        let gnum = $("#gnum" + gid).val();
-        if (parseInt(gnum) < parseInt(max)) {
-            $("#gnum" + gid).val(parseInt(gnum) + 1);
-        } else {
-            $("#gnum" + gid).val(max);
-        }
-
-        $('#gnum' + gid).change();
-    })
-
-    $('.gless').click(function () {
         let gid = $(this).attr("data-gid");
-        let gnum = $("#gnum" + gid).val();
-        if (gnum > 1) {
-            $("#gnum" + gid).val(parseInt(gnum) - 1);
-        } else {
-            $("#gnum" + gid).val(1);
+        let gnum = $(this).val();
+        let price = parseInt($("#price" + gid).html());
+
+        if (gnum >= max) {
+            gnum = max;
         }
-        $('#gnum' + gid).change();
+        sum = price * gnum;
+
+        $("#sum" + gid).html(sum);
     })
 
-    $('.gnum').change(function () {
+    //將實際購買數量上傳到購物車內
+    $('.gnum').blur(function () {
         let gnum = $(this).val();
         let gid = $(this).attr("data-gid");
         let max = $(this).attr("max");
@@ -325,6 +317,7 @@
         });
     })
 
+    //刪除商品
     $('.del').click(function () {
         let gid = $(this).attr("data-gid");
         let _this = this;
@@ -345,13 +338,12 @@
         });
     })
 
+    //結帳
     $('#checkout').click(function () {
         $.ajax({
             url: 'checkout',
             dataType: "json",
             type: 'POST',
-            data: {
-            },
             success: function (result) {
                 if (result.checkoutinfo === 'fail') {
                     alert('結帳失敗');
@@ -361,6 +353,10 @@
                 } else if (result.checkoutinfo === 'notlogin') {
                     alert('請先登入會員');
                     $(window).attr('location', '{{URL}}/login/index');
+                } else if (result.checkoutinfo === 'luckbtn') {
+                    alert('目前購物車內沒有任何商品');
+                    $("#checkout").attr('disabled', true);
+
                 } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
                         $("#errorstock" + id).html("此庫存不足");

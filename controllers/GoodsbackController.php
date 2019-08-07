@@ -12,12 +12,12 @@ class GoodsbackController extends Controller
      */
     public function index($reg = false)
     {
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             header("Location: ../loginback/index");
             exit;
         } else {
             $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['token']]);
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
             if (empty($userInfo)) {
                 header("Location: ../loginback/index");
                 exit;
@@ -29,12 +29,14 @@ class GoodsbackController extends Controller
         if (!empty($goodsInfo)) {
             date_default_timezone_set("Asia/Taipei");
             foreach ($goodsInfo as $key => $item) {
+                date_default_timezone_set("Asia/Taipei");
                 $goodsInfo[$key]['addTime'] = date("Y-m-d H:i:s", $item['addTime']);
             }
         }
 
+        $loginFlag = true;
         $this->smarty->assign('goods', $goodsInfo);
-
+        $this->smarty->assign('loginflag', $loginFlag);
         return $this->smarty->display('back/goods/goods.html');
     }
 
@@ -48,12 +50,12 @@ class GoodsbackController extends Controller
 
     public function add()
     {
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             echo json_encode(['addinfo' => "notlogin"]);
             exit;
         } else {
             $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['token']]);
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
             if (empty($userInfo)) {
                 echo json_encode(['addinfo' => "notlogin"]);
                 exit;
@@ -163,20 +165,29 @@ class GoodsbackController extends Controller
 
     public function setGoodStatus()
     {
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             echo json_encode(['setstatus' => "notlogin"]);
             exit;
         } else {
             $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['token']]);
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
             if (empty($userInfo)) {
                 echo json_encode(['setstatus' => "notlogin"]);
                 exit;
             }
         }
         
-        $gid = $_POST['gid'];
-        $status = $_POST['status'];
+        parse_str(file_get_contents('php://input'), $data);
+        if (!isset($data) || empty($data)) {
+            echo json_encode(['setstatus' => "fail"]);
+            exit;
+        } else {
+            $gid = $data['gid'];
+            $status = $data['status'];
+        }
+
+
+
         $DBGoods = $this->DBGoods;
         $goodsInfo = $DBGoods->findOne($gid);
         if (empty($goodsInfo)) {
@@ -184,11 +195,7 @@ class GoodsbackController extends Controller
             exit;
         }
 
-        if ($status === '1') {
-            $status = 0;
-        } else {
-            $status = 1;
-        }
+        $status = $status === '1' ? 0 : 1;
 
         if ($DBGoods->update(['released' => $status], $gid) === 1) {
             echo json_encode(['setstatus' => "success"]);

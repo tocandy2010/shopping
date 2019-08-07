@@ -91,6 +91,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {{if $loginflag|default:false}}
+                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Logout</a></li>
                     {{else}}

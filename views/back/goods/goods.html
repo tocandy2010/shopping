@@ -39,17 +39,6 @@
             color: white;
         }
 
-        #username {
-            cursor: default;
-            color: white;
-            font-size: 16px;
-        }
-
-        #username:hover {
-            cursor: default;
-            color: white;
-        }
-
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -110,8 +99,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -122,8 +109,6 @@
                 <ul class="nav navbar-nav navbar-right">
                     {{if $loginflag|default:false}}
                     <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
-                            Myorder</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
                     {{else}}
@@ -173,7 +158,7 @@
                                 <td>NT$<span>{{$goodsinfo['price']}}</span></td>
                                 <td>{{$goodsinfo['stock']}}</td>
                                 <td>{{$goodsinfo['addTime']}}</td>
-                                <td  data-gid="1" class='del'>
+                                <td  data-gid="1" class='edit'>
                                     <button type="button" class="btn btn-info">Edit</button>
                                     {{if $goodsinfo['released'] === '1'}}
                                     <button type="button" class="btn btn-success released" 
@@ -209,7 +194,7 @@
         $.ajax({
             url: 'setGoodStatus',
             dataType: "json",
-            type: 'POST',
+            type: 'PUT',
             data: {
                 'gid' : gid,
                 'status' : status,

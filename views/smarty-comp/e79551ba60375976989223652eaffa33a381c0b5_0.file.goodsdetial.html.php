@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 12:17:03
+/* Smarty version 3.1.33, created on 2019-08-07 11:26:35
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\goodsdetial.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d49539f264ae3_25912126',
+  'unifunc' => 'content_5d4a994b6368e9_33566857',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e79551ba60375976989223652eaffa33a381c0b5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goodsdetial.html',
-      1 => 1565086622,
+      1 => 1565169994,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d49539f264ae3_25912126 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4a994b6368e9_33566857 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -159,13 +159,19 @@ goods/index/boxing">Boxing</a></li>
 goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="./login.html"><span class="glyphicon glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Uaername</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Logout</a></li>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
+                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
+                    <li><a href="<?php echo URL;?>
+login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                            Login</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
