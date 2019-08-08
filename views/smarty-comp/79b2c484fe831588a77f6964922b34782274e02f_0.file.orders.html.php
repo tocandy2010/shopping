@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-08 19:14:42
+  from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d4c0422db1689_95013311',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '79b2c484fe831588a77f6964922b34782274e02f' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
+      1 => 1565262882,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d4c0422db1689_95013311 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +29,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -110,24 +137,32 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
+                <a class="navbar-brand" href="<?php echo URL;?>
+indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}orderback/index">訂單管理</a></li>
-                    <li><a href="{{URL}}Customerback/index">會員管理</a></li>
-                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
+                    <li><a href="<?php echo URL;?>
+orderback/index">訂單管理</a></li>
+                    <li><a href="<?php echo URL;?>
+Customerback/index">會員管理</a></li>
+                    <li><a href="<?php echo URL;?>
+goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
+                    <li><a href="<?php echo URL;?>
+loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
+"><span
                                 class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                    <li><a href="<?php echo URL;?>
+loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
-                    {{/if}}
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -159,25 +194,43 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{foreach from=$orders item=$ordersinfo}}
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['orders']->value, 'ordersinfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['ordersinfo']->value) {
+?>
                             <tr>
-                                <td class='eamil'>{{$ordersinfo['onum']}}</td>
-                                <td>{{$ordersinfo['buynum']}}</td>
-                                <td>{{$ordersinfo['total']}}</td>
+                                <td class='eamil'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['buynum'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['total'];?>
+</td>
                                 <td class="checkorder"><a
-                                        href="{{URL}}orderback/showGoods/{{$ordersinfo['onum']}}">查看訂單商品</a></td>
-                                <td class='address'>{{$ordersinfo['address']}}</td>
-                                <td>{{$ordersinfo['createTime']}}</td>
-                                <td id="{{$ordersinfo['onum']}}">{{$ordersinfo['statusName']}}</td>
+                                        href="<?php echo URL;?>
+orderback/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+">查看訂單商品</a></td>
+                                <td class='address'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['address'];?>
+</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
+</td>
+                                <td id="<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['statusName'];?>
+</td>
                                 <td>
-                                    {{if $ordersinfo['status'] !== 3}}
+                                    <?php if ($_smarty_tpl->tpl_vars['ordersinfo']->value['status'] !== 3) {?>
                                     <button type="button" class="btn btn-info status"
-                                        data-status="{{$ordersinfo['status']}}"
-                                        data-onum="{{$ordersinfo['onum']}}">edit</button>
-                                    {{/if}}
+                                        data-status="<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['status'];?>
+"
+                                        data-onum="<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+">edit</button>
+                                    <?php }?>
                                 </td>
                             </tr>
-                            {{/foreach}}
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </tbody>
                     </table>
                 </div>
@@ -203,10 +256,19 @@
                             <div class="form-group">
                                 <select id='status' name='status' class="form-control">
                                     <option disabled>狀態</option>
-                                    {{foreach from=$ostatus item=$ostatusInfo}}
-                                    <option class='options' value="{{$ostatusInfo['onum']}}">{{$ostatusInfo['name']}}
+                                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['ostatus']->value, 'ostatusInfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['ostatusInfo']->value) {
+?>
+                                    <option class='options' value="<?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['onum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['name'];?>
+
                                     </option>
-                                    {{/foreach}}
+                                    <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                 </select>
                             </div>
                             <p class='errorinfo' id='errorinfo'>&nbsp</p>
@@ -231,7 +293,8 @@
 </body>
 
 </html>
-<script>
+<?php echo '<script'; ?>
+>
 
     let onum = null;
     let editbtn = null;
@@ -297,4 +360,6 @@
             }
         });
     })
-</script>
+<?php echo '</script'; ?>
+><?php }
+}

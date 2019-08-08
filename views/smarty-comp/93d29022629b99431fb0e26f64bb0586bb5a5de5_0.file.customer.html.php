@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 03:41:18
+/* Smarty version 3.1.33, created on 2019-08-08 09:06:54
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\customer\customer.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4a2c3e94c810_74871049',
+  'unifunc' => 'content_5d4b75ae59e284_97306739',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93d29022629b99431fb0e26f64bb0586bb5a5de5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\customer\\customer.html',
-      1 => 1565141918,
+      1 => 1565226232,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4a2c3e94c810_74871049 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4b75ae59e284_97306739 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -114,7 +114,7 @@ indexback/index">Home</a>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-ordersback/index">訂單管理</a></li>
+orderback/index">訂單管理</a></li>
                     <li><a href="<?php echo URL;?>
 Customerback/index">會員管理</a></li>
                     <li><a href="<?php echo URL;?>
@@ -122,7 +122,9 @@ goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
+"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -178,7 +180,6 @@ foreach ($_from as $_smarty_tpl->tpl_vars['customerinfo']->value) {
                                 <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['regTime'];?>
 </td>
                                 <td class='edit'>
-                                    <button type="button" class="btn btn-info">Edit</button>
                                     <?php if ($_smarty_tpl->tpl_vars['customerinfo']->value['released'] === '1') {?>
                                     <button type="button" class="btn btn-success released" 
                                     data-value='1' data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>

@@ -187,7 +187,7 @@ class GoodsbackController extends Controller
             exit;
         } else {
             $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['admintoken' => $_COOKIE['admintoken']]);
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
             if (empty($userInfo)) {
                 echo json_encode(['setstatus' => "notlogin"]);
                 exit;

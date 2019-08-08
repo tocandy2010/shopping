@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 09:06:53
-  from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\goods.html' */
+/* Smarty version 3.1.33, created on 2019-08-08 03:24:04
+  from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4b75ad70aa86_70673083',
+  'unifunc' => 'content_5d4b79b45dec41_67590836',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '7fbdec4cdcc6dea19e333cfb1dd51ff165831be6' => 
+    '0798c9990c6f0bf7723e9c5993b9362f214d5aca' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\goods.html',
-      1 => 1565226232,
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\ordergoods.html',
+      1 => 1565227443,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4b75ad70aa86_70673083 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4b79b45dec41_67590836 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>ordergoods</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -44,7 +44,7 @@ function content_5d4b75ad70aa86_70673083 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 691px
+            height: 711px
         }
 
         /* Set gray background color and 100% height */
@@ -66,6 +66,17 @@ function content_5d4b75ad70aa86_70673083 (Smarty_Internal_Template $_smarty_tpl)
             color: white;
         }
 
+        #username {
+            cursor: default;
+            color: white;
+            font-size: 16px;
+        }
+
+        #username:hover {
+            cursor: default;
+            color: white;
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -77,6 +88,10 @@ function content_5d4b75ad70aa86_70673083 (Smarty_Internal_Template $_smarty_tpl)
                 height: auto;
             }
 
+            tr {
+                width: auto
+            }
+
         }
 
         .goodsimg {
@@ -85,7 +100,7 @@ function content_5d4b75ad70aa86_70673083 (Smarty_Internal_Template $_smarty_tpl)
         }
 
         td {
-            width:5%;
+            width: 10%;
         }
 
         .goodsname {
@@ -100,18 +115,23 @@ function content_5d4b75ad70aa86_70673083 (Smarty_Internal_Template $_smarty_tpl)
         .gless {
             position: absolute;
             top: 3px;
-            left: -8%;
+            left: -4%;
         }
 
         .add {
             position: absolute;
             top: 3px;
-            left: 89%
+            left: 93%
         }
 
-        #newbtn {
-            position: relative;
-            left:70%
+        #checkcookie {
+            text-align: center;
+        }
+
+        .errorinfo {
+            color: darkred;
+            font-weight: bold;
+            letter-spacing: 0.5px
         }
     </style>
 </head>
@@ -141,7 +161,8 @@ goodsback/index">商品管理</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
 loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -164,21 +185,17 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
-                    <p>
-                        <h2>商品管理</h2>
-                        <a href="<?php echo URL;?>
-goodsback/create" id='newbtn'><button type="button" class="btn btn-primary btn-lg glyphicon glyphicon-plus">&nbspNew</button></a>
-                    </p>
+                    <h2>訂單商品</h2>
+                    <div id='checkcookie'></div>
                     <p>&nbsp</p>
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>商品圖片</th>
+                                <th></th>
                                 <th>商品名稱</th>
                                 <th>單價</th>
-                                <th>庫存量</th>
-                                <th>上架時間</th>
-                                <th>操作</th>
+                                <th>購買數量</th>
+                                <th>小計</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -189,32 +206,22 @@ foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
 ?>
                             <tr>
                                 <td>
-                                        <img class="img-responsive" src="<?php echo URL;
+                                    <img class="img-responsive" src="<?php echo URL;
 echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 "
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
+                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre"> </a>
                                 </td>
                                 <td><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
 <span></td>
-                                <td>NT$<span><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
+                                <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+"><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-</td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['addTime'];?>
-</td>
-                                <td  data-gid="1" class='edit'>
-                                    <a href="<?php echo URL;?>
-goodsback/edit/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-"><button type="button" class="btn btn-info">Edit</button></a>
-                                    <?php if ($_smarty_tpl->tpl_vars['goodsinfo']->value['released'] === '1') {?>
-                                    <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">Open</button>
-                                    <?php } else { ?>
-                                    <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">Hide</button>
-                                    <?php }?>
+                                <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['number'];?>
+</span></td>
+                                <td>
+                                    <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+"><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['sumprice'];?>
+</span></div>
                                 </td>
                             </tr>
                             <?php
@@ -238,40 +245,141 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <?php echo '<script'; ?>
 >
 
-    //變更商品狀態商品
-    $('.released').click(function(){
-        let status = $(this).attr('data-value');
-        let gid = $(this).attr('data-gid');
-        let _this = this;
+    $().ready(function () {
+        let checkcookie = $("#checkcookie");
+        if (navigator.cookieEnabled == true) {
+            checkcookie.html();
+            checkcookie.attr('class', "");
+        }
+        else {
+            checkcookie.attr('class', "alert alert-danger");
+            checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
+        }
+    })
+
+    // $('.add').click(function () {
+    //     let gid = $(this).attr("data-gid");
+    //     let max = $(this).attr("data-max");
+    //     let gnum = $("#gnum" + gid).val();
+    //     if (parseInt(gnum) < parseInt(max)) {
+    //         $("#gnum" + gid).val(parseInt(gnum) + 1);
+    //     } else {
+    //         $("#gnum" + gid).val(max);
+    //     }
+
+
+    //     //$('#gnum' + gid).blur();
+    // })
+
+    // $('.gless').click(function () {
+    //     let gid = $(this).attr("data-gid");
+    //     let gnum = $("#gnum" + gid).val();
+    //     if (gnum > 1) {
+    //         $("#gnum" + gid).val(parseInt(gnum) - 1);
+    //     } else {
+    //         $("#gnum" + gid).val(1);
+    //     }
+    //     $('#gnum' + gid).blur();
+    // })
+
+    //計算小記價格
+    $('.gnum').click(function () {
+        let max = $(this).attr("data-max");
+        let gid = $(this).attr("data-gid");
+        let gnum = $(this).val();
+        let price = parseInt($("#price" + gid).html());
+
+        if (gnum >= max) {
+            gnum = max;
+        }
+        sum = price * gnum;
+
+        $("#sum" + gid).html(sum);
+    })
+
+    //將實際購買數量上傳到購物車內
+    $('.gnum').blur(function () {
+        let gnum = $(this).val();
+        let gid = $(this).attr("data-gid");
+        let max = $(this).attr("max");
+        if (gnum < 1) {
+            $(this).val(1);
+            gnum = 1;
+        }
+        if (parseInt(gnum) > parseInt(max)) {
+            $(this).val(5);
+            gnum = max;
+        }
         $.ajax({
-            url: 'setGoodStatus',
+            url: 'setCart/' + gid,
             dataType: "json",
-            type: 'PUT',
+            type: 'POST',
             data: {
-                'gid' : gid,
-                'status' : status,
+                'gnum': gnum,
             },
             success: function (result) {
-                if (result.setstatus === 'fail') {
-                    alert("操作失敗");
-                } else if (result.setstatus === 'notlogin') {
-                    alert("請先登入");
-                    $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                } else if (result.setstatus === 'success') {
-                    if (status === '1') {
-                        $(_this).attr('class', "btn btn-danger released");
-                        $(_this).attr('data-value', "0");
-                        $(_this).html("Hide");
-                    } else {
-                        $(_this).attr('class', "btn btn-success released");
-                        $(_this).attr('data-value', "1");
-                        $(_this).html("Open");
-                    }
+                console.log(result);
+                if (result.setcartinfo === 'fail') {
+                    alert("新增失敗");
+                } else if (result.setcartinfo) {
+                    $('#sum' + gid).html(result.setcartinfo);
                 }
             }
         });
-    });
+    })
+
+    //刪除商品
+    $('.del').click(function () {
+        let gid = $(this).attr("data-gid");
+        let _this = this;
+        $.ajax({
+            url: 'delete/' + gid,
+            dataType: "json",
+            type: 'DELETE',
+            data: {
+                'gid': gid,
+            },
+            success: function (result) {
+                if (result.setcartinfo === 'success') {
+                    $(_this).parent().remove();
+                } else {
+                    alert('刪除失敗');
+                }
+            }
+        });
+    })
+
+    //結帳
+    $('#checkout').click(function () {
+        $.ajax({
+            url: 'checkout',
+            dataType: "json",
+            type: 'POST',
+            success: function (result) {
+                if (result.checkoutinfo === 'fail') {
+                    alert('結帳失敗');
+                } else if (result.checkoutinfo === 'success') {
+                    $(window).attr('location', '<?php echo URL;?>
+/order/index');
+                    alert('訂單已成立');
+                } else if (result.checkoutinfo === 'notlogin') {
+                    alert('請先登入會員');
+                    $(window).attr('location', '<?php echo URL;?>
+/login/index');
+                } else if (result.checkoutinfo === 'luckbtn') {
+                    alert('目前購物車內沒有任何商品');
+                    $("#checkout").attr('disabled', true);
+
+                } else if (result.checkoutinfo) {
+                    for (id of result.checkoutinfo) {
+                        $("#errorstock" + id).html("此庫存不足");
+                    }
+                } else {
+                    alert("發生錯誤");
+                }
+            }
+        });
+    })
 
 <?php echo '</script'; ?>
 ><?php }

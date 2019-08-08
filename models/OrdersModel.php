@@ -24,7 +24,7 @@ class OrdersModel extends Model
      */
     public function getOrders($id = false)
     {
-        $sql = "select count(onum) as buynum,onum,sum(price*number) as total,address,createTime from {$this->table} ";
+        $sql = "select count(onum) as buynum,onum,status,sum(price*number) as total,address,createTime from {$this->table} ";
         if ($id !== false) {
             $sql .= "where cid = {$id} group by onum order by createTime desc";
         } else {
@@ -37,7 +37,7 @@ class OrdersModel extends Model
 
     public function getOrderGoods($onum)
     {
-        $sql = "select o.gid,o.name, o.price, o.number, (o.price*o.number) as sumprice, g.gimg 
+        $sql = "select o.onum,o.gid,o.name, o.price, o.number, (o.price*o.number) as sumprice, g.gimg 
         from orders as o 
         left join 
         goods as g 
@@ -46,5 +46,15 @@ class OrdersModel extends Model
         $res = $this->db->prepare($sql);
         $res->execute();
         return $res->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function editOrders($arr,$onum)
+    {
+        $key = array_keys($arr)[0];
+        $value = array_values($arr)[0];
+        $sql = "update orders set {$key} = {$value} where onum = {$onum}";
+        $res = $this->db->prepare($sql);
+        $res->execute();
+        return $this->affectedRows($res);
     }
 }

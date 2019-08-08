@@ -2,6 +2,6 @@
 
 class GtypeModel extends Model 
 {
-    protected $table = "Gtype";
+    protected $table = "gtype";
 
 }

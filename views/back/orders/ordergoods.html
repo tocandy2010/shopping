@@ -122,13 +122,14 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                        <li><a href="{{URL}}orderback/index">訂單管理</a></li>
-                        <li><a href="{{URL}}Customerback/index">會員管理</a></li>
-                        <li><a href="{{URL}}goodsback/index">商品管理</a></li>
+                    <li><a href="{{URL}}orderback/index">訂單管理</a></li>
+                    <li><a href="{{URL}}Customerback/index">會員管理</a></li>
+                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
                     {{else}}
@@ -166,16 +167,10 @@
                             {{foreach from=$goods item=$goodsinfo}}
                             <tr>
                                 <td>
-                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
-                                        <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
+                                    <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
+                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre"> </a>
                                 </td>
-                                <td>
-                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
-                                        <span class='goodsname'>{{$goodsinfo['name']}}<span>
-                                    </a>
-                                </td>
+                                <td><span class='goodsname'>{{$goodsinfo['name']}}<span></td>
                                 <td>NT$<span id="price{{$goodsinfo['gid']}}">{{$goodsinfo['price']}}</span></td>
                                 <td>{{$goodsinfo['number']}}</span></td>
                                 <td>
@@ -221,7 +216,7 @@
     //         $("#gnum" + gid).val(max);
     //     }
 
-        
+
     //     //$('#gnum' + gid).blur();
     // })
 
@@ -237,18 +232,18 @@
     // })
 
     //計算小記價格
-    $('.gnum').click(function() {
+    $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
         let gnum = $(this).val();
-        let price = parseInt($("#price"+gid).html());
+        let price = parseInt($("#price" + gid).html());
 
         if (gnum >= max) {
             gnum = max;
         }
         sum = price * gnum;
 
-        $("#sum"+gid).html(sum);
+        $("#sum" + gid).html(sum);
     })
 
     //將實際購買數量上傳到購物車內
@@ -322,7 +317,7 @@
                     alert('目前購物車內沒有任何商品');
                     $("#checkout").attr('disabled', true);
 
-                }else if (result.checkoutinfo) {
+                } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
                         $("#errorstock" + id).html("此庫存不足");
                     }
