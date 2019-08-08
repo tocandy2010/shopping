@@ -12,6 +12,7 @@ class GoodsbackController extends Controller
      */
     public function index($reg = false)
     {
+        ## 檢查使用者登入
         $path = URL . "loginback/index";
         if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             header("Location: {$path}");
@@ -43,6 +44,9 @@ class GoodsbackController extends Controller
         return $this->smarty->display('back/goods/goods.html');
     }
 
+    /*
+     * 新增商品頁面
+     */
     public function create()
     {
         $path = URL . "loginback/index";
@@ -65,8 +69,12 @@ class GoodsbackController extends Controller
         return $this->smarty->display('back/goods/newgoods.html');
     }
 
+    /*
+     * 新增商品
+     */
     public function add()
     {
+        ## 檢查登入
         if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             echo json_encode(['addinfo' => "notlogin"]);
             exit;
@@ -180,8 +188,12 @@ class GoodsbackController extends Controller
         }
     }
 
+    /*
+     * 修改商品上架與下架
+     */
     public function setGoodStatus()
     {
+        ## 檢查登入
         if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             echo json_encode(['setstatus' => "notlogin"]);
             exit;
@@ -194,6 +206,7 @@ class GoodsbackController extends Controller
             }
         }
 
+        ## 接收參數
         parse_str(file_get_contents('php://input'), $data);
         if (!isset($data) || empty($data)) {
             echo json_encode(['setstatus' => "fail"]);
@@ -203,8 +216,7 @@ class GoodsbackController extends Controller
             $status = $data['status'];
         }
 
-
-
+        ## 檢查狀態碼是否存在
         $DBGoods = $this->DBGoods;
         $goodsInfo = $DBGoods->findOne($gid);
         if (empty($goodsInfo)) {
@@ -212,8 +224,8 @@ class GoodsbackController extends Controller
             exit;
         }
 
+        ## 變更狀態碼
         $status = $status === '1' ? 0 : 1;
-
         if ($DBGoods->update(['released' => $status], $gid) === 1) {
             echo json_encode(['setstatus' => "success"]);
             exit;
@@ -223,6 +235,9 @@ class GoodsbackController extends Controller
         }
     }
 
+    /*
+     * 修改商品頁面
+     */
     public function edit($reg = false)
     {
         ## 檢查是否登入
@@ -262,17 +277,172 @@ class GoodsbackController extends Controller
         $typeinfo = $DBGtype->getAll();
         $loginFlag = !empty($userInfo);
 
-        
+
         $this->smarty->assign('type', $typeinfo);
         $this->smarty->assign('loginflag', $loginFlag);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->display("back/goods/editgoods.html");
     }
 
+    /*
+     * 修改商品資訊
+     */
     public function update()
     {
-        parse_str(file_get_contents('php://input'), $editInfo);
-        var_dump($editInfo);
-        var_dump($_POST);
+        ## 回傳格式
+        $messageInfo = [
+            "info" => true,
+            "message" => null,
+        ];
+
+        ## 驗證使用者登入
+        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+            $messageInfo['info'] = false;
+            $messageInfo['message'] = "未登入";
+            echo json_encode($messageInfo);
+            exit;
+        } else {
+            $DBAdmin = $this->DBAdmin;
+            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+            if (empty($userInfo)) {
+                $messageInfo['info'] = false;
+                $messageInfo['message'] = "使用者憑證錯誤";
+                echo json_encode($messageInfo);
+                exit;
+            }
+        }
+
+        ## 檢查是否有接收到商品id
+        if (isset($_POST['gid']) && is_numeric($_POST['gid'])) {
+            $gid = $_POST['gid'];
+        } else {
+            $messageInfo['info'] = false;
+            $messageInfo['message'] = "無此商品";
+            echo json_encode($messageInfo);
+            exit;
+        }
+
+
+        ## 接收參數
+        if (isset($_POST['tnum'])) {
+            $editInfo['tnum'] = $_POST['tnum'];
+        } else {
+            $messageInfo['info'] = false;
+            $messageInfo['message'] = "未選擇商品分類";
+            echo json_encode($messageInfo);
+            exit;
+        }
+        $editInfo['name'] = trim($_POST['name']);
+        $editInfo['price'] = $_POST['price'];
+        $editInfo['stock'] = $_POST['stock'];
+        $editInfo['uses'] = trim($_POST['uses']);
+        $editInfo['material'] = trim($_POST['material']);
+
+        ## 設定傳入資料要驗證的格式
+        $verification = [
+            'name' => array('length' => '1~20'),
+            'price' => array('between' => "1~100000"),
+            'stock' => array('between' => "1~50000"),
+            'uses' => array('length' => '1~100'),
+            'material' => array('length' => '1~100'),
+        ];
+        ## 對設定格式驗證表單
+        $errorMessage = $this->helper->checkForm($editInfo, $verification);
+        if (!empty($this->helper->checkForm($editInfo, $verification))) {
+            echo json_encode(['addinfo' => $errorMessage]);
+            exit;
+        }
+
+        ## 檢查商品名稱是否重複
+        $DBGoods = $this->DBGoods;
+        $checkName = $DBGoods->getGoodsName($editInfo['name']);
+
+        foreach ($checkName as $info) {
+            if ("{$info['gid']}" !== "{$gid}") {
+                $messageInfo['info'] = false;
+                $messageInfo['message'] = "此商品名稱已被使用";
+                echo json_encode($messageInfo);
+                exit;
+            }
+        }
+
+        ## 檢查商品id
+        $goodsInfo = $DBGoods->findOne($gid);
+        if (empty($goodsInfo)) {
+            $messageInfo['info'] = false;
+            $messageInfo['message'] = "無此商品";
+            echo json_encode($messageInfo);
+            exit;
+        }
+
+        ## 如果有上傳圖片則檢查上傳圖片
+        if (isset($_FILES['gimg']) && $_FILES['gimg']['error'] !== 4) {
+            $gimg = $_FILES['gimg'];
+            if ($gimg['error'] !== 0) {
+                $messageInfo['info'] = false;
+                $messageInfo['message'] = "上傳失敗";
+            }
+            if (!empty($messageInfo['info'] === false)) {
+                echo json_encode($messageInfo);
+                exit;
+            }
+            $gimgtype = explode('/', $gimg['type']);
+            if ($gimgtype[0] !== 'image') {
+                $messageInfo['info'] = false;
+                $messageInfo['message'] = "上傳了非圖片文件";
+            }
+            if (!empty($messageInfo['info'] === false)) {
+                echo json_encode($messageInfo);
+                exit;
+            }
+            ## 上傳商品圖片到指定資料夾
+            $path = "public/homeimg/goodsimg/";
+            if (file_exists($path . $editInfo['name'] . ".png")) {
+                unlink($path . $editInfo['name'] . ".png");
+            }
+            if (move_uploaded_file($gimg['tmp_name'], $path . $editInfo['name'] . ".png")) {
+                $editInfo['gimg'] = $path . $editInfo['name'] . ".png";
+            } else {
+                $messageInfo['info'] = false;
+                $messageInfo['message'] = "上傳失敗";
+                echo json_encode($messageInfo);
+                exit;
+            }
+        }
+
+        ## 特定符號轉義
+        $editInfo['name'] = htmlspecialchars($editInfo['name'], ENT_QUOTES);
+        $editInfo['uses'] = htmlspecialchars($editInfo['uses'], ENT_QUOTES);
+        $editInfo['material'] = htmlspecialchars($editInfo['material'], ENT_QUOTES);
+
+        ## 檢查是否有實際修改資料
+        unset($goodsInfo['gid']);
+        unset($goodsInfo['released']);
+        unset($goodsInfo['addTime']);
+        if (!isset($editInfo['gimg'])) {
+            unset($goodsInfo['gimg']);
+        }
+        if (empty(array_diff($goodsInfo, $editInfo))) {
+            $messageInfo['info'] = true;
+            $messageInfo['message'] = "未做任何修改";
+            echo json_encode($messageInfo);
+            exit;
+        }
+
+        ## 判斷是否有修改
+        if ($DBGoods->update($editInfo, $gid) !== 1) {
+            $messageInfo['info'] = false;
+            $messageInfo['message'] = "修改失敗";
+            echo json_encode($messageInfo);
+            exit;
+        }
+
+        $messageInfo['info'] = true;
+        $messageInfo['message'] = "修改成功";
+        if (isset($editInfo['gimg'])) {
+            $messageInfo['path'] = $editInfo['gimg'];
+        }
+        echo json_encode($messageInfo);
+        exit;
     }
 }

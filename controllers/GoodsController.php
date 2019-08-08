@@ -148,6 +148,5 @@ class GoodsController extends Controller
         $this->smarty->assign('incartflag', $incartflag);
         $this->smarty->assign('goodsinfo', $goodsInfo);
         return $this->smarty->display('home/goods/goodsdetial.html');
-
     }
 }

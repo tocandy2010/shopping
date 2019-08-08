@@ -117,6 +117,7 @@
                         <div class="col-md-4">
                             <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off" value="{{$goods['name']}}">
+                            <input type="hidden" id='gid' name='gid' value="{{$goods['gid']}}">
                             <span class="help-block">最多文字限制20
                                 <span class="errorinfo" id='nameinfo'></span>
                             </span>
@@ -180,7 +181,7 @@
                             <span class="help-block">請上傳商品圖片
                                 <span class="errorinfo" id="gimginfo"></span>
                             </span>
-                            <img src="{{URL}}{{$goods['gimg']}}" alt="">
+                            <!-- <img src="{{URL}}{{$goods['gimg']}}" alt=""> -->
                         </div>
                     </div>
 
@@ -212,26 +213,20 @@
 
             $.ajax({
                 url: "../update",
-                type: "PUT",
+                type: "POST",
                 dataType: "json",
                 cache: false,
                 processData: false,
                 contentType: false,
                 data: formData,
                 success: function (result) {
-                    console.log(result.addinfo);
-                    if (result.addinfo === 'success') {
-                        alert("新增商品成功");
-                        $(window).attr('location', '{{URL}}goodsback/index');
-                    } else if (result.addinfo === 'notlogin') {
-                        alert("請先登入");
+                    console.log(result.info);
+                    if (result.info === true) {
+                        alert(result.message);
+                        $(window).attr('location', '{{URL}}goodsback/index/index');
+                    } else if (result.info === false) {
+                        alert(result.message);
                         $(window).attr('location', '{{URL}}loginback/index');
-                    } else if (result.addinfo === 'fail') {
-                        $('#errorinfo').html("新增商品失敗");
-                    } else if (result.addinfo) {
-                        for (error of formname) {
-                            $('#' + error + 'info').html(result.addinfo[error]);
-                        }
                     } else {
                         $('#errorinfo').html("錯誤");
                     }

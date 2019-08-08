@@ -14,5 +14,11 @@ class GoodsModel extends Model
         return $this->getAll($condition);
     }
 
+    public function getGoodsName($name)
+    {
+        $condition = "name = '{$name}'";
+        return $this->getAll($condition);
+    }
+
 
 }

@@ -6,12 +6,10 @@ class LoginController extends Controller
     public function __construct()
     {
         parent::__construct();
-        // var_dump($this->loadModel("Customer")->getAll());
     }
 
     public function index($reg = false)
     {
-        // var_dump($this->DBCustomer->getAll());
         return $this->smarty->display("home/login/login.html");
     }
 

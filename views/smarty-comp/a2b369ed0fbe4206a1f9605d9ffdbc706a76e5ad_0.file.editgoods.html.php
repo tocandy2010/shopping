@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 19:32:19
+/* Smarty version 3.1.33, created on 2019-08-08 18:48:33
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\goods\editgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4b0b2364d167_21560703',
+  'unifunc' => 'content_5d4c526131bfa7_85168070',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a2b369ed0fbe4206a1f9605d9ffdbc706a76e5ad' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\editgoods.html',
-      1 => 1565199137,
+      1 => 1565282912,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4b0b2364d167_21560703 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4c526131bfa7_85168070 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -167,6 +167,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off" value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['name'];?>
 ">
+                            <input type="hidden" id='gid' name='gid' value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['gid'];?>
+">
                             <span class="help-block">最多文字限制20
                                 <span class="errorinfo" id='nameinfo'></span>
                             </span>
@@ -234,9 +236,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <span class="help-block">請上傳商品圖片
                                 <span class="errorinfo" id="gimginfo"></span>
                             </span>
-                            <img src="<?php echo URL;
+                            <!-- <img src="<?php echo URL;
 echo $_smarty_tpl->tpl_vars['goods']->value['gimg'];?>
-" alt="">
+" alt=""> -->
                         </div>
                     </div>
 
@@ -270,28 +272,22 @@ goodsback/index"><button type="button"
 
             $.ajax({
                 url: "../update",
-                type: "PUT",
+                type: "POST",
                 dataType: "json",
                 cache: false,
                 processData: false,
                 contentType: false,
                 data: formData,
                 success: function (result) {
-                    console.log(result.addinfo);
-                    if (result.addinfo === 'success') {
-                        alert("新增商品成功");
+                    console.log(result.info);
+                    if (result.info === true) {
+                        alert(result.message);
                         $(window).attr('location', '<?php echo URL;?>
-goodsback/index');
-                    } else if (result.addinfo === 'notlogin') {
-                        alert("請先登入");
+goodsback/index/index');
+                    } else if (result.info === false) {
+                        alert(result.message);
                         $(window).attr('location', '<?php echo URL;?>
 loginback/index');
-                    } else if (result.addinfo === 'fail') {
-                        $('#errorinfo').html("新增商品失敗");
-                    } else if (result.addinfo) {
-                        for (error of formname) {
-                            $('#' + error + 'info').html(result.addinfo[error]);
-                        }
                     } else {
                         $('#errorinfo').html("錯誤");
                     }

@@ -31,5 +31,4 @@ class IndexbackController extends Controller
         $this->smarty->assign('userinfo', $userInfo);
         return $this->smarty->display('back/index.html');
     }
-
 }
