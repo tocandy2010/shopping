@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 19:14:42
+/* Smarty version 3.1.33, created on 2019-08-09 14:23:02
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4c0422db1689_95013311',
+  'unifunc' => 'content_5d4d1146afaf31_56880161',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '79b2c484fe831588a77f6964922b34782274e02f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
-      1 => 1565262882,
+      1 => 1565331782,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4c0422db1689_95013311 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4d1146afaf31_56880161 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -249,7 +249,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 style="color:red;"></span>訂單狀態</h4>
+                        <h4 style="color:red;"></span>正在修改訂單:<span id='onum'></span> </h4>
                     </div>
                     <div class="modal-body">
                         <form role="form">
@@ -303,6 +303,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             onum = $(this).attr('data-onum');
             let status = $(this).attr('data-status');
             let opeion = $('.options');
+            $('#onum').html(onum);
             editbtn = this;
             for (let i = 0; i < opeion.length; i++) {
                 if ($(opeion[i]).val() === status) {

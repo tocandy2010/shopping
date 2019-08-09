@@ -99,19 +99,188 @@ class LoginController extends Controller
     }
 
     /*
-     *  修改頁面
+     *  修改使用者資訊頁面
      */
-    public function edit()
+    public function editInfo()
     {
-        echo "edit";
+        $path = URL . "login/index";
+        ##檢查使用者是否登入
+        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+            header("Location:{$path}");
+            exit;
+        }
+
+        ## 檢查用戶合法性
+        $token = $_COOKIE['token'];
+        $DBCustomer = $this->DBCustomer;
+        $userInfo = $DBCustomer->getOne(['token' => $token]);
+        if (empty($userInfo) || $userInfo['released'] !== '1') {
+            header("Location:{$path}");
+            exit;
+        }
+
+        $loginflag = !empty($userInfo) ? true : false;
+
+        $this->smarty->assign('loginflag', $loginflag);
+        $this->smarty->assign('userinfo', $userInfo);
+        $this->smarty->display("home/login/editinfo.html");
     }
 
     /*
-     *  修改處理
+     *  修改密碼頁面
+     */
+    public function editpassword()
+    {
+        $path = URL . "login/index";
+        ##檢查使用者是否登入
+        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+            header("Location:{$path}");
+            exit;
+        }
+
+        ## 檢查用戶合法性
+        $token = $_COOKIE['token'];
+        $DBCustomer = $this->DBCustomer;
+        $userInfo = $DBCustomer->getOne(['token' => $token]);
+        if (empty($userInfo) || $userInfo['released'] !== '1') {
+            header("Location:{$path}");
+            exit;
+        }
+
+        $loginflag = !empty($userInfo) ? true : false;
+
+        $this->smarty->assign('loginflag', $loginflag);
+        $this->smarty->assign('userinfo', $userInfo);
+        $this->smarty->display("home/login/editpassword.html");
+    }
+
+    /*
+     *  修改處理,修改密碼及修改使用者資訊共用
      */
     public function update($id = false)
-    { 
-        
+    {
+        ## 回傳格式 info = boolean,message = 說明,error=欄位訊息
+        $message = [
+            'info' => true,
+            'message' => "",
+            'error' => false,
+        ];
+        $login = URL . "login/index";
+        ##檢查使用者是否登入
+        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+            header("Location:{$login}");
+            exit;
+        }
+
+        ## 檢查用戶合法性
+        $token = $_COOKIE['token'];
+        $DBCustomer = $this->DBCustomer;
+        $userInfo = $DBCustomer->getOne(['token' => $token]);
+        if (empty($userInfo) || $userInfo['released'] !== '1') {
+            setcookie('token', 0, time() - 10, "/");
+            header("Location:{$login}");
+            exit;
+        }
+
+        parse_str(file_get_contents('php://input'), $data);
+        $info = ['name', 'phone', 'address'];
+        $password = ['oldpassword', 'password', 'repassword'];
+        $datakey = array_keys($data);
+
+        ## 根據參數設定傳入資料要驗證的格式
+        if (empty(array_diff($info, $datakey))) {
+            $editInfo = [
+                'name' => htmlspecialchars(trim($data['name']), ENT_QUOTES),
+                'phone' => $data['phone'],
+                'address' => htmlspecialchars(trim($data['address']), ENT_QUOTES),
+            ];
+
+            $verification = [
+                'name' => array('length' => '1~30'),
+                'phone' => array('phone' => "20"),
+                'address' => array('length' => '1~50'),
+            ];
+        } else if (empty(array_diff($password, $datakey))) {
+            $editInfo = [
+                'oldpassword' => htmlspecialchars($data['oldpassword'], ENT_QUOTES),
+                'password' => $data['password'],
+                'repassword' => $data['repassword'],
+            ];
+
+            $verification = [
+                'oldpassword' => array('notempty' => '0'),
+                'password' => array('length' => "6~20"),
+                'repassword' => array('notempty' => '0'),
+            ];
+        } else {
+            $message['info'] = false;
+            $message['message'] = "錯誤格式";
+            echo json_encode($message);
+            exit;
+        }
+
+        ##針對設定格式驗證表單
+        $errorMessage = $this->helper->checkForm($editInfo, $verification);
+        if (!empty($this->helper->checkForm($editInfo, $verification))) {
+            $message['info'] = false;
+            $message['message'] = '填寫欄位有誤';
+            $message['error'] = $errorMessage;
+            echo json_encode($message);
+            exit;
+        }
+
+        ## 修改密碼的檢查
+        if (isset($editInfo['oldpassword'])) {
+            $editInfo['oldpassword'] = $editInfo['password'];
+
+            if (!password_verify($editInfo['oldpassword'], $userInfo['password'])) {
+                $message['info'] = false;
+                $message['message'] = '填寫欄位有誤';
+                $message['error'] = ['oldpassword' => "舊密碼錯誤"];
+                echo json_encode($message);
+                exit;
+            }
+
+            if ($editInfo['password'] !== $editInfo['repassword']) {
+                $message['info'] = false;
+                $message['message'] = '填寫欄位有誤';
+                $message['error'] = ['repassword' => "確認密碼錯誤"];
+                echo json_encode($message);
+                exit;
+            }
+
+            if (password_verify($editInfo['password'], $userInfo['password'])) {
+                $message['info'] = false;
+                $message['message'] = '填寫欄位有誤';
+                $message['error'] = ['password' => "請勿與舊密碼相同"];
+                echo json_encode($message);
+                exit;
+            }
+            unset($editInfo['oldpassword']);
+            unset($editInfo['repassword']);
+            $editInfo['password'] = password_hash($editInfo['password'], PASSWORD_DEFAULT);
+        } else {
+            ## 判斷 info 有沒有修改
+            if (count(array_intersect($editInfo, $userInfo)) !== 0) {
+                $message['info'] = true;
+                $message['message'] = '本次未有任何修改';
+                echo json_encode($message);
+                exit;
+             }
+        }
+
+        ## 修改訊息
+        if ($DBCustomer->update($editInfo, $userInfo['cid']) !== 1) {
+            $message['info'] = false;
+            $message['message'] = '修改失敗';
+            echo json_encode($message);
+            exit;
+        }
+
+        $message['info'] = true;
+        $message['message'] = '修改成功';
+        echo json_encode($message);
+        exit;
     }
 
     /*
@@ -131,7 +300,7 @@ class LoginController extends Controller
         $loginInfo['email'] = $_POST['email'];
         $loginInfo['password'] = $_POST['password'];
         $loginInfo['vcode'] = $_POST['vcode'];
-        
+
         ##檢查驗證碼
         Session::init();
         if (Session::get('vcode') !== $loginInfo['vcode']) {
@@ -148,7 +317,7 @@ class LoginController extends Controller
             'password' => array('length' => "6~20"),
             'vcode' => array('notempty' => '0'),
         ];
-        
+
         ##針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($loginInfo, $verification);
         if (!empty($this->helper->checkForm($loginInfo, $verification))) {

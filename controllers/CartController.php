@@ -33,7 +33,7 @@ class CartController extends controller
             $DBGoods = $this->DBGoods;
             $gid = implode(',', array_keys($cartgoods));
             $gid = $gid === '' ? -1 : $gid;
-            $goods = $DBGoods->getAll("gid in (" . $gid . ") and released = '1'");
+            $goods = $DBGoods->getAll("gid in (" . $gid . ") and released = '1' and stock > 0");
 
             ## 取得購物車商品並判斷購物車商品是否大於庫存，大於則為庫存最大值
             if (!empty($goods)) {
@@ -47,9 +47,9 @@ class CartController extends controller
                 $goods = [];
             }
         } else {
-            $cart[0] = 'cart';
-            setcookie('cart',  json_encode($cart), time() + 3600, "/");
+            $cartgoods[0] = 'cart';
         }
+        setcookie('cart',  json_encode($cartgoods), time() + 3600, "/");
 
         $checkOutBtn = !empty($goods);
         $this->smarty->assign('checkoutbtn', $checkOutBtn);
@@ -204,23 +204,32 @@ class CartController extends controller
                     array_push($errorStockId, $goods['gid']);
                 }
 
-                $orderInfo['onum'] = $onum;
-                $orderInfo['cid'] = $userInfo['cid'];
-                $orderInfo['gid'] = $goods['gid'];
-                $orderInfo['name'] = $goods['name'];
-                $orderInfo['price'] = $goods['price'];
-                $orderInfo['number'] = $goodsInfo[$key]['num'];
-                $orderInfo['address'] = $userInfo['address'];
-                $orderInfo['createTime'] = time();
+                $orderInfo = [
+                    'onum' => $onum,
+                    'cid' => $userInfo['cid'],
+                    'gid' => $goods['gid'],
+                    'name' => $goods['name'],
+                    'price' => $goods['price'],
+                    'number' => $goodsInfo[$key]['num'],
+                    'address' => $userInfo['address'],
+                    'createTime' => time(),
+                ];
+                // $orderInfo['onum'] = $onum;
+                // $orderInfo['cid'] = $userInfo['cid'];
+                // $orderInfo['gid'] = $goods['gid'];
+                // $orderInfo['name'] = $goods['name'];
+                // $orderInfo['price'] = $goods['price'];
+                // $orderInfo['number'] = $goodsInfo[$key]['num'];
+                // $orderInfo['address'] = $userInfo['address'];
+                // $orderInfo['createTime'] = time();
                 if ($DBOrders->add($orderInfo) !== 1) {
                     $checkOutInfo = ['checkoutinfo' => 'fail'];
                     echo json_encode($checkOutInfo);
                     exit;
                 }
-                var_dump($orderInfo);
             }
 
-            ## 有庫存不足的商品則回滾，並回報
+            ## 有庫存不足的商品則資料庫回滾，並回報
             if (!empty($errorStockId)) {
                 $DBOrders->setRollBack();
                 $checkOutInfo = ['checkoutinfo' => $errorStockId];

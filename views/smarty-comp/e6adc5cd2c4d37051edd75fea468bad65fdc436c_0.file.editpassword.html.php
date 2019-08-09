@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-09 03:50:41
-  from 'C:\xampp\htdocs\TaiwanGYM\views\back\login\edit.html' */
+/* Smarty version 3.1.33, created on 2019-08-09 11:20:08
+  from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\editpassword.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4cd17119d4e8_52873712',
+  'unifunc' => 'content_5d4d3ac8af60e1_41456515',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'b57266738874d040c3a363a64a6daf58dbc92fb4' => 
+    'e6adc5cd2c4d37051edd75fea468bad65fdc436c' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\edit.html',
-      1 => 1565313045,
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\editpassword.html',
+      1 => 1565342403,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4cd17119d4e8_52873712 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4d3ac8af60e1_41456515 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -77,6 +77,12 @@ function content_5d4cd17119d4e8_52873712 (Smarty_Internal_Template $_smarty_tpl)
             letter-spacing: 0.5px
         }
 
+        .formtitle {
+            text-align: center;
+            padding-bottom: 2%;
+            font-weight: bold
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -102,29 +108,38 @@ function content_5d4cd17119d4e8_52873712 (Smarty_Internal_Template $_smarty_tpl)
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
-indexback/index">Home</a>
+index/index">Home</a>
+                <span class="navbar-brand" id='username'>&nbsp
+                        <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
+</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-orderback/index">訂單管理</a></li>
+/goods/index/jog">Jog</a></li>
                     <li><a href="<?php echo URL;?>
-Customerback/index">會員管理</a></li>
+/goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-goodsback/index">商品管理</a></li>
+/goods/index/Boxing">boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="<?php echo URL;?>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
-loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span
-                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
+                            Modify</a></li>
                     <li><a href="<?php echo URL;?>
-loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
+                    <li><a href="<?php echo URL;?>
+login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
                     <?php } else { ?>
                     <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
                     <?php }?>
                 </ul>
@@ -136,53 +151,60 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <div class="container">
+                    <ul class="nav nav-tabs">
+                        <li><a href="<?php echo URL;?>
+login/editinfo">Account</a></li>
+                        <li class="active"><a href="#">Security</a></li>
+                    </ul>
+                </div>
+                <h3 class='formtitle'>Change&nbspPassword</h3>
                 <form class="form-horizontal">
                     <!-- Password input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">舊密碼</label>
+                        <label class="col-md-4 control-label" for="password">Old&nbsppassword</label>
                         <div class="col-md-4">
-                            <input id="oldpassword" name="oldpassword" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
-                            <span class="help-block">請輸入原密碼
-                                <span class="errorinfo" id="oldpasswordinfo">&nbsp</span>
+                            <input id="oldpassword" name="oldpassword" type="password" class="form-control input-md"
+                                autocomplete="off">
+                            <span class="help-block">請輸入舊密碼
+                                <span class="errorinfo" id="oldpasswordinfo"></span>
                             </span>
                         </div>
                     </div>
 
                     <!-- Password input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">新密碼</label>
+                        <label class="col-md-4 control-label" for="password">New&nbsppassword</label>
                         <div class="col-md-4">
-                            <input id="password" name="password" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
+                            <input id="password" name="password" type="password" class="form-control input-md"
+                                autocomplete="off">
                             <span class="help-block">請輸入6~20位
-                                <span class="errorinfo" id="passwordinfo">&nbsp</span>
+                                <span class="errorinfo" id="passwordinfo"></span>
                             </span>
                         </div>
                     </div>
 
                     <!-- Password input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">確認密碼</label>
+                        <label class="col-md-4 control-label" for="password">repassword</label>
                         <div class="col-md-4">
-                            <input id="repassword" name="repassword" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
-                            <input type="hidden" id='gid' value="<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-">
-                            <span class="help-block">請再輸入一次密碼
-                                <span class="errorinfo" id="repasswordinfo">&nbsp</span>
+                            <input id="repassword" name="repassword" type="password" class="form-control input-md"
+                                autocomplete="off">
+                            <span class="help-block">請再輸入一次新密碼
+                                <span class="errorinfo" id="repasswordinfo"></span>
                             </span>
                         </div>
                     </div>
+
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="editsend" class="btn btn-info">edit</button>
+                            <button type="button" id="regsend" class="btn btn-info">Update&nbsppassword</button>
                             <a href="<?php echo URL;?>
-indexback/index"><button type="button"
+index/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
-                            <span class="errorinfo" id='errorinfo'>&nbsp</span>
+                            <span class="errorinfo" id='errorinfo'></span>
                         </div>
                     </div>
                 </form>
@@ -195,40 +217,42 @@ indexback/index"><button type="button"
     </footer>
     <?php echo '<script'; ?>
 >
-        $("#editsend").click(function () {
-            let aid = $('#gid').val();
+        //style="border:3px solid crimson"
+        $("#regsend").click(function () {
             let oldpassword = $('#oldpassword').val();
             let password = $('#password').val();
             let repassword = $('#repassword').val();
             let formname = ['oldpassword', 'password', 'repassword'];
 
             for (error of formname) {
-                $('#' + error + 'info').html("&nbsp");
+                $('#' + error + 'info').html("");
             }
 
             $.ajax({
-                url: "../update",
+                url: "update",
                 type: "PUT",
                 dataType: "json",
                 data: {
-                    'aid': aid,
                     'oldpassword': oldpassword,
                     'password': password,
                     'repassword': repassword,
                 },
                 success: function (result) {
-                    if (result.editinfo === 'success') {
-                        alert('密碼修改成功')
-                        $(window).attr('location', '<?php echo URL;?>
-indexback/index');
-                    } else if (result.editinfo === 'fail') {
-                        $('#errorinfo').html("密碼修改失敗");
-                    } else if (result.editinfo) {
-                        for (error of formname) {
-                            $('#' + error + 'info').html(result.editinfo[error]);
+                    if (result.info === false) {
+                        alert(result.message);
+                        if (result.error !== '') {
+                            for (error of formname) {
+                                $('#' + error + 'info').html(result.error[error]);
+                            }
                         }
+                    } else if (result.info === true) {
+                        alert(result.message);
+                        $(window).attr('location', '<?php echo URL;?>
+index/index');
                     } else {
-                        $('#errorinfo').html("錯誤");
+                        alert('修改失敗');
+                        $(window).attr('location', '<?php echo URL;?>
+index/index');
                     }
                 }
             });

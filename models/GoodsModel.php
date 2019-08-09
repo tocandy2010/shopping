@@ -19,6 +19,4 @@ class GoodsModel extends Model
         $condition = "name = '{$name}'";
         return $this->getAll($condition);
     }
-
-
 }

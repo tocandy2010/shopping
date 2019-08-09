@@ -168,7 +168,11 @@
                                             <p class="goodsprice">庫存數量&nbsp:&nbsp<span>{{$goodsinfo['stock']}}</span>
                                             </p>
                                             <p>
-                                                {{if $incartflag}}
+                                                {{if 0 >= $goodsinfo['stock']}}
+                                                <td><button type="button" class="btn btn-danger btn-block" disabled=true
+                                                    data-gid="{{$goodsinfo['gid']}}" id="addcart">缺貨中</button>
+                                                </td>
+                                                {{else if $incartflag}}
                                                 <td><button type="button" class="btn btn-danger btn-block" disabled=true
                                                         data-gid="{{$goodsinfo['gid']}}" id="addcart">已在入購物車中</button>
                                                 </td>

@@ -24,7 +24,8 @@ class GoodsController extends Controller
             }
         }
         if ($flag === false) {
-            header("Location: ../../index/index");
+            $home = URL . "index/index";
+            header("Location: {$home}");
         }
 
         ##判斷使用者登入
@@ -96,9 +97,10 @@ class GoodsController extends Controller
      */
     public function create($res = false)
     {
+        $home = URL . 'index/index';
         ##檢查商品參數
         if (!isset($res[0]) || empty($res[0]) || !is_numeric($res[0])) {
-            header('Location:../index/index');
+            header('Location:{$home}');
             exit;
         }
 
@@ -117,7 +119,7 @@ class GoodsController extends Controller
         $DBgoods = $this->DBgoods;
         $goodsInfo = $DBgoods->findOne($res[0]);
         if (empty($goodsInfo)) {
-            header('Location:../index/index');
+            header('Location:{$home}');
             exit;
         }
 
@@ -125,7 +127,7 @@ class GoodsController extends Controller
         $DBGtype = $this->DBGtype;
         $typeInfo = $DBGtype->getOne(['tnum' => $goodsInfo['tnum']]);
         if (empty($goodsInfo)) {
-            header('Location:../index/index');
+            header('Location:{$home}');
             exit;
         }
 
@@ -140,7 +142,6 @@ class GoodsController extends Controller
                     }
                 }
             }
-
         }
 
         $this->smarty->assign('userinfo', $userInfo);

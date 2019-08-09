@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-09 03:50:41
-  from 'C:\xampp\htdocs\TaiwanGYM\views\back\login\edit.html' */
+/* Smarty version 3.1.33, created on 2019-08-09 09:23:11
+  from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\editaccount.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4cd17119d4e8_52873712',
+  'unifunc' => 'content_5d4d1f5fdd95c9_56668545',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'b57266738874d040c3a363a64a6daf58dbc92fb4' => 
+    '8b418693ef9bf2a897538d033d63c89a2c86011f' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\edit.html',
-      1 => 1565313045,
+      0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\editaccount.html',
+      1 => 1565335388,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4cd17119d4e8_52873712 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4d1f5fdd95c9_56668545 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -77,6 +77,12 @@ function content_5d4cd17119d4e8_52873712 (Smarty_Internal_Template $_smarty_tpl)
             letter-spacing: 0.5px
         }
 
+        .formtitle {
+            text-align: center;
+            padding-bottom: 2%;
+            font-weight: bold
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -102,31 +108,23 @@ function content_5d4cd17119d4e8_52873712 (Smarty_Internal_Template $_smarty_tpl)
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?php echo URL;?>
-indexback/index">Home</a>
+index/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-orderback/index">訂單管理</a></li>
+/goods/index/jog">Jog</a></li>
                     <li><a href="<?php echo URL;?>
-Customerback/index">會員管理</a></li>
+/goods/index/ski">Ski</a></li>
                     <li><a href="<?php echo URL;?>
-goodsback/index">商品管理</a></li>
+/goods/index/Boxing">boxing</a></li>
+                    <li><a href="<?php echo URL;?>
+/goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
-loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span
-                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
-                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -136,53 +134,60 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <div class="container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="">Account</a></li>
+                        <li><a href="<?php echo URL;?>
+/login/editpassword">Security</a></li>
+                    </ul>
+                </div>
+                <h3 class='formtitle'>Change&nbspInfo</h3>
                 <form class="form-horizontal">
-                    <!-- Password input-->
+                    <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">舊密碼</label>
+                        <label class="col-md-4 control-label" for="address">name</label>
                         <div class="col-md-4">
-                            <input id="oldpassword" name="oldpassword" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
-                            <span class="help-block">請輸入原密碼
-                                <span class="errorinfo" id="oldpasswordinfo">&nbsp</span>
+                            <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
+                                autocomplete="off">
+                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~30字&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="nameinfo"></span>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Password input-->
+                    <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">新密碼</label>
+                        <label class="col-md-4 control-label" for="phone">phone</label>
                         <div class="col-md-4">
-                            <input id="password" name="password" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
-                            <span class="help-block">請輸入6~20位
-                                <span class="errorinfo" id="passwordinfo">&nbsp</span>
+                            <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"
+                                autocomplete="off">
+                            <span class="help-block">請輸入您的手機號碼&nbsp例如:&nbsp09xxxxxxxx&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="phoneinfo"></span>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Password input-->
+                    <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">確認密碼</label>
+                        <label class="col-md-4 control-label" for="address">address</label>
                         <div class="col-md-4">
-                            <input id="repassword" name="repassword" type="password" placeholder=""
-                                class="form-control input-md" autocomplete="off">
-                            <input type="hidden" id='gid' value="<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-">
-                            <span class="help-block">請再輸入一次密碼
-                                <span class="errorinfo" id="repasswordinfo">&nbsp</span>
+                            <input id="address" name="address" type="text" placeholder="" class="form-control input-md"
+                                autocomplete="off">
+                            <span class="help-block">請輸入您的地址&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="addressinfo"></span>
                             </span>
                         </div>
                     </div>
+
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="editsend" class="btn btn-info">edit</button>
+                            <button type="button" id="regsend" class="btn btn-info">Update&nbspaccount</button>
                             <a href="<?php echo URL;?>
-indexback/index"><button type="button"
+login/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
-                            <span class="errorinfo" id='errorinfo'>&nbsp</span>
+                            <span class="errorinfo" id='errorinfo'></span>
                         </div>
                     </div>
                 </form>
@@ -195,37 +200,42 @@ indexback/index"><button type="button"
     </footer>
     <?php echo '<script'; ?>
 >
-        $("#editsend").click(function () {
-            let aid = $('#gid').val();
-            let oldpassword = $('#oldpassword').val();
+        //style="border:3px solid crimson"
+        $("#regsend").click(function () {
+            let eamil = $('#email').val();
             let password = $('#password').val();
             let repassword = $('#repassword').val();
-            let formname = ['oldpassword', 'password', 'repassword'];
+            let name = $('#name').val();
+            let phone = $('#phone').val();
+            let address = $('#address').val();
+            let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
 
             for (error of formname) {
-                $('#' + error + 'info').html("&nbsp");
+                $('#' + error + 'info').html("");
             }
 
             $.ajax({
-                url: "../update",
-                type: "PUT",
+                url: "add",
+                type: "POST",
                 dataType: "json",
                 data: {
-                    'aid': aid,
-                    'oldpassword': oldpassword,
+                    'email': eamil,
                     'password': password,
                     'repassword': repassword,
+                    'name': name,
+                    'phone': phone,
+                    'address': address,
                 },
                 success: function (result) {
-                    if (result.editinfo === 'success') {
-                        alert('密碼修改成功')
+                    console.log(result);
+                    if (result.reginfo === 'success') {
                         $(window).attr('location', '<?php echo URL;?>
-indexback/index');
-                    } else if (result.editinfo === 'fail') {
-                        $('#errorinfo').html("密碼修改失敗");
-                    } else if (result.editinfo) {
+/login/index');
+                    } else if (result.reginfo === 'fail') {
+                        $('#errorinfo').html("註冊失敗");
+                    } else if (result.reginfo) {
                         for (error of formname) {
-                            $('#' + error + 'info').html(result.editinfo[error]);
+                            $('#' + error + 'info').html(result.reginfo[error]);
                         }
                     } else {
                         $('#errorinfo').html("錯誤");

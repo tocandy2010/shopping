@@ -12,9 +12,10 @@ class OrderController extends Controller
      */
     public function index($reg = false)
     {
+        $path = URL . "login/index";
         ##檢查使用者是否登入
         if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            header("Location:../index/index");
+            header("Location:{$path}");
             exit;
         }
 
@@ -23,16 +24,28 @@ class OrderController extends Controller
         $DBCustomer = $this->DBCustomer;
         $userInfo = $DBCustomer->getOne(['token' => $token]);
         if (empty($userInfo) || $userInfo['released'] !== '1') {
-            header("Location:../index/index");
+            header("Location:{$path}");
             exit;
         }
 
+        ## 與 goods 表連接查詢取得訂單資訊和商品資訊
         $DBOrders = $this->DBOrders;
         $orderInfo = $DBOrders->getOrders($userInfo['cid']);
         if (!empty($orderInfo)) {
             foreach ($orderInfo as $key => $info) {
                 date_default_timezone_set("Asia/Taipei");
                 $orderInfo[$key]['createTime'] = date("Y-m-d H:i:s", $info['createTime']);
+            }
+        }
+
+        ## 每筆加入訂單狀態名稱
+        $DBOstatus = $this->DBOstatus;
+        $ostatusInfo = $DBOstatus->getAll();
+        foreach ($orderInfo as $ordersk => $orderv) {
+            foreach ($ostatusInfo as $osk => $osv) {
+                if ($orderv['status'] === $osv['onum']) {
+                    $orderInfo[$ordersk]['statusname'] = $osv['name'];
+                }
             }
         }
 
@@ -46,9 +59,9 @@ class OrderController extends Controller
 
     public function showGoods($reg = false)
     {
+        $path = URL . "login/index";
         ##檢查使用者是否登入
         if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $path = URL . "login/index";
             header("Location: {$path}");
             exit;
         }

@@ -106,7 +106,7 @@
                     <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
                     </li>
                     {{if $loginflag|default:false}}
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -151,7 +151,7 @@
                                 <td class="checkorder"><a href="{{URL}}order/showGoods/{{$ordersinfo['onum']}}">查看訂單商品</a></td>
                                 <td class='address'>{{$ordersinfo['address']}}</td>
                                 <td>{{$ordersinfo['createTime']}}</td>
-                                <td>訂單成立</td>
+                                <td>{{$ordersinfo['statusname']}}</td>
                             </tr>
                             {{/foreach}}
                         </tbody>
@@ -167,7 +167,3 @@
 </body>
 
 </html>
-
-<script>
-
-</script>

@@ -211,7 +211,7 @@
             },
             success: function (result) {
                 if (result.logininfo === 'success') {
-                    $(window).attr('location', '{{URL}}/index/index');
+                    $(window).attr('location', '{{URL}}index/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
                     changevcode()

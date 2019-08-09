@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 09:55:08
+/* Smarty version 3.1.33, created on 2019-08-09 17:58:25
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\orders\myorders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4a83dc671310_15074510',
+  'unifunc' => 'content_5d4d43c19f11c4_32506210',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '60e5fc6dac335c8bd869f988d17eec02d58cbcd6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\myorders.html',
-      1 => 1565164478,
+      1 => 1565344648,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4a83dc671310_15074510 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4d43c19f11c4_32506210 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -140,7 +140,8 @@ goods/index/yoga">Yoga</a></li>
 cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
                     </li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="<?php echo URL;?>
@@ -198,7 +199,8 @@ order/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?
 </td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
 </td>
-                                <td>訂單成立</td>
+                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['statusname'];?>
+</td>
                             </tr>
                             <?php
 }
@@ -216,11 +218,5 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     </footer>
 </body>
 
-</html>
-
-<?php echo '<script'; ?>
->
-
-<?php echo '</script'; ?>
-><?php }
+</html><?php }
 }

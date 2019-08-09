@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 11:12:37
+/* Smarty version 3.1.33, created on 2019-08-09 11:58:28
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4a96053b6fb1_10373205',
+  'unifunc' => 'content_5d4d43c4229426_70075260',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bca90d9a09373503a9b0257b30257f8cd78412e2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\ordergoods.html',
-      1 => 1565169156,
+      1 => 1565344694,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4a96053b6fb1_10373205 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4d43c4229426_70075260 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -163,10 +163,13 @@ goods/index/boxing">Boxing</a></li>
 goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="<?php echo URL;?>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>
+                    <li><a href="<?php echo URL;?>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
                     <li><a href="<?php echo URL;?>
 login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>

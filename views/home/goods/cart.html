@@ -130,9 +130,9 @@
                     <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     {{if $loginflag|default:false}}
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
@@ -188,13 +188,9 @@
                                 <td>
                                     <div class="form-group row">
                                         <div class="col-md-10">
-                                            <!-- <input type="button" data-gid="{{$goodsinfo['gid']}}" class="gless"
-                                                value="-"> -->
                                             <input class="form-control gnum" type="number"
                                                 data-gid="{{$goodsinfo['gid']}}" min='1' max="{{$goodsinfo['stock']}}"
                                                 id="gnum{{$goodsinfo['gid']}}" value="{{$goodsinfo['buynum']}}">
-                                            <!-- <input type="button" data-gid="{{$goodsinfo['gid']}}" class='add'
-                                                data-max="{{$goodsinfo['stock']}}" value="+"> -->
                                         </div>
                                     </div>
                                 </td>
@@ -246,32 +242,29 @@
         }
     })
 
-    // $('.add').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let max = $(this).attr("data-max");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (parseInt(gnum) < parseInt(max)) {
-    //         $("#gnum" + gid).val(parseInt(gnum) + 1);
-    //     } else {
-    //         $("#gnum" + gid).val(max);
-    //     }
-
-
-    //     //$('#gnum' + gid).blur();
-    // })
-
-    // $('.gless').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (gnum > 1) {
-    //         $("#gnum" + gid).val(parseInt(gnum) - 1);
-    //     } else {
-    //         $("#gnum" + gid).val(1);
-    //     }
-    //     $('#gnum' + gid).blur();
-    // })
-
     //計算小記價格
+    $('.gnum').keyup(function () {
+        let max = $(this).attr("max");
+        let gid = $(this).attr("data-gid");
+        let gnum = $(this).val();
+        let price = parseInt($("#price" + gid).html());
+
+        if (gnum >= max) {
+            gnum = max;
+            $(this).val(max);
+        }
+
+        if (gnum <= 0) {
+            gnum = 1;
+            $(this).val(1);
+        }
+        sum = price * gnum;
+        $("#sum" + gid).html(sum);
+    })
+
+
+
+    //計算小記價格及最大購故數量限制
     $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
@@ -296,7 +289,7 @@
             gnum = 1;
         }
         if (parseInt(gnum) > parseInt(max)) {
-            $(this).val(5);
+            $(this).val(parseInt(max));
             gnum = max;
         }
         $.ajax({
@@ -359,7 +352,7 @@
 
                 } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
-                        $("#errorstock" + id).html("此庫存不足");
+                        $("#errorstock" + id).html("此商品庫存不足請重新整理頁面");
                     }
                 } else {
                     alert("發生錯誤");
