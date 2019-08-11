@@ -244,17 +244,18 @@
 
     //計算小記價格
     $('.gnum').keyup(function () {
-        let max = $(this).attr("max");
+        let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
-        let gnum = $(this).val();
+        let gnum = parseInt($(this).val());
         let price = parseInt($("#price" + gid).html());
 
-        if (gnum >= max) {
+        if (gnum > max) {
             gnum = max;
+            alert("此商品最大購買數量為"+max);
             $(this).val(max);
         }
 
-        if (gnum <= 0) {
+        if (gnum < 1 || isNaN(gnum)) {
             gnum = 1;
             $(this).val(1);
         }
@@ -300,7 +301,6 @@
                 'gnum': gnum,
             },
             success: function (result) {
-                console.log(result);
                 if (result.setcartinfo === 'fail') {
                     alert("新增失敗");
                 } else if (result.setcartinfo) {

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 15:52:41
+/* Smarty version 3.1.33, created on 2019-08-11 16:56:06
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4ad7a9a5e975_38168878',
+  'unifunc' => 'content_5d502c86d156f4_19597862',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'de0b3f9afc07ce7a62010495fe4f813c73442963' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
-      1 => 1565185767,
+      1 => 1565535213,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4ad7a9a5e975_38168878 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d502c86d156f4_19597862 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -250,7 +250,7 @@ public/vcode/vcode.php?" + Math.random();
             success: function (result) {
                 if (result.logininfo === 'success') {
                     $(window).attr('location', '<?php echo URL;?>
-/index/index');
+index/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
                     changevcode()

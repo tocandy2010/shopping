@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 18:34:45
+/* Smarty version 3.1.33, created on 2019-08-11 17:01:06
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goodsdetial.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4afda539a443_36097770',
+  'unifunc' => 'content_5d502db2508d38_41169567',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '60c5a435185034a2111844014b48bdfc00576763' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goodsdetial.html',
-      1 => 1565185767,
+      1 => 1565535213,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4afda539a443_36097770 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d502db2508d38_41169567 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -214,7 +214,12 @@ echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 </span>
                                             </p>
                                             <p>
-                                                <?php if ($_smarty_tpl->tpl_vars['incartflag']->value) {?>
+                                                <?php if (0 >= $_smarty_tpl->tpl_vars['goodsinfo']->value['stock']) {?>
+                                                <td><button type="button" class="btn btn-danger btn-block" disabled=true
+                                                    data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+" id="addcart">缺貨中</button>
+                                                </td>
+                                                <?php } elseif ($_smarty_tpl->tpl_vars['incartflag']->value) {?>
                                                 <td><button type="button" class="btn btn-danger btn-block" disabled=true
                                                         data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 " id="addcart">已在入購物車中</button>

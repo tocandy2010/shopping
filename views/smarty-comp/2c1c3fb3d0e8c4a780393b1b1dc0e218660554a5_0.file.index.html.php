@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 19:06:10
+/* Smarty version 3.1.33, created on 2019-08-11 16:55:10
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d49b3820d18d8_61290868',
+  'unifunc' => 'content_5d502c4e579991_91859630',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2c1c3fb3d0e8c4a780393b1b1dc0e218660554a5' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\index.html',
-      1 => 1565102655,
+      1 => 1565535213,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d49b3820d18d8_61290868 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d502c4e579991_91859630 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -162,7 +162,8 @@ goods/index/yoga">Yoga</a></li>
 cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
                     </li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href=""><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="<?php echo URL;?>

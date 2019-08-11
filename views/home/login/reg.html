@@ -186,27 +186,35 @@
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
+    <script src='{{URL}}public/js/helper.js'></script>
     <script>
-        //style="border:3px solid crimson"
         $("#regsend").click(function () {
-            let eamil = $('#email').val();
+            let email = $('#email').val();
             let password = $('#password').val();
             let repassword = $('#repassword').val();
             let name = $('#name').val();
             let phone = $('#phone').val();
             let address = $('#address').val();
             let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
-
             for (error of formname) {
                 $('#' + error + 'info').html("");
             }
+
+            // let data = [email, password, name, phone, address];
+            // let verification  = ['email', "length:6~20" ,"length:3~30", "phone", "length:1~50"];
+            // let inputerror = [];
+            // for(item of data){
+            //     checkInput(itme,)
+            // }
+            let inputerror = [];
+            checkInput(email, 'email')?
 
             $.ajax({
                 url: "add",
                 type: "POST",
                 dataType: "json",
                 data: {
-                    'email': eamil,
+                    'email': email,
                     'password': password,
                     'repassword': repassword,
                     'name': name,
@@ -229,8 +237,6 @@
                 }
             });
         })
-
-
 
     </script>
 </body>

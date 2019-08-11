@@ -75,4 +75,8 @@ class Helper
         return str_replace( " ", "",$str);
     }
 
+    public function getCustom()
+    {
+        
+    }
 }

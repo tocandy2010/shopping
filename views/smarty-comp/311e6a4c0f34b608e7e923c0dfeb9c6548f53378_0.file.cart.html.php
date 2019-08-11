@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 15:54:14
+/* Smarty version 3.1.33, created on 2019-08-11 17:17:31
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4ad8063bac27_16333058',
+  'unifunc' => 'content_5d50318bd9c360_40643573',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '311e6a4c0f34b608e7e923c0dfeb9c6548f53378' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565185767,
+      1 => 1565536650,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4ad8063bac27_16333058 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d50318bd9c360_40643573 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -163,9 +163,11 @@ goods/index/boxing">Boxing</a></li>
 goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="<?php echo URL;?>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
@@ -237,9 +239,6 @@ goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
                                 <td>
                                     <div class="form-group row">
                                         <div class="col-md-10">
-                                            <!-- <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class="gless"
-                                                value="-"> -->
                                             <input class="form-control gnum" type="number"
                                                 data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 " min='1' max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
@@ -247,10 +246,6 @@ goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
                                                 id="gnum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 " value="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['buynum'];?>
 ">
-                                            <!-- <input type="button" data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-" class='add'
-                                                data-max="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['stock'];?>
-" value="+"> -->
                                         </div>
                                     </div>
                                 </td>
@@ -310,32 +305,30 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         }
     })
 
-    // $('.add').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let max = $(this).attr("data-max");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (parseInt(gnum) < parseInt(max)) {
-    //         $("#gnum" + gid).val(parseInt(gnum) + 1);
-    //     } else {
-    //         $("#gnum" + gid).val(max);
-    //     }
-
-
-    //     //$('#gnum' + gid).blur();
-    // })
-
-    // $('.gless').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (gnum > 1) {
-    //         $("#gnum" + gid).val(parseInt(gnum) - 1);
-    //     } else {
-    //         $("#gnum" + gid).val(1);
-    //     }
-    //     $('#gnum' + gid).blur();
-    // })
-
     //計算小記價格
+    $('.gnum').keyup(function () {
+        let max = parseInt($(this).attr("max"));
+        let gid = $(this).attr("data-gid");
+        let gnum = parseInt($(this).val());
+        let price = parseInt($("#price" + gid).html());
+
+        if (gnum > max) {
+            gnum = max;
+            alert("此商品最大購買數量為"+max);
+            $(this).val(max);
+        }
+
+        if (gnum < 1 || isNaN(gnum)) {
+            gnum = 1;
+            $(this).val(1);
+        }
+        sum = price * gnum;
+        $("#sum" + gid).html(sum);
+    })
+
+
+
+    //計算小記價格及最大購故數量限制
     $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
@@ -360,7 +353,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             gnum = 1;
         }
         if (parseInt(gnum) > parseInt(max)) {
-            $(this).val(5);
+            $(this).val(parseInt(max));
             gnum = max;
         }
         $.ajax({
@@ -371,7 +364,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 'gnum': gnum,
             },
             success: function (result) {
-                console.log(result);
                 if (result.setcartinfo === 'fail') {
                     alert("新增失敗");
                 } else if (result.setcartinfo) {
@@ -425,7 +417,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
                 } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
-                        $("#errorstock" + id).html("此庫存不足");
+                        $("#errorstock" + id).html("此商品庫存不足請重新整理頁面");
                     }
                 } else {
                     alert("發生錯誤");

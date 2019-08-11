@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-05 17:14:59
+/* Smarty version 3.1.33, created on 2019-08-11 18:06:32
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\reg.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4847f36949d6_14234359',
+  'unifunc' => 'content_5d503d086addd4_31042947',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '34ccf35d68c3579f708482165ac6e8c9363d093f' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\reg.html',
-      1 => 1565018052,
+      1 => 1565539589,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4847f36949d6_14234359 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d503d086addd4_31042947 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -221,19 +221,26 @@ login/index"><button type="button"
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
     <?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
 >
-        //style="border:3px solid crimson"
+    <?php echo '<script'; ?>
+>
         $("#regsend").click(function () {
-            let eamil = $('#email').val();
+            let email = $('#email').val();
             let password = $('#password').val();
             let repassword = $('#repassword').val();
             let name = $('#name').val();
             let phone = $('#phone').val();
             let address = $('#address').val();
             let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
-
             for (error of formname) {
                 $('#' + error + 'info').html("");
+            }
+
+            let data = [email, password, repassword, name, phone, address];
+            for(item of data){
+                console.log(item)
             }
 
             $.ajax({
@@ -241,7 +248,7 @@ login/index"><button type="button"
                 type: "POST",
                 dataType: "json",
                 data: {
-                    'email': eamil,
+                    'email': email,
                     'password': password,
                     'repassword': repassword,
                     'name': name,
@@ -265,8 +272,6 @@ login/index"><button type="button"
                 }
             });
         })
-
-
 
     <?php echo '</script'; ?>
 >
