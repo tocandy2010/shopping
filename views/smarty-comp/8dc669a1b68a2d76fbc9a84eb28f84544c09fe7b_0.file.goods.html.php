@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 15:54:09
+/* Smarty version 3.1.33, created on 2019-08-12 16:33:38
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4ad8019058b2_91372207',
+  'unifunc' => 'content_5d5178c20f8832_70044349',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dc669a1b68a2d76fbc9a84eb28f84544c09fe7b' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1565185767,
+      1 => 1565620284,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4ad8019058b2_91372207 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5178c20f8832_70044349 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -207,16 +207,18 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div id='checkcookie'></div>
     </div>
 
+
     <div class="container-fluid">
-        <div class="row content" style="margin-left:50px">
-            <div class="col-sm-2 sidenav">
-                <!-- <div class="list-group" id='typelist'>
-                    <a href="#" class="list-group-item typelist"><strong>Bigtype</strong></a>
-                    <a href="#" class="list-group-item typelist">type1</a>
-                    <a href="#" class="list-group-item typelist">type2</a>
-                    <a href="#" class="list-group-item typelist">type3</a>
-                </div> -->
-            </div>
+        <form class="form-inline" actuin="<?php echo URL;?>
+/goods/index" method="get" >
+                <input type="text" class="form-control" name='search' id="search">
+            <button type="submit" id="searchsend" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-2 sidenav"></div>
 
             <div class="col-sm-8 text-left">
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>

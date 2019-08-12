@@ -17,11 +17,17 @@ class Bootstrap
         // echo $_GET['url'];
         // exit;
 
-        $sUrl = str_replace('/TaiwanGYM/' , '', $_SERVER['REDIRECT_URL']);
+        // $sUrl = str_replace('/TaiwanGYM/' , '', $_SERVER['REDIRECT_URL']);
         // // echo $sUrl;
         // exit;
-        if (isset($sUrl)) {
-            $url = $sUrl;
+        // if (isset($sUrl)) {
+        //     $url = $sUrl;
+        // } else {
+        //     $url = "index/index";
+        // }
+
+        if (isset($_GET['url'])) {
+            $url = $_GET['url'];
         } else {
             $url = "index/index";
         }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 00:40:41
+/* Smarty version 3.1.33, created on 2019-08-12 23:32:05
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4aff097229c5_91045405',
+  'unifunc' => 'content_5d518675b2dff2_74161018',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '29f579936f0044b7492026702eb6d7e6384f8ec5' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
-      1 => 1565195999,
+      1 => 1565535212,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4aff097229c5_91045405 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d518675b2dff2_74161018 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -106,6 +106,25 @@ function content_5d4aff097229c5_91045405 (Smarty_Internal_Template $_smarty_tpl)
         .checkorder {
             font-size: 15px;
         }
+
+        .modal-header,
+        h4,
+        .close {
+            background-color: #5cb85c;
+            color: white !important;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .modal-footer {
+            background-color: #f9f9f9;
+        }
+
+        .errorinfo {
+            color: darkred;
+            font-weight: bolder;
+            text-align: center
+        }
     </style>
 </head>
 
@@ -134,7 +153,8 @@ goodsback/index">商品管理</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
 loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -165,8 +185,8 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <thead>
                             <tr>
                                 <th>訂單編號</th>
-                                <th>商品總件數</th>
-                                <th>商品總價格</th>
+                                <th>總件數</th>
+                                <th>總價格</th>
                                 <th>商品</th>
                                 <th>收件地址</th>
                                 <th>成立時間</th>
@@ -194,7 +214,18 @@ orderback/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum
 </td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
 </td>
-                                <td>訂單成立</td>
+                                <td id="<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['statusName'];?>
+</td>
+                                <td>
+                                    <?php if ($_smarty_tpl->tpl_vars['ordersinfo']->value['status'] !== 3) {?>
+                                    <button type="button" class="btn btn-info status"
+                                        data-status="<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['status'];?>
+"
+                                        data-onum="<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+">edit</button>
+                                    <?php }?>
+                                </td>
                             </tr>
                             <?php
 }
@@ -207,16 +238,129 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
+
+    <!-- 模態框 -->
+    <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 style="color:red;"></span>正在修改訂單:<span id='onum'></span> </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <select id='status' name='status' class="form-control">
+                                    <option disabled>狀態</option>
+                                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['ostatus']->value, 'ostatusInfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['ostatusInfo']->value) {
+?>
+                                    <option class='options' value="<?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['onum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['name'];?>
+
+                                    </option>
+                                    <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                                </select>
+                            </div>
+                            <p class='errorinfo' id='errorinfo'>&nbsp</p>
+                            <button type="button" id='editstatus'
+                                class="btn btn-default btn-success btn-block">Confirm</button>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span
+                                class="glyphicon glyphicon-remove"></span>Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模態框 -->
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
 </body>
 
 </html>
-
 <?php echo '<script'; ?>
 >
 
+    let onum = null;
+    let editbtn = null;
+    $().ready(function () {
+        $(".status").click(function () {
+            onum = $(this).attr('data-onum');
+            let status = $(this).attr('data-status');
+            let opeion = $('.options');
+            $('#onum').html(onum);
+            editbtn = this;
+            for (let i = 0; i < opeion.length; i++) {
+                if ($(opeion[i]).val() === status) {
+                    $(opeion[i]).attr('selected', true);
+                    $(opeion[i]).attr('disabled', true);
+                } else {
+                    $(opeion[i]).attr('selected', false);
+                    $(opeion[i]).attr('disabled', false);
+                }
+            }
+            $("#myModal").modal();
+        });
+    });
+
+    $('#editstatus').click(function () {
+        let status = $("#status").val();
+        if (isNaN(parseInt(status))) {
+            alert("無效的修改");
+            return false;
+        }
+        $.ajax({
+            url: "editstatus",
+            type: "PUT",
+            dataType: "json",
+            data: {
+                'onum': onum,
+                'status': status,
+            },
+            success: function (result) {
+                if (result.editinfo['info'] === true) {
+                    $("#myModal").modal('hide');
+                    $('#errorinfo').html("&nbsp");
+                    $("#" + onum).html(result.editinfo['statusname']);
+                    if (result.editinfo['message'] === '3') {
+                        $(editbtn).remove();
+                    } else {
+                        let opeion = $('.options');
+                        for (let i = 0; i < opeion.length; i++) {
+                            if ($(opeion[i]).val() === result.editinfo['message']) {
+                                $(opeion[i]).attr('selected', true);
+                                $(opeion[i]).attr('disabled', true);
+                                $(editbtn).attr('data-status', result.editinfo['message']);
+                            } else {
+                                $(opeion[i]).attr('selected', false);
+                                $(opeion[i]).attr('disabled', false);
+                            }
+                        }
+                    }
+
+                } else if (result.editinfo['info'] === false) {
+                    $('#errorinfo').html(result.editinfo['message'])
+                } else {
+
+                }
+            }
+        });
+    })
 <?php echo '</script'; ?>
 ><?php }
 }

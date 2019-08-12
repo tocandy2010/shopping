@@ -22,12 +22,23 @@ class OrdersModel extends Model
     /*
      * 根據使用者取得該所有訂單紀錄
      */
-    public function getOrders($id = false)
+    public function getOrders($id = false, $condition = [])
     {
         $sql = "select count(onum) as buynum,onum,status,sum(price*number) as total,address,createTime from {$this->table} ";
         if ($id !== false) {
-            $sql .= "where cid = {$id} group by onum order by createTime desc";
+            $sql .= "where cid = {$id} ";
+            if (!empty($condition)) {
+                $key = array_keys($condition)[0];
+                $value = array_values($condition)[0];
+                $sql .= "and {$key} like '%{$value}%' ";
+            }
+            $sql .="group by onum order by createTime desc";
         } else {
+            if (!empty($condition)) {
+                $key = array_keys($condition)[0];
+                $value = array_values($condition)[0];
+                $sql .= "where {$key} like '%{$value}%' ";
+            }
             $sql .= "group by onum order by createTime desc";
         }
         $res = $this->db->prepare($sql);

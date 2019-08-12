@@ -29,8 +29,23 @@ class OrderController extends Controller
         }
 
         ## 與 goods 表連接查詢取得訂單資訊和商品資訊
+        $condition = [];
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $condition['onum'] = $_GET['search'];
+            $searchdata = $_GET['search'];
+        } else {
+            $searchdata = "";
+        }
+
+        if (isset($_GET['status']) && !empty($_GET['status'])) {
+            $condition['status'] = $_GET['status'];
+            $statusdata = $_GET['status'];
+        } else {
+            $statusdata = "";
+        }
+
         $DBOrders = $this->DBOrders;
-        $orderInfo = $DBOrders->getOrders($userInfo['cid']);
+        $orderInfo = $DBOrders->getOrders($userInfo['cid'] , $condition);
         if (!empty($orderInfo)) {
             foreach ($orderInfo as $key => $info) {
                 date_default_timezone_set("Asia/Taipei");
@@ -51,6 +66,9 @@ class OrderController extends Controller
 
         $loginFlag = !empty($userInfo);
 
+        $this->smarty->assign('searchdata', $searchdata);
+        $this->smarty->assign('statushdata', $statusdata);
+        $this->smarty->assign('ostatus', $ostatusInfo);
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('loginflag', $loginFlag);
         $this->smarty->assign('orders', $orderInfo);

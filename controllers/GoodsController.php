@@ -15,11 +15,6 @@ class GoodsController extends Controller
      */
     public function index($reg = false)
     {
-
-        // var_dump($_GET);
-        // var_dump($reg);
-        // exit;
-        ##不符合商品分類則轉到首頁
         $DBGtype = $this->DBGtype;
         $gtype = $DBGtype->getAll();
         $flag = false;
