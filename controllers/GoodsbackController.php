@@ -65,7 +65,9 @@ class GoodsbackController extends Controller
 
         $DBGtype = $this->DBGtype;
         $typeinfo = $DBGtype->getAll();
+        $loginflag = true;
         $this->smarty->assign('type', $typeinfo);
+        $this->smarty->assign('loginflag', $loginflag);
         return $this->smarty->display('back/goods/newgoods.html');
     }
 

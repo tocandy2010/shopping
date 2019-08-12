@@ -198,7 +198,7 @@ class LoginController extends Controller
             $verification = [
                 'name' => array('length' => '1~30'),
                 'phone' => array('phone' => "20"),
-                'address' => array('length' => '1~50'),
+                'address' => array('length' => '6~50'),
             ];
         } else if (empty(array_diff($password, $datakey))) {
             $editInfo = [

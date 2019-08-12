@@ -175,8 +175,45 @@
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
+    <script src='{{URL}}public/js/helper.js'></script>
     <script>
-        //style="border:3px solid crimson"
+
+        let nameflag = false;
+        let phoneflag = false;
+        let addressflag = false;
+
+        $("#name").blur(function () {
+            let name = $(this).val();
+            if (checkInput(name, 'length', '3~30') === false) {
+                $("#nameinfo").html("欄位填寫不正確");
+            } else {
+                nameflag = true;
+                $("#nameinfo").html("");
+            }
+        })
+
+        $("#phone").blur(function () {
+            let phone = $(this).val();
+            if (checkInput(phone, 'phone') === false) {
+                $("#phoneinfo").html("手機號碼錯誤");
+            } else {
+                phoneflag = true;
+                $("#phoneinfo").html("");
+            }
+        })
+
+        $("#address").blur(function () {
+            let address = $(this).val();
+            if (checkInput(address, 'length', '6~50') === false) {
+                $("#addressinfo").html("地址錯誤");
+            } else {
+                addressflag = true;
+                $("#addressinfo").html("");
+            }
+        })
+
+
+
         $("#regsend").click(function () {
             let name = $('#name').val();
             let phone = $('#phone').val();
@@ -185,6 +222,16 @@
 
             for (error of formname) {
                 $('#' + error + 'info').html("");
+            }
+
+            formname.forEach(function(item){
+                if($("#" + item).val() === '') {
+                    $("#" + item).focus();
+                }
+            })
+
+            if (!(name && phone && address)) {
+                return false;
             }
 
             $.ajax({

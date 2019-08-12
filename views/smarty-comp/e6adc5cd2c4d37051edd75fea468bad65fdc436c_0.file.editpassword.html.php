@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-09 11:20:08
+/* Smarty version 3.1.33, created on 2019-08-12 08:22:35
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\editpassword.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4d3ac8af60e1_41456515',
+  'unifunc' => 'content_5d5105ab80daa0_20004693',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e6adc5cd2c4d37051edd75fea468bad65fdc436c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\editpassword.html',
-      1 => 1565342403,
+      1 => 1565590953,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4d3ac8af60e1_41456515 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5105ab80daa0_20004693 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -110,7 +110,7 @@ function content_5d4d3ac8af60e1_41456515 (Smarty_Internal_Template $_smarty_tpl)
                 <a class="navbar-brand" href="<?php echo URL;?>
 index/index">Home</a>
                 <span class="navbar-brand" id='username'>&nbsp
-                        <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
 </span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
@@ -215,54 +215,101 @@ index/index"><button type="button"
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <?php echo '<script'; ?>
->
-        //style="border:3px solid crimson"
-        $("#regsend").click(function () {
-            let oldpassword = $('#oldpassword').val();
-            let password = $('#password').val();
-            let repassword = $('#repassword').val();
-            let formname = ['oldpassword', 'password', 'repassword'];
-
-            for (error of formname) {
-                $('#' + error + 'info').html("");
-            }
-
-            $.ajax({
-                url: "update",
-                type: "PUT",
-                dataType: "json",
-                data: {
-                    'oldpassword': oldpassword,
-                    'password': password,
-                    'repassword': repassword,
-                },
-                success: function (result) {
-                    if (result.info === false) {
-                        alert(result.message);
-                        if (result.error !== '') {
-                            for (error of formname) {
-                                $('#' + error + 'info').html(result.error[error]);
-                            }
-                        }
-                    } else if (result.info === true) {
-                        alert(result.message);
-                        $(window).attr('location', '<?php echo URL;?>
-index/index');
-                    } else {
-                        alert('修改失敗');
-                        $(window).attr('location', '<?php echo URL;?>
-index/index');
-                    }
-                }
-            });
-        })
-
-
-
-    <?php echo '</script'; ?>
->
 </body>
 
-</html><?php }
+</html>
+<?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
+    let oldpasswordflag = false;
+    let passwordflag = false;
+    let repasswordflag = false;
+
+    $('#oldpassword').blur(function () {
+        let oldpassword = $(this).val();
+        if (checkInput(oldpassword, 'notempty') === false) {
+            $("#oldpasswordinfo").html("請輸入舊密碼");
+        } else {
+            oldpasswordfalg = true;
+            $("#oldpasswordinfo").html("&nbsp");
+        }
+    })
+
+    $('#password').blur(function () {
+        let password = $(this).val();
+        if (checkInput(password, 'length', "6~20") === false) {
+            $("#passwordinfo").html("密碼長度錯誤");
+        } else {
+            passwordfalg = true;
+            $("#passwordinfo").html("&nbsp");
+        }
+    })
+
+    $('#repassword').blur(function () {
+        $('#repasswordinfo').html("&nbsp");
+    })
+
+
+    $("#regsend").click(function () {
+        let oldpassword = $('#oldpassword').val();
+        let password = $('#password').val();
+        let repassword = $('#repassword').val();
+        let formname = ['oldpassword', 'password', 'repassword'];
+
+        if (password !== repassword || password === "") {
+            $("#repasswordinfo").html("確認密碼錯誤")
+        }
+
+        formname.forEach(function (item) {
+            if ($("#" + item).val() === '') {
+                $("#" + item).focus();
+            }
+        })
+
+        if (!(oldpasswordflag && password && repassword)) {
+            return false;
+        }
+
+
+        for (error of formname) {
+            $('#' + error + 'info').html("");
+        }
+
+        $.ajax({
+            url: "update",
+            type: "PUT",
+            dataType: "json",
+            data: {
+                'oldpassword': oldpassword,
+                'password': password,
+                'repassword': repassword,
+            },
+            success: function (result) {
+                if (result.info === false) {
+                    alert(result.message);
+                    if (result.error !== '') {
+                        for (error of formname) {
+                            $('#' + error + 'info').html(result.error[error]);
+                        }
+                    }
+                } else if (result.info === true) {
+                    alert(result.message);
+                    $(window).attr('location', '<?php echo URL;?>
+index/index');
+                } else {
+                    alert('修改失敗');
+                    $(window).attr('location', '<?php echo URL;?>
+index/index');
+                }
+            }
+        });
+    })
+
+
+
+<?php echo '</script'; ?>
+><?php }
 }

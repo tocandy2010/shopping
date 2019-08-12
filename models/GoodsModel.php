@@ -8,10 +8,12 @@ class GoodsModel extends Model
     /*
      * 根據商品分類號碼取所有狀態為1的商品商品
      */
-    public function getTypeAll($tnum)
+    public function getTypeAll($tnum, $search = "")
     {
-        $condition = "tnum = {$tnum} and released = 1 order by gid desc";
+        $condition = "tnum = {$tnum} and released = 1 and name like '%{$search}%' order by gid desc";
         return $this->getAll($condition);
+        // $condition = "tnum = {$tnum} and released = 1 order by gid desc";
+        // return $this->getAll($condition);
     }
 
     public function getGoodsName($name)

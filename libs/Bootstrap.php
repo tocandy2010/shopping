@@ -7,8 +7,21 @@ class Bootstrap
      */
     public function __construct()
     {
-        if (isset($_GET['url'])) {
-            $url = $_GET['url'];
+
+        // echo '<pre>';
+        // echo $_SERVER['REDIRECT_URL'];
+        // exit('EE');
+
+
+        //goods/index/jog
+        // echo $_GET['url'];
+        // exit;
+
+        $sUrl = str_replace('/TaiwanGYM/' , '', $_SERVER['REDIRECT_URL']);
+        // // echo $sUrl;
+        // exit;
+        if (isset($sUrl)) {
+            $url = $sUrl;
         } else {
             $url = "index/index";
         }

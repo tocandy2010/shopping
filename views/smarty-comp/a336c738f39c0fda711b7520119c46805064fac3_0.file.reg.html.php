@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 05:35:49
+/* Smarty version 3.1.33, created on 2019-08-12 04:36:31
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\reg.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d48f595ec23b1_23297121',
+  'unifunc' => 'content_5d50d0afddbcc7_67019986',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a336c738f39c0fda711b7520119c46805064fac3' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\reg.html',
-      1 => 1565053747,
+      1 => 1565577379,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d48f595ec23b1_23297121 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d50d0afddbcc7_67019986 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -221,27 +221,108 @@ login/index"><button type="button"
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
     <?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
 >
-        //style="border:3px solid crimson"
+    <?php echo '<script'; ?>
+>
+
+        let emailflag = false;
+        let passwordflag = false;
+        let repasswordflag = false;
+        let nameflag = false;
+        let phoneflag = false;
+        let addressflag = false;
+
+        $("#email").blur(function () {
+            let email = $(this).val();
+            if (checkInput(email, 'email') === false) {
+                $("#emailinfo").html("請輸入正確的Email");
+            } else {
+                emailfalg = true;
+                $("#emailinfo").html("");
+            }
+        })
+
+        $("#password").blur(function () {
+            let password = $(this).val();
+            if (checkInput(password,'length', '6~20') === false) {
+                $("#passwordinfo").html("密碼長度不符合");
+            } else {
+                passwordflag = true;
+                $("#passwordinfo").html("");
+            }
+        })
+
+        $("#repassword").blur(function () {
+            let repassword = $(this).val();
+            if (repassword !== $("#password").val() || repassword === "") {
+                $("#repasswordinfo").html("確認密碼錯誤");
+            } else {
+                repasswordflag = true;
+                $("#repasswordinfo").html("");
+            }
+        })
+
+        $("#name").blur(function () {
+            let name = $(this).val();
+            if (checkInput(name,'length', '3~30') === false) {
+                $("#nameinfo").html("格式不正確");
+            } else {
+                nameflag = true;
+                $("#nameinfo").html("");
+            }
+        })
+
+        $("#phone").blur(function () {
+            let phone = $(this).val();
+            if (checkInput(phone,'phone') === false) {
+                $("#phoneinfo").html("手機號碼錯誤");
+            } else {
+                phoneflag = true;
+                $("#phoneinfo").html("");
+            }
+        })
+
+        $("#address").blur(function () {
+            let address = $(this).val();
+            if (checkInput(address,'length', '6~50') === false) {
+                $("#addressinfo").html("地址錯誤");
+            } else {
+                addressflag = true;
+                $("#addressinfo").html("");
+            }
+        })
+
         $("#regsend").click(function () {
-            let eamil = $('#email').val();
+            let email = $('#email').val();
             let password = $('#password').val();
             let repassword = $('#repassword').val();
             let name = $('#name').val();
             let phone = $('#phone').val();
             let address = $('#address').val();
             let formname = ['email', 'password', 'repassword', 'name', 'phone', 'address'];
-
             for (error of formname) {
                 $('#' + error + 'info').html("");
             }
 
+            formname.forEach(function(item){
+                if($("#" + item).val() === '') {
+                    $("#" + item).focus();
+                }
+            })
+
+            if (!(emailflag && password && repassword && name && phone && address)) {
+                return false;
+            }
+
+            return false;
             $.ajax({
                 url: "add",
                 type: "POST",
                 dataType: "json",
                 data: {
-                    'email': eamil,
+                    'email': email,
                     'password': password,
                     'repassword': repassword,
                     'name': name,
@@ -249,7 +330,6 @@ login/index"><button type="button"
                     'address': address,
                 },
                 success: function (result) {
-                    console.log(result);
                     if (result.reginfo === 'success') {
                         $(window).attr('location', '<?php echo URL;?>
 /login/index');
@@ -265,8 +345,6 @@ login/index"><button type="button"
                 }
             });
         })
-
-
 
     <?php echo '</script'; ?>
 >

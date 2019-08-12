@@ -188,6 +188,74 @@
     </footer>
     <script src='{{URL}}public/js/helper.js'></script>
     <script>
+
+        let emailflag = false;
+        let passwordflag = false;
+        let repasswordflag = false;
+        let nameflag = false;
+        let phoneflag = false;
+        let addressflag = false;
+
+        $("#email").blur(function () {
+            let email = $(this).val();
+            if (checkInput(email, 'email') === false) {
+                $("#emailinfo").html("請輸入正確的Email");
+            } else {
+                emailfalg = true;
+                $("#emailinfo").html("");
+            }
+        })
+
+        $("#password").blur(function () {
+            let password = $(this).val();
+            if (checkInput(password,'length', '6~20') === false) {
+                $("#passwordinfo").html("密碼長度不符合");
+            } else {
+                passwordflag = true;
+                $("#passwordinfo").html("");
+            }
+        })
+
+        $("#repassword").blur(function () {
+            let repassword = $(this).val();
+            if (repassword !== $("#password").val() || repassword === "") {
+                $("#repasswordinfo").html("確認密碼錯誤");
+            } else {
+                repasswordflag = true;
+                $("#repasswordinfo").html("");
+            }
+        })
+
+        $("#name").blur(function () {
+            let name = $(this).val();
+            if (checkInput(name,'length', '3~30') === false) {
+                $("#nameinfo").html("格式不正確");
+            } else {
+                nameflag = true;
+                $("#nameinfo").html("");
+            }
+        })
+
+        $("#phone").blur(function () {
+            let phone = $(this).val();
+            if (checkInput(phone,'phone') === false) {
+                $("#phoneinfo").html("手機號碼錯誤");
+            } else {
+                phoneflag = true;
+                $("#phoneinfo").html("");
+            }
+        })
+
+        $("#address").blur(function () {
+            let address = $(this).val();
+            if (checkInput(address,'length', '6~50') === false) {
+                $("#addressinfo").html("地址錯誤");
+            } else {
+                addressflag = true;
+                $("#addressinfo").html("");
+            }
+        })
+
         $("#regsend").click(function () {
             let email = $('#email').val();
             let password = $('#password').val();
@@ -200,15 +268,17 @@
                 $('#' + error + 'info').html("");
             }
 
-            // let data = [email, password, name, phone, address];
-            // let verification  = ['email', "length:6~20" ,"length:3~30", "phone", "length:1~50"];
-            // let inputerror = [];
-            // for(item of data){
-            //     checkInput(itme,)
-            // }
-            let inputerror = [];
-            checkInput(email, 'email')?
+            formname.forEach(function(item){
+                if($("#" + item).val() === '') {
+                    $("#" + item).focus();
+                }
+            })
 
+            if (!(emailflag && password && repassword && name && phone && address)) {
+                return false;
+            }
+
+            return false;
             $.ajax({
                 url: "add",
                 type: "POST",
@@ -222,7 +292,6 @@
                     'address': address,
                 },
                 success: function (result) {
-                    console.log(result);
                     if (result.reginfo === 'success') {
                         $(window).attr('location', '{{URL}}/login/index');
                     } else if (result.reginfo === 'fail') {

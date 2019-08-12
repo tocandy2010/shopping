@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-09 11:20:38
+/* Smarty version 3.1.33, created on 2019-08-12 08:30:09
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\editinfo.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4d3ae6ea8149_25539739',
+  'unifunc' => 'content_5d510771a61f15_41455488',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a950b98ac7ee87b11bded1d1660927aa1265e288' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\editinfo.html',
-      1 => 1565342435,
+      1 => 1565591409,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4d3ae6ea8149_25539739 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d510771a61f15_41455488 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -219,8 +219,48 @@ index/index"><button type="button"
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
     <?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
 >
-        //style="border:3px solid crimson"
+    <?php echo '<script'; ?>
+>
+
+        let nameflag = false;
+        let phoneflag = false;
+        let addressflag = false;
+
+        $("#name").blur(function () {
+            let name = $(this).val();
+            if (checkInput(name, 'length', '3~30') === false) {
+                $("#nameinfo").html("欄位填寫不正確");
+            } else {
+                nameflag = true;
+                $("#nameinfo").html("");
+            }
+        })
+
+        $("#phone").blur(function () {
+            let phone = $(this).val();
+            if (checkInput(phone, 'phone') === false) {
+                $("#phoneinfo").html("手機號碼錯誤");
+            } else {
+                phoneflag = true;
+                $("#phoneinfo").html("");
+            }
+        })
+
+        $("#address").blur(function () {
+            let address = $(this).val();
+            if (checkInput(address, 'length', '6~50') === false) {
+                $("#addressinfo").html("地址錯誤");
+            } else {
+                addressflag = true;
+                $("#addressinfo").html("");
+            }
+        })
+
+
+
         $("#regsend").click(function () {
             let name = $('#name').val();
             let phone = $('#phone').val();
@@ -229,6 +269,16 @@ index/index"><button type="button"
 
             for (error of formname) {
                 $('#' + error + 'info').html("");
+            }
+
+            formname.forEach(function(item){
+                if($("#" + item).val() === '') {
+                    $("#" + item).focus();
+                }
+            })
+
+            if (!(name && phone && address)) {
+                return false;
             }
 
             $.ajax({

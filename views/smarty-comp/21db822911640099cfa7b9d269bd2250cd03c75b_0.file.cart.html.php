@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-09 11:59:23
+/* Smarty version 3.1.33, created on 2019-08-12 04:37:08
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4d43fba00af1_38488330',
+  'unifunc' => 'content_5d50d0d49828a4_46936573',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '21db822911640099cfa7b9d269bd2250cd03c75b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565344763,
+      1 => 1565572147,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4d43fba00af1_38488330 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d50d0d49828a4_46936573 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -307,17 +307,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
     //計算小記價格
     $('.gnum').keyup(function () {
-        let max = $(this).attr("max");
+        let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
-        let gnum = $(this).val();
+        let gnum = parseInt($(this).val());
         let price = parseInt($("#price" + gid).html());
 
-        if (gnum >= max) {
+        if (gnum > max) {
             gnum = max;
+            alert("此商品最大購買數量為"+max);
             $(this).val(max);
         }
 
-        if (gnum <= 0) {
+        if (gnum < 1 || isNaN(gnum)) {
             gnum = 1;
             $(this).val(1);
         }
@@ -363,7 +364,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 'gnum': gnum,
             },
             success: function (result) {
-                console.log(result);
                 if (result.setcartinfo === 'fail') {
                     alert("新增失敗");
                 } else if (result.setcartinfo) {
