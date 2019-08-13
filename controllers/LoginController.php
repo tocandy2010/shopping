@@ -8,6 +8,9 @@ class LoginController extends Controller
         parent::__construct();
     }
 
+    /*
+     * 首頁
+     */
     public function index($reg = false)
     {
         return $this->smarty->display("home/login/login.html");
@@ -182,6 +185,7 @@ class LoginController extends Controller
             exit;
         }
 
+        ## 接收修改參數
         parse_str(file_get_contents('php://input'), $data);
         $info = ['name', 'phone', 'address'];
         $password = ['oldpassword', 'password', 'repassword'];

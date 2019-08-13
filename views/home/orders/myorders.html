@@ -17,7 +17,7 @@
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 711px
+            height:632px
         }
 
         /* Set gray background color and 100% height */
@@ -79,6 +79,10 @@
         .checkorder {
             font-size: 15px;
         }
+
+        .page {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -132,8 +136,8 @@
                     <div class="container">
                         <h2>我的訂單紀錄</h2>
                         <form class="form-inline" actuin="{{URL}}/orders/index" method="get">
-                            <input type="text" class="form-control" name='search' id="search" 
-                            placeholder="搜尋訂單編號" value="{{$searchdata}}">
+                            <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"
+                                value="{{$searchdata}}">
                             <button type="submit" id="searchsend" class="btn btn-info">search</button>
                         </form>
                     </div>
@@ -156,7 +160,8 @@
                                             <li><a href="{{URL}}order/index">全部</a></li>
                                             {{foreach from=$ostatus item=$ostatusInfo}}
                                             <li>
-                                                <a href="{{URL}}order/index?status={{$ostatusInfo['onum']}}">{{$ostatusInfo['name']}}</a>
+                                                <a
+                                                    href="{{URL}}order/index?status={{$ostatusInfo['onum']}}">{{$ostatusInfo['name']}}</a>
                                             </li>
                                             {{/foreach}}
                                         </ul>
@@ -184,6 +189,19 @@
             <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
+    <div class="container-fluid page">
+            <span class='pull-center'>
+                <ul class="pagination">
+                {{foreach from=$pagenum item=$pnum}}
+                    {{if $pnum !== $nowpage}}
+                    <li><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
+                    {{else}}
+                    <li class='active'><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
+                    {{/if}}
+                {{/foreach}}
+                </ul>
+            </span>
+        </div>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>

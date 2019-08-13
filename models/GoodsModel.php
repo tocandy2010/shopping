@@ -16,6 +16,9 @@ class GoodsModel extends Model
         // return $this->getAll($condition);
     }
 
+    /*
+     * 使用商品名稱找商品
+     */
     public function getGoodsName($name)
     {
         $condition = "name = '{$name}'";

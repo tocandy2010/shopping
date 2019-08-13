@@ -7,14 +7,12 @@ class GoodsController extends Controller
         parent::__construct();
     }
 
-    // domanin/controller/action 
-    //        /goods/index       
-
     /*
      *  首頁
      */
     public function index($reg = false)
     {
+        ## 檢查商品分類
         $DBGtype = $this->DBGtype;
         $gtype = $DBGtype->getAll();
         $flag = false;
@@ -27,7 +25,7 @@ class GoodsController extends Controller
         }
         if ($flag === false) {
             $home = URL . "index/index";
-            // header("Location: {$home}");
+            header("Location: {$home}");
         }
 
         ##判斷使用者登入
@@ -42,18 +40,16 @@ class GoodsController extends Controller
         }
 
         // ## 取得分類所有產品
-        // $DBGoods = $this->DBGoods;
-        // $goodsInfo = $DBGoods->getTypeAll($tnum);
         $DBGoods = $this->DBGoods;
         if (isset($_GET['search']) && $_GET['search'] !== "") {
-
             $search = htmlspecialchars($_GET['search'], ENT_QUOTES);
             $goodsInfo = $DBGoods->getTypeAll($tnum, $search);
         } else {
+            $search = "";
             $goodsInfo = $DBGoods->getTypeAll($tnum);
         }
         
-
+        $this->smarty->assign('search', $search);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->assign('typename', $reg[0]);
         $this->smarty->assign('userinfo', $userInfo);

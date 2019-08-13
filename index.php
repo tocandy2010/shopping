@@ -12,23 +12,24 @@
 require("./public/smraty3/smarty-3.1.33/libs/Smarty.class.php");
 require('./config/path.php');
 require('./helper/Helper.php');
+// require('./public/tool/Pagetool.php');
 
  function loadlibs($class)
  {
-    require("./libs/{$class}.php");
+    if (file_exists("./libs/{$class}.php")) {
+       require("./libs/{$class}.php");
+    }
  }
 
  spl_autoload_register("loadlibs");
 
-// require('./libs/Bootstrap.php');
-// require('./libs/Controller.php');
-// require('./libs/Model.php');
-
-// require('./libs/Mysmarty.php');
-
-// require('./libs/Database.php');
-// require('./libs/Session.php');
-
-// require('./libs/View.php');
+ function loadtool($class)
+ {
+    if (file_exists("./public/tool/{$class}.php")) {
+      require("./public/tool/{$class}.php");
+    }
+ }
+ 
+ spl_autoload_register("loadtool");
 
 $app = new Bootstrap();

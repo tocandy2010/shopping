@@ -28,6 +28,7 @@ class OrderbackController extends Controller
             exit;
         }
 
+        ## 取得訂單資訊
         $DBOrders = $this->DBOrders;
         $orderInfo = $DBOrders->getOrders();
         if (!empty($orderInfo)) {
@@ -37,6 +38,7 @@ class OrderbackController extends Controller
             }
         }
 
+        ##取得狀態資訊
         $DBOstatus = $this->DBOstatus;
         $ostatusInfo = $DBOstatus->getAll();
 

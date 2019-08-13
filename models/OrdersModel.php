@@ -4,16 +4,25 @@ class OrdersModel extends Model
 {
     protected $table = "orders";
 
+    /*
+     * 打開事務
+     */
     public function setBeginTransaction()
     {
         return $this->db->beginTransaction();
     }
 
+    /*
+     * 事務回滾
+     */
     public function setRollBack()
     {
         return $this->db->rollBack();
     }
 
+    /*
+     * 事務提交
+     */
     public function setCommit()
     {
         return $this->db->commit();
@@ -22,7 +31,7 @@ class OrdersModel extends Model
     /*
      * 根據使用者取得該所有訂單紀錄
      */
-    public function getOrders($id = false, $condition = [])
+    public function getOrders($id = false, $condition = [], $offset = false, $length = false)
     {
         $sql = "select count(onum) as buynum,onum,status,sum(price*number) as total,address,createTime from {$this->table} ";
         if ($id !== false) {
@@ -32,7 +41,10 @@ class OrdersModel extends Model
                 $value = array_values($condition)[0];
                 $sql .= "and {$key} like '%{$value}%' ";
             }
-            $sql .="group by onum order by createTime desc";
+            $sql .="group by onum order by createTime desc ";
+            if ($offset !== false && $length !== false) {
+                $sql .= "limit {$offset},{$length} ";
+            }
         } else {
             if (!empty($condition)) {
                 $key = array_keys($condition)[0];
@@ -46,6 +58,9 @@ class OrdersModel extends Model
         return $res->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /*
+     * 根據訂單編號回傳商品訊息
+     */
     public function getOrderGoods($onum)
     {
         $sql = "select o.onum,o.gid,o.name, o.price, o.number, (o.price*o.number) as sumprice, g.gimg 
@@ -59,6 +74,9 @@ class OrdersModel extends Model
         return $res->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /*
+     * 修改訂單狀態
+     */
     public function editOrders($arr,$onum)
     {
         $key = array_keys($arr)[0];

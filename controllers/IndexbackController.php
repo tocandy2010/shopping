@@ -12,7 +12,6 @@ class IndexbackController extends Controller
      */
     public function index($reg = false)
     {
-
         $path = URL . "loginback/index";
         if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             header("Location: {$path}");
