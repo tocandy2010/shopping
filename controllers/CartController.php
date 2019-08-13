@@ -8,17 +8,20 @@ class CartController extends controller
     public function index()
     {
         ##判斷使用者登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $userInfo = [];
-        } else {
-            $DBCustomer = $this->DBCustomer;
-            $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
-            if (!empty($userInfo)) {
-                $this->smarty->assign('loginflag', true);
-            } else {
-                $userInfo = [];
-            }
-        }
+        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        //     $userInfo = [];
+        // } else {
+        //     $DBCustomer = $this->DBCustomer;
+        //     $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
+        //     if (!empty($userInfo)) {
+        //         $this->smarty->assign('loginflag', true);
+        //     } else {
+        //         $userInfo = [];
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
+        $loginflag = $this->loginflag;
 
         ## 檢查過濾購物車商品
         $goods = [];
@@ -51,7 +54,10 @@ class CartController extends controller
         }
         setcookie('cart',  json_encode($cartgoods), time() + 3600, "/");
 
+        ## 購物車是空的則關閉結帳按鈕
         $checkOutBtn = !empty($goods);
+        
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('checkoutbtn', $checkOutBtn);
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('goods', $goods);
@@ -137,22 +143,27 @@ class CartController extends controller
      */
     public function checkOut()
     {
-        ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $checkOutInfo = ['checkoutinfo' => 'notlogin'];
-            echo json_encode($checkOutInfo);
-            exit;
-        }
+        // ##檢查使用者是否登入
+        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        //     $checkOutInfo = ['checkoutinfo' => 'notlogin'];
+        //     echo json_encode($checkOutInfo);
+        //     exit;
+        // }
 
-        ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            $checkOutInfo = ['checkoutinfo' => 'notlogin'];
-            echo json_encode($checkOutInfo);
-            exit;
-        }
+        // ## 檢查用戶合法性
+        // $token = $_COOKIE['token'];
+        // $DBCustomer = $this->DBCustomer;
+        // $userInfo = $DBCustomer->getOne(['token' => $token]);
+        // if (empty($userInfo) || $userInfo['released'] !== '1') {
+        //     $checkOutInfo = ['checkoutinfo' => 'notlogin'];
+        //     echo json_encode($checkOutInfo);
+        //     exit;
+        // }
+
+        ## 取得登入者資訊
+
+        $userInfo = $this->userInfo;
+        exit;
 
         ##檢查購物車
         if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart'])) {

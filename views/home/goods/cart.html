@@ -243,7 +243,7 @@
     })
 
     //計算小記價格
-    $('.gnum').keyup(function () {
+    $('.gnum').change(function () {
         let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
         let gnum = parseInt($(this).val());
@@ -251,7 +251,6 @@
 
         if (gnum > max) {
             gnum = max;
-            alert("此商品最大購買數量為"+max);
             $(this).val(max);
         }
 
@@ -338,14 +337,15 @@
             dataType: "json",
             type: 'POST',
             success: function (result) {
+                console.log(result);
                 if (result.checkoutinfo === 'fail') {
                     alert('結帳失敗');
                 } else if (result.checkoutinfo === 'success') {
-                    $(window).attr('location', '{{URL}}/order/index');
+                    // $(window).attr('location', '{{URL}}/order/index');
                     alert('訂單已成立');
                 } else if (result.checkoutinfo === 'notlogin') {
                     alert('請先登入會員');
-                    $(window).attr('location', '{{URL}}/login/index');
+                    // $(window).attr('location', '{{URL}}/login/index');
                 } else if (result.checkoutinfo === 'luckbtn') {
                     alert('目前購物車內沒有任何商品');
                     $("#checkout").attr('disabled', true);

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-12 16:33:38
+/* Smarty version 3.1.33, created on 2019-08-13 17:19:25
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5178c20f8832_70044349',
+  'unifunc' => 'content_5d52d4fda98552_87826818',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dc669a1b68a2d76fbc9a84eb28f84544c09fe7b' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1565620284,
+      1 => 1565703873,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d5178c20f8832_70044349 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d52d4fda98552_87826818 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -211,7 +211,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
     <div class="container-fluid">
         <form class="form-inline" actuin="<?php echo URL;?>
 /goods/index" method="get" >
-                <input type="text" class="form-control" name='search' id="search">
+                <input type="text" class="form-control" name='search' id="search" value="<?php echo $_smarty_tpl->tpl_vars['search']->value;?>
+">
             <button type="submit" id="searchsend" class="btn btn-default">Submit</button>
         </form>
     </div>

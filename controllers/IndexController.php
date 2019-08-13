@@ -4,6 +4,8 @@ class IndexController extends Controller
 {
     public function __construct(){
         parent:: __construct();
+
+
     }
 
     /*
@@ -11,15 +13,9 @@ class IndexController extends Controller
      */
     public function index($reg = false)
     {
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $userInfo = [];
-        } else {
-            $DBCustomer = $this->DBCustomer;
-            $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
-            if (!empty($userInfo)) {
-                $this->smarty->assign('loginflag', true);
-            }
-        }
+        $userInfo = $this->userInfo;
+        $loginflag = $this->loginflag;
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
         return $this->smarty->display('home/index.html');
     }

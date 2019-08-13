@@ -107,22 +107,30 @@ class LoginController extends Controller
     public function editInfo()
     {
         $path = URL . "login/index";
-        ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        // ##檢查使用者是否登入
+        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        //     header("Location:{$path}");
+        //     exit;
+        // }
+
+        // ## 檢查用戶合法性
+        // $token = $_COOKIE['token'];
+        // $DBCustomer = $this->DBCustomer;
+        // $userInfo = $DBCustomer->getOne(['token' => $token]);
+        // if (empty($userInfo) || $userInfo['released'] !== '1') {
+        //     header("Location:{$path}");
+        //     exit;
+        // }
+
+        $loginflag = $this->loginflag;
+
+        if ($loginflag === false) {
             header("Location:{$path}");
             exit;
         }
 
-        ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            header("Location:{$path}");
-            exit;
-        }
+        $userInfo = $this->userInfo;
 
-        $loginflag = !empty($userInfo) ? true : false;
 
         $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
@@ -136,21 +144,28 @@ class LoginController extends Controller
     {
         $path = URL . "login/index";
         ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        //     header("Location:{$path}");
+        //     exit;
+        // }
+
+        // ## 檢查用戶合法性
+        // $token = $_COOKIE['token'];
+        // $DBCustomer = $this->DBCustomer;
+        // $userInfo = $DBCustomer->getOne(['token' => $token]);
+        // if (empty($userInfo) || $userInfo['released'] !== '1') {
+        //     header("Location:{$path}");
+        //     exit;
+        // }
+
+        $loginflag = $this->loginflag;
+
+        if ($loginflag === false) {
             header("Location:{$path}");
             exit;
         }
 
-        ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            header("Location:{$path}");
-            exit;
-        }
-
-        $loginflag = !empty($userInfo) ? true : false;
+        $userInfo = $this->userInfo;
 
         $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
@@ -168,22 +183,15 @@ class LoginController extends Controller
             'message' => "",
             'error' => false,
         ];
-        $login = URL . "login/index";
-        ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            header("Location:{$login}");
-            exit;
-        }
 
-        ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            setcookie('token', 0, time() - 10, "/");
-            header("Location:{$login}");
+        ## 驗證登入
+        $path = URL . "login/index";
+        $loginflag = $this->loginflag;
+        if ($loginflag === false) {
+            header("Location:{$path}");
             exit;
         }
+        $userInfo = $this->userInfo;
 
         ## 接收修改參數
         parse_str(file_get_contents('php://input'), $data);
@@ -265,7 +273,13 @@ class LoginController extends Controller
             $editInfo['password'] = password_hash($editInfo['password'], PASSWORD_DEFAULT);
         } else {
             ## 判斷 info 有沒有修改
-            if (count(array_intersect($editInfo, $userInfo)) !== 0) {
+            $user = [
+                'name' => $userInfo['name'],
+                'phone' => $userInfo['phone'],
+                'address' => $userInfo['address'],
+            ];
+
+            if (count(array_intersect($editInfo, $user)) === 0) {
                 $message['info'] = true;
                 $message['message'] = '本次未有任何修改';
                 echo json_encode($message);
@@ -274,6 +288,7 @@ class LoginController extends Controller
         }
 
         ## 修改訊息
+        $DBCustomer = $this->DBCustomer;
         if ($DBCustomer->update($editInfo, $userInfo['cid']) !== 1) {
             $message['info'] = false;
             $message['message'] = '修改失敗';

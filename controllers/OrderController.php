@@ -1,6 +1,6 @@
 <?php
 
-class OrderController extends Controller
+class OrderController extends CustomerController
 {
     public function __construct()
     {
@@ -12,21 +12,25 @@ class OrderController extends Controller
      */
     public function index($reg = false)
     {
-        $path = URL . "login/index";
-        ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            header("Location:{$path}");
-            exit;
-        }
+        // $path = URL . "login/index";
+        // ##檢查使用者是否登入
+        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        //     header("Location:{$path}");
+        //     exit;
+        // }
 
-        ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            header("Location:{$path}");
-            exit;
-        }
+        // ## 檢查用戶合法性
+        // $token = $_COOKIE['token'];
+        // $DBCustomer = $this->DBCustomer;
+        // $userInfo = $DBCustomer->getOne(['token' => $token]);
+        // if (empty($userInfo) || $userInfo['released'] !== '1') {
+        //     header("Location:{$path}");
+        //     exit;
+        // }
+
+        ## 取得登入資訊
+        $loginflag = $this->loginflag;
+        $userInfo = $this->userInfo;
 
         ## 取得搜尋GET參數
         $condition = [];
@@ -75,8 +79,6 @@ class OrderController extends Controller
             }
         }
 
-        $loginFlag = !empty($userInfo);
-
         $this->smarty->assign('url', $url);
         $this->smarty->assign('pagenum', $pagenum);
         $this->smarty->assign('nowpage', $page);
@@ -84,7 +86,7 @@ class OrderController extends Controller
         $this->smarty->assign('statushdata', $statusdata);
         $this->smarty->assign('ostatus', $ostatusInfo);
         $this->smarty->assign('userinfo', $userInfo);
-        $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('orders', $orderInfo);
         $this->smarty->display("home/orders/myorders.html");
     }
@@ -94,22 +96,9 @@ class OrderController extends Controller
      */
     public function showGoods($reg = false)
     {
-        $path = URL . "login/index";
-        ##檢查使用者是否登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            header("Location: {$path}");
-            exit;
-        }
-
-        ## 檢查用戶合法性
-        $token = $_COOKIE['token'];
-        $DBCustomer = $this->DBCustomer;
-        $userInfo = $DBCustomer->getOne(['token' => $token]);
-        if (empty($userInfo) || $userInfo['released'] !== '1') {
-            $path = URL . "login/index";
-            header("Location: {$path}");
-            exit;
-        }
+        ## 取得登入資訊
+        $loginflag = $this->loginflag;
+        $userInfo = $this->userInfo;
 
         ## 檢查訂單編號
         if (empty($reg[0]) || !is_numeric($reg[0])) {
@@ -131,11 +120,9 @@ class OrderController extends Controller
 
         $goodsInfo = $DBOrders->getOrderGoods($onum);
 
-        $loginFlag = !empty($userInfo);
-
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('goods', $goodsInfo);
-        $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->display("home/orders/ordergoods.html");
     }
 }

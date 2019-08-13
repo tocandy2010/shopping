@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-11 17:17:31
+/* Smarty version 3.1.33, created on 2019-08-13 18:17:58
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d50318bd9c360_40643573',
+  'unifunc' => 'content_5d52e2b6bb31e3_74146042',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '311e6a4c0f34b608e7e923c0dfeb9c6548f53378' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565536650,
+      1 => 1565713060,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d50318bd9c360_40643573 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d52e2b6bb31e3_74146042 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -306,7 +306,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     })
 
     //計算小記價格
-    $('.gnum').keyup(function () {
+    $('.gnum').change(function () {
         let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
         let gnum = parseInt($(this).val());
@@ -314,7 +314,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
         if (gnum > max) {
             gnum = max;
-            alert("此商品最大購買數量為"+max);
             $(this).val(max);
         }
 
@@ -401,15 +400,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             dataType: "json",
             type: 'POST',
             success: function (result) {
+                console.log(result);
                 if (result.checkoutinfo === 'fail') {
                     alert('結帳失敗');
                 } else if (result.checkoutinfo === 'success') {
-                    $(window).attr('location', '<?php echo URL;?>
+                    // $(window).attr('location', '<?php echo URL;?>
 /order/index');
                     alert('訂單已成立');
                 } else if (result.checkoutinfo === 'notlogin') {
                     alert('請先登入會員');
-                    $(window).attr('location', '<?php echo URL;?>
+                    // $(window).attr('location', '<?php echo URL;?>
 /login/index');
                 } else if (result.checkoutinfo === 'luckbtn') {
                     alert('目前購物車內沒有任何商品');
