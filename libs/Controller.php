@@ -41,7 +41,7 @@ class Controller
             if (file_exists($path)) {
                 require($path);
                 $modelname = $name . 'Model';
-                // $this->${"DB{$name}"} = new $modelname;
+                $this->{"DB{$name}"} = new $modelname;
                 return new $modelname;
             }
         }

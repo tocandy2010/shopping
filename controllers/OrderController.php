@@ -5,9 +5,6 @@ class OrderController extends Controller
     public function __construct()
     {
         parent::__construct();
-        if(!isset($_COOKIE['tt'])) {
-            echo 1;
-        }
     }
 
     /*
