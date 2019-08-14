@@ -1,6 +1,6 @@
 <?php
 
-class CartController extends controller
+class CartController extends Controller
 {
     /*
      * 購物車首頁
@@ -160,17 +160,25 @@ class CartController extends controller
         //     exit;
         // }
 
-        ## 取得登入者資訊
+        
+        ##檢查使用者是否登入
+        if ($this->loginflag === false) {
+            $info['info'] = false;
+            $info['message'] = '請先登入會員';
+            $info['error'] = '';
+            echo json_encode($info);
+            exit;
+        }
 
+        ## 取得登入者資訊
         $userInfo = $this->userInfo;
-        exit;
 
         ##檢查購物車
         if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart'])) {
             $cart = json_decode($_COOKIE['cart']);
             $cartdata = [];
             foreach ($cart as $cgid => $cgnum) {
-                if (is_numeric($cgid) && is_numeric($cgnum)) {
+                if ((is_numeric($cgid)) && ($cgid > 0) && is_numeric($cgnum)) {
                     if ($cgnum < 1) {
                         $cartdata[$cgid] = 1;
                     } else {
@@ -181,7 +189,12 @@ class CartController extends controller
 
             ## 檢查購物車是否有商品
             if (empty($cartdata)) {
-                echo json_encode(['checkoutinfo' => 'luckbtn']);
+                $info['info'] = false;
+                $info['message'] = '購物車內無任何商品';
+                $info['error'] = '';
+                $info['redirect'] = '';
+                $info['luckbtn'] = true;
+                echo json_encode($info);
                 exit;
             }
 
@@ -191,8 +204,12 @@ class CartController extends controller
             $goodsInfo = $DBGoods->getAll("gid in (" . $gid . ") and released = '1'");
 
             if (empty($goodsInfo)) {
-                $checkOutInfo = ['checkoutinfo' => 'fail'];
-                echo json_encode($checkOutInfo);
+                $info['info'] = false;
+                $info['message'] = '操作失敗';
+                $info['error'] = '';
+                $info['redirect'] = '';
+                $info['luckbtn'] = true;
+                echo json_encode($info);
                 exit;
             }
 
@@ -225,17 +242,15 @@ class CartController extends controller
                     'address' => $userInfo['address'],
                     'createTime' => time(),
                 ];
-                // $orderInfo['onum'] = $onum;
-                // $orderInfo['cid'] = $userInfo['cid'];
-                // $orderInfo['gid'] = $goods['gid'];
-                // $orderInfo['name'] = $goods['name'];
-                // $orderInfo['price'] = $goods['price'];
-                // $orderInfo['number'] = $goodsInfo[$key]['num'];
-                // $orderInfo['address'] = $userInfo['address'];
-                // $orderInfo['createTime'] = time();
+
                 if ($DBOrders->add($orderInfo) !== 1) {
-                    $checkOutInfo = ['checkoutinfo' => 'fail'];
-                    echo json_encode($checkOutInfo);
+                    $DBOrders->setRollBack();
+                    $info['info'] = false;
+                    $info['message'] = '操作失敗';
+                    $info['error'] = '';
+                    $info['redirect'] = '';
+                    $info['luckbtn'] = true;
+                    echo json_encode($info);
                     exit;
                 }
             }
@@ -243,16 +258,28 @@ class CartController extends controller
             ## 有庫存不足的商品則資料庫回滾，並回報
             if (!empty($errorStockId)) {
                 $DBOrders->setRollBack();
-                $checkOutInfo = ['checkoutinfo' => $errorStockId];
-                echo json_encode($checkOutInfo);
+                // $checkOutInfo = ['checkoutinfo' => $errorStockId];
+                // echo json_encode($checkOutInfo);
+                // exit;
+
+                $info['info'] = false;
+                $info['message'] = '部分商品庫存數量不足';
+                $info['error'] = '';
+                $info['redirect'] = '';
+                $info['errorstock'] = $errorStockId;
+                $info['luckbtn'] = true;
+                echo json_encode($info);
                 exit;
             }
 
             ## 無發現庫存部則情況則提交
-            setcookie('cart', 0, time() + 3600, "/");
+            setcookie('cart', json_encode(['-1' => '-1']), time() + 3600, "/");
             $DBOrders->setCommit();
-            $checkOutInfo = ['checkoutinfo' => 'success'];
-            echo json_encode($checkOutInfo);
+            $info['info'] = true;
+            $info['message'] = '訂單已成立';
+            $info['error'] = '';
+            $info['redirect'] = URL . "order/index";
+            echo json_encode($info);
             exit;
         }
     }

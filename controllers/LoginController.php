@@ -225,8 +225,10 @@ class LoginController extends Controller
                 'repassword' => array('notempty' => '0'),
             ];
         } else {
-            $message['info'] = false;
-            $message['message'] = "錯誤格式";
+            $message = [
+                'info' => false,
+                'message' => "欄位輸入不正確",
+            ];
             echo json_encode($message);
             exit;
         }
@@ -234,9 +236,11 @@ class LoginController extends Controller
         ##針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($editInfo, $verification);
         if (!empty($this->helper->checkForm($editInfo, $verification))) {
-            $message['info'] = false;
-            $message['message'] = '填寫欄位有誤';
-            $message['error'] = $errorMessage;
+            $message = [
+                'info' => false,
+                'message' => '填寫欄位有誤',
+                'error' => $errorMessage,
+            ];
             echo json_encode($message);
             exit;
         }
@@ -246,17 +250,23 @@ class LoginController extends Controller
             $editInfo['oldpassword'] = $editInfo['password'];
 
             if (!password_verify($editInfo['oldpassword'], $userInfo['password'])) {
-                $message['info'] = false;
-                $message['message'] = '填寫欄位有誤';
-                $message['error'] = ['oldpassword' => "舊密碼錯誤"];
+                $error['oldpassword'] = "舊密碼錯誤";
+                $message = [
+                    'info' => false,
+                    'message' => '填寫欄位有誤',
+                    'error' => $error,
+                ];
                 echo json_encode($message);
                 exit;
             }
 
             if ($editInfo['password'] !== $editInfo['repassword']) {
-                $message['info'] = false;
-                $message['message'] = '填寫欄位有誤';
-                $message['error'] = ['repassword' => "確認密碼錯誤"];
+                $error['repassword'] = "確認密碼錯誤";
+                $message = [
+                    'info' => false,
+                    'message' => '填寫欄位有誤',
+                    'error' => $error,
+                ];
                 echo json_encode($message);
                 exit;
             }
@@ -279,9 +289,11 @@ class LoginController extends Controller
                 'address' => $userInfo['address'],
             ];
 
-            if (count(array_intersect($editInfo, $user)) === 0) {
-                $message['info'] = true;
-                $message['message'] = '本次未有任何修改';
+            if (count(array_intersect($editInfo, $user)) === count($editInfo)) {
+                $message = [
+                    'info' => true,
+                    'message' => '本次未有任何修改',
+                ];
                 echo json_encode($message);
                 exit;
              }
@@ -290,14 +302,18 @@ class LoginController extends Controller
         ## 修改訊息
         $DBCustomer = $this->DBCustomer;
         if ($DBCustomer->update($editInfo, $userInfo['cid']) !== 1) {
-            $message['info'] = false;
-            $message['message'] = '修改失敗';
+            $message = [
+                'info' => false,
+                'message' => '修改失敗',
+            ];
             echo json_encode($message);
             exit;
         }
 
-        $message['info'] = true;
-        $message['message'] = '修改成功';
+        $message = [
+            'info' => true,
+            'message' => '修改成功',
+        ];
         echo json_encode($message);
         exit;
     }
@@ -316,16 +332,24 @@ class LoginController extends Controller
      */
     public function loginCheck()
     {
+        $info = [
+            'info' => false,
+            'message' => '',
+            'error' => '',
+        ];
+
         $loginInfo['email'] = $_POST['email'];
         $loginInfo['password'] = $_POST['password'];
         $loginInfo['vcode'] = $_POST['vcode'];
-
+        
         ##檢查驗證碼
         Session::init();
         if (Session::get('vcode') !== $loginInfo['vcode']) {
             $error['error'] = '驗證碼錯誤';
-            echo json_encode(['logininfo' => $error]);
-            // echo json_encode(['logininfo' => ['error' => '驗證碼錯誤']]);
+            $info['info'] = false;
+            $info['message'] = '';
+            $info['error'] = $error;
+            echo json_encode($info);
             exit;
         } else {
             Session::destroy();
@@ -353,26 +377,37 @@ class LoginController extends Controller
         if (empty($userInfo) || $password === false) {
             $error['password'] = "Email或密碼不正確";
             $error['email'] = "Email或密碼不正確";
-            echo json_encode(['logininfo' => $error]);
+            $info['info'] = false;
+            $info['message'] = '';
+            $info['error'] = $error;
+            echo json_encode($info);
             exit;
         }
 
         if ($userInfo['released'] === '0') {
             $error['email'] = "此帳號已遭停權";
-            echo json_encode(['logininfo' => $error]);
+            $info['info'] = false;
+            $info['message'] = '';
+            $info['error'] = $error;
+            echo json_encode($info);
             exit;
         }
 
         $token = $this->getToken($userInfo['cid']);
 
-        if ($DBCustomer->update(['token' => $token], $userInfo['cid']) === 1) {
-            setcookie('token', $token, time() + 3600, '/');
-            $reginfo = ['logininfo' => "success"];
-            echo json_encode($reginfo);
-        } else {
-            $reginfo = ['logininfo' => "fail"];
-            echo json_encode($reginfo);
+        if ($DBCustomer->update(['token' => $token], $userInfo['cid']) !== 1) {
+            $error['error'] = "錯誤";
+            $info['info'] = false;
+            $info['message'] = '';
+            $info['error'] = $error;
+            echo json_encode($info);
+            exit;
         }
+        setcookie('token', $token, time() + 3600, '/');
+        $info['info'] = true;
+        $info['message'] = '';
+        $info['error'] = '';
+        echo json_encode($info);
     }
 
     /*

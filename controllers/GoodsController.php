@@ -29,15 +29,18 @@ class GoodsController extends Controller
         }
 
         ##判斷使用者登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $userInfo = [];
-        } else {
-            $DBCustomer = $this->DBCustomer;
-            $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
-            if (!empty($userInfo)) {
-                $this->smarty->assign('loginflag', true);
-            }
-        }
+        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        //     $userInfo = [];
+        // } else {
+        //     $DBCustomer = $this->DBCustomer;
+        //     $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
+        //     if (!empty($userInfo)) {
+        //         $this->smarty->assign('loginflag', true);
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
+        $loginflag = $this->loginflag;
 
         // ## 取得分類所有產品
         $DBGoods = $this->DBGoods;
@@ -48,7 +51,8 @@ class GoodsController extends Controller
             $search = "";
             $goodsInfo = $DBGoods->getTypeAll($tnum);
         }
-        
+
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('search', $search);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->assign('typename', $reg[0]);
@@ -107,20 +111,22 @@ class GoodsController extends Controller
         $home = URL . 'index/index';
         ##檢查商品參數
         if (!isset($res[0]) || empty($res[0]) || !is_numeric($res[0])) {
-            header('Location:{$home}');
+            header("Location:{$home}");
             exit;
         }
 
         ##判斷使用者登入
-        if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            $userInfo = [];
-        } else {
-            $DBCustomer = $this->DBCustomer;
-            $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
-            if (!empty($userInfo)) {
-                $this->smarty->assign('loginflag', true);
-            }
-        }
+        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
+        //     $userInfo = [];
+        // } else {
+        //     $DBCustomer = $this->DBCustomer;
+        //     $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
+        //     if (!empty($userInfo)) {
+        //         $this->smarty->assign('loginflag', true);
+        //     }
+        // }
+        $userInfo = $this->userInfo;
+        $loginflag = $this->loginflag;
 
         ##取得商品資訊
         $DBgoods = $this->DBgoods;
@@ -151,6 +157,7 @@ class GoodsController extends Controller
             }
         }
 
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('typename', $typeInfo['name']);
         $this->smarty->assign('incartflag', $incartflag);

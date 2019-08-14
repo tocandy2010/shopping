@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-09 14:23:02
+/* Smarty version 3.1.33, created on 2019-08-14 17:19:33
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4d1146afaf31_56880161',
+  'unifunc' => 'content_5d53d22515d933_90327700',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '79b2c484fe831588a77f6964922b34782274e02f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
-      1 => 1565331782,
+      1 => 1565772899,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4d1146afaf31_56880161 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d53d22515d933_90327700 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -333,19 +333,19 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 'status': status,
             },
             success: function (result) {
-                if (result.editinfo['info'] === true) {
+                if (result['info'] === true) {
                     $("#myModal").modal('hide');
                     $('#errorinfo').html("&nbsp");
-                    $("#" + onum).html(result.editinfo['statusname']);
-                    if (result.editinfo['message'] === '3') {
+                    $("#" + onum).html(result['statusname']);
+                    if (result['message'] === '3') {
                         $(editbtn).remove();
                     } else {
                         let opeion = $('.options');
                         for (let i = 0; i < opeion.length; i++) {
-                            if ($(opeion[i]).val() === result.editinfo['message']) {
+                            if ($(opeion[i]).val() === result['message']) {
                                 $(opeion[i]).attr('selected', true);
                                 $(opeion[i]).attr('disabled', true);
-                                $(editbtn).attr('data-status', result.editinfo['message']);
+                                $(editbtn).attr('data-status', result['message']);
                             } else {
                                 $(opeion[i]).attr('selected', false);
                                 $(opeion[i]).attr('disabled', false);
@@ -353,10 +353,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         }
                     }
 
-                } else if (result.editinfo['info'] === false) {
-                    $('#errorinfo').html(result.editinfo['message'])
+                } else if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message'])
+                    }
+                    if (result['redirect'] !== "") {
+                        $(window).attr('location', result['redirect']);
+                    }
                 } else {
-
+                    alert('操作失敗')
                 }
             }
         });

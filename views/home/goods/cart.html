@@ -338,25 +338,60 @@
             type: 'POST',
             success: function (result) {
                 console.log(result);
-                if (result.checkoutinfo === 'fail') {
-                    alert('結帳失敗');
-                } else if (result.checkoutinfo === 'success') {
-                    // $(window).attr('location', '{{URL}}/order/index');
-                    alert('訂單已成立');
-                } else if (result.checkoutinfo === 'notlogin') {
-                    alert('請先登入會員');
-                    // $(window).attr('location', '{{URL}}/login/index');
-                } else if (result.checkoutinfo === 'luckbtn') {
-                    alert('目前購物車內沒有任何商品');
-                    $("#checkout").attr('disabled', true);
-
-                } else if (result.checkoutinfo) {
-                    for (id of result.checkoutinfo) {
-                        $("#errorstock" + id).html("此商品庫存不足請重新整理頁面");
+                if (result['info'] === true) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
                     }
-                } else {
+                    $(window).attr('location', '{{URL}}/order/index');
+                } else if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
+                    }
+                    if (result['redirect'] !== "") {
+                        $(window).attr('location', '{{URL}}/login/index');
+                    }
+                    if (result['luckbtn'] === true) {
+                        $("#checkout").attr('disabled', true);
+                    } else {
+                        $("#checkout").attr('disabled', false);
+                    }
+                    if (result['errorstock'] !== '') {
+                        for (id of result['errorstock']) {
+                        $("#errorstock" + id).html("此商品庫存不足請確認庫存");
+                        $("#checkout").attr('disabled', true);
+                        }
+                    }
+                    
+                } /*else if (result) {
+                    for (id of result['error']) {
+                        $("#errorstock" + id).html("此商品庫存不足");
+                        $("#checkout").attr('disabled', true);
+                    }
+                } */else  {
                     alert("發生錯誤");
                 }
+
+
+                // console.log(result);
+                // if (result.checkoutinfo === 'fail') {
+                //     alert('結帳失敗');
+                // } else if (result.checkoutinfo === 'success') {
+                //     // $(window).attr('location', '{{URL}}/order/index');
+                //     alert('訂單已成立');
+                // } else if (result.checkoutinfo === 'notlogin') {
+                //     alert('請先登入會員');
+                //     // $(window).attr('location', '{{URL}}/login/index');
+                // } else if (result.checkoutinfo === 'luckbtn') {
+                //     alert('目前購物車內沒有任何商品');
+                //     $("#checkout").attr('disabled', true);
+
+                // } else if (result.checkoutinfo) {
+                //     for (id of result.checkoutinfo) {
+                //         $("#errorstock" + id).html("此商品庫存不足請重新整理頁面");
+                //     }
+                // } else {
+                //     alert("發生錯誤");
+                // }
             }
         });
     })

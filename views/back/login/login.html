@@ -127,8 +127,8 @@
                         <h1>員工登入</h1>
                         <div class="col-md-10">
                             <label for="email">account</label>
-                            <input id="account" name="account" type="text" placeholder=""
-                                class="form-control input-md" autocomplete="off">
+                            <input id="account" name="account" type="text" placeholder="" class="form-control input-md"
+                                autocomplete="off">
                             <span class="help-block">
                                 <span class="errorinfo" id='accountinfo'></span></span>
                         </div>
@@ -190,9 +190,24 @@
         let vcode = $('#vcode').val();
         let formname = ['account', 'password', 'error'];
 
-        for(error of formname) {
-                $('#' + error + 'info').html("");
-            }
+        for (error of formname) {
+            $('#' + error + 'info').html("");
+        }
+
+        if (vcode === "") {
+            $('#errorinfo').html('驗證碼未填');
+            return false;
+        }
+
+        if (account === "") {
+            $('#errorinfo').html('帳號未填');
+            return false;
+        }
+
+        if (password === "") {
+            $('#errorinfo').html('密碼未填');
+            return false;
+        }
 
         $.ajax({
             url: "loginCheck",
@@ -204,12 +219,10 @@
                 'vcode': vcode,
             },
             success: function (result) {
-                console.log(result.logininfo)
                 if (result.logininfo === 'success') {
                     $(window).attr('location', '{{URL}}indexback/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
-                    changevcode()
                 } else if (result.logininfo) {
                     for (error of formname) {
                         $('#' + error + 'info').html(result.logininfo[error]);

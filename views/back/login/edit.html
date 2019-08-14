@@ -172,7 +172,7 @@
         if (checkInput(oldpassword, 'notempty') === false) {
             $("#oldpasswordinfo").html("請輸入舊密碼");
         } else {
-            oldpasswordfalg = true;
+            oldpasswordflag = true;
             $("#oldpasswordinfo").html("&nbsp");
         }
     })
@@ -182,7 +182,7 @@
         if (checkInput(password, 'length', "6~20") === false) {
             $("#passwordinfo").html("密碼長度錯誤");
         } else {
-            passwordfalg = true;
+            passwordflag = true;
             $("#passwordinfo").html("&nbsp");
         }
     })
@@ -196,6 +196,7 @@
 
 
     $("#editsend").click(function () {
+        
         let aid = $('#gid').val();
         let oldpassword = $('#oldpassword').val();
         let password = $('#password').val();
@@ -207,6 +208,8 @@
 
         if (password !== repassword || password === "") {
             $("#repasswordinfo").html("確認密碼錯誤")
+        } else {
+            repasswordflag = true;
         }
 
         formname.forEach(function (item) {
@@ -215,7 +218,7 @@
             }
         })
 
-        if (!(oldpasswordflag && password && repassword)) {
+        if (!(oldpasswordflag && passwordflag && repasswordflag)) {
             return false;
         }
 

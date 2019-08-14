@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-13 03:19:08
+/* Smarty version 3.1.33, created on 2019-08-14 04:56:54
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d52100c871287_43740533',
+  'unifunc' => 'content_5d537876436248_80499615',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7e5deadc749d2849bd958b01add38fb7a3ed1c4f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\index.html',
-      1 => 1565659067,
+      1 => 1565751413,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d52100c871287_43740533 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d537876436248_80499615 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +44,7 @@ function content_5d52100c871287_43740533 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Remove the jumbotron's default bottom margin */
         .jumbotron {
-            margin-bottom: 10px;
+            margin-bottom: 0px;
         }
 
         /* Add a gray background color and some padding to the footer */
@@ -59,7 +59,7 @@ function content_5d52100c871287_43740533 (Smarty_Internal_Template $_smarty_tpl)
 public/homeimg/headerimg/index.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            height: 700px;
+            height: 837px;
         }
 
         #username {
@@ -185,7 +185,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="container text-center"></div>
         <div id='checkcookie'></div>
     </div>
-    <div class="container">
+    <!-- <div class="container">
         <ul class="nav nav-pills">
             <li class="active" class='toggleable'><a data-toggle="pill" href="#home" class='toggleable'>熱銷商品</a></li>
             <li><a data-toggle="pill" href="#menu1" class='toggleable'>專屬推薦</a></li>
@@ -206,7 +206,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                 <div class='showtab'>夏日運動</div>
             </div>
         </div>
-    </div>
+    </div> -->
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>

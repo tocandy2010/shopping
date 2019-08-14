@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-12 08:16:54
+/* Smarty version 3.1.33, created on 2019-08-14 12:33:26
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\newgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d510456dccc32_94659037',
+  'unifunc' => 'content_5d53e376e4b532_78557401',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a66567d1c0531fad569640aeb332f91a668be79d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\newgoods.html',
-      1 => 1565590614,
+      1 => 1565778805,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d510456dccc32_94659037 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d53e376e4b532_78557401 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -97,7 +97,7 @@ indexback/index">Home</a>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-ordersback/index">訂單管理</a></li>
+orderback/index">訂單管理</a></li>
                     <li><a href="<?php echo URL;?>
 Customerback/index">會員管理</a></li>
                     <li><a href="<?php echo URL;?>
@@ -263,8 +263,9 @@ public/js/helper.js'><?php echo '</script'; ?>
 
     $("#name").blur(function () {
         let name = $(this).val();
+        name = name.trim();
         if (checkInput(name, 'length', "1~20") === false) {
-            $('#nameinfo').html('超出範圍');
+            $('#nameinfo').html('欄位填寫不正確');
         } else {
             $nameflag = true;
             $('#nameinfo').html('');
@@ -274,7 +275,7 @@ public/js/helper.js'><?php echo '</script'; ?>
     $("#price").blur(function () {
         let price = $(this).val();
         if (checkInput(price, 'range', "1~100000") === false) {
-            $('#priceinfo').html('欄位寫不正確');
+            $('#priceinfo').html('欄位填寫不正確');
         } else {
             $priceflag = true;
             $('#priceinfo').html('');
@@ -284,7 +285,7 @@ public/js/helper.js'><?php echo '</script'; ?>
     $("#stock").blur(function () {
         let stock = $(this).val();
         if (checkInput(stock, 'range', "1~50000") === false) {
-            $('#stockinfo').html('欄位寫不正確');
+            $('#stockinfo').html('欄位填寫不正確');
         } else {
             $stockflag = true;
             $('#stockinfo').html('');
@@ -293,20 +294,22 @@ public/js/helper.js'><?php echo '</script'; ?>
 
     $("#uses").blur(function () {
         let uses = $(this).val();
-        if (checkInput(uses, 'length', "1~30") === false) {
-            $('#usesinfo').html('欄位寫不正確');
+        uses = uses.trim();
+        if (checkInput(uses, 'length', "1~50") === false) {
+            $('#usesinfo').html('欄位填寫不正確');
         } else {
-            $tnumflag = true;
+            $usesflag = true;
             $('#usesinfo').html('');
         }
     })
 
     $("#material").blur(function () {
         let material = $(this).val();
-        if (checkInput(material, 'length', "1~30") === false) {
-            $('#materialinfo').html('請選擇商品分類');
+        material = material.trim();
+        if (checkInput(material, 'length', "1~50") === false) {
+            $('#materialinfo').html('欄位填寫不正確');
         } else {
-            $tnumflag = true;
+            $materialflag = true;
             $('#materialinfo').html('');
         }
     })
@@ -315,13 +318,13 @@ public/js/helper.js'><?php echo '</script'; ?>
         let allowtype = ['png', 'gif', 'jpg', 'jpeg', 'bmp'];
         let filetype = $("#gimg").val().split(".").pop();
         if (!($("#gimg").val() !== "" && allowtype.indexOf(filetype) >= 0)) {
-            $('#gimginfo').html('請上傳圖片檔案類型');
+            $('#gimginfo').html('請上傳圖片檔');
         } else {
             $gimgflag = true;
             $('#gimginfo').html('');
         }
 
-        let formname = ['type', 'name', 'price', 'stock', 'uses', 'material'];
+        let formname = ['tnum', 'name', 'price', 'stock', 'uses', 'material', 'gimg'];
         formname.forEach(function (item) {
             if ($("#" + item).val() === '') {
                 $("#" + item).focus();
@@ -336,11 +339,9 @@ public/js/helper.js'><?php echo '</script'; ?>
             $('#tnuminfo').html('');
         }
 
-        if (!(typeflag && nameflag && priceflag && stockflag && usesflag && materialfflag)) {
+        if (!(tnumflag && nameflag && priceflag && stockflag && usesflag && materialfflag)) {
             return false;
         }
-
-        return false;
 
         var formData = new FormData($('#addgoodsform')[0]);
         for (error of formname) {
@@ -356,24 +357,48 @@ public/js/helper.js'><?php echo '</script'; ?>
             contentType: false,
             data: formData,
             success: function (result) {
-                console.log(result.addinfo);
-                if (result.addinfo === 'success') {
-                    alert("新增商品成功");
-                    $(window).attr('location', '<?php echo URL;?>
-goodsback/index');
-                } else if (result.addinfo === 'notlogin') {
-                    alert("請先登入");
-                    $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                } else if (result.addinfo === 'fail') {
-                    $('#errorinfo').html("新增商品失敗");
-                } else if (result.addinfo) {
-                    for (error of formname) {
-                        $('#' + error + 'info').html(result.addinfo[error]);
+                if (result['info'] === true) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
                     }
-                } else {
-                    $('#errorinfo').html("錯誤");
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
+                } else if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
+                    }
+                    if (result['error'] !== '') {
+                        console.log(result['error'])
+                        for (error of formname) {
+                            console.log(error)
+                            $('#' + error + 'info').html(result['error'][error]);
+                        }
+                    }
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
                 }
+
+
+                // console.log(result.addinfo);
+                // if (result.addinfo === 'success') {
+                //     alert("新增商品成功");
+                //     $(window).attr('location', '<?php echo URL;?>
+goodsback/index');
+                // } else if (result.addinfo === 'notlogin') {
+                //     alert("請先登入");
+                //     $(window).attr('location', '<?php echo URL;?>
+loginback/index');
+                // } else if (result.addinfo === 'fail') {
+                //     $('#errorinfo').html("新增商品失敗");
+                // } else if (result.addinfo) {
+                //     for (error of formname) {
+                //         $('#' + error + 'info').html(result.addinfo[error]);
+                //     }
+                // } else {
+                //     $('#errorinfo').html("錯誤");
+                // }
             }
         });
     })

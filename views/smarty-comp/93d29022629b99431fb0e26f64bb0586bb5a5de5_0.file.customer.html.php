@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 09:06:54
+/* Smarty version 3.1.33, created on 2019-08-14 13:20:15
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\customer\customer.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4b75ae59e284_97306739',
+  'unifunc' => 'content_5d539a0f70e6f1_55028360',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93d29022629b99431fb0e26f64bb0586bb5a5de5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\customer\\customer.html',
-      1 => 1565226232,
+      1 => 1565759948,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4b75ae59e284_97306739 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d539a0f70e6f1_55028360 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -226,14 +226,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 'status' : status,
             },
             success: function (result) {
-                if (result.setstatus === 'fail') {
-                    alert("操作失敗");
-                } else if (result.setstatus === 'notlogin') {
-                    alert("請先登入");
-                    $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                } else if (result.setstatus === 'success') {
-                    if (status === '1') {
+                if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message'])
+                    }
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
+                } else if (result['info'] === true) {
+                    if (result['status'] !== 1) {
                         $(_this).attr('class', "btn btn-danger released");
                         $(_this).attr('data-value', "0");
                         $(_this).html("Hide");
@@ -243,6 +244,25 @@ loginback/index');
                         $(_this).html("Open");
                     }
                 }
+
+
+                // if (result.setstatus === 'fail') {
+                //     alert("操作失敗");
+                // } else if (result.setstatus === 'notlogin') {
+                //     alert("請先登入");
+                //     $(window).attr('location', '<?php echo URL;?>
+loginback/index');
+                // } else if (result.setstatus === 'success') {
+                //     if (status === '1') {
+                //         $(_this).attr('class', "btn btn-danger released");
+                //         $(_this).attr('data-value', "0");
+                //         $(_this).html("Hide");
+                //     } else {
+                //         $(_this).attr('class', "btn btn-success released");
+                //         $(_this).attr('data-value', "1");
+                //         $(_this).html("Open");
+                //     }
+                // }
             }
         });
     });

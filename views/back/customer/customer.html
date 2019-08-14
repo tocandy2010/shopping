@@ -176,13 +176,15 @@
                 'status' : status,
             },
             success: function (result) {
-                if (result.setstatus === 'fail') {
-                    alert("操作失敗");
-                } else if (result.setstatus === 'notlogin') {
-                    alert("請先登入");
-                    $(window).attr('location', '{{URL}}loginback/index');
-                } else if (result.setstatus === 'success') {
-                    if (status === '1') {
+                if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message'])
+                    }
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
+                } else if (result['info'] === true) {
+                    if (result['status'] !== 1) {
                         $(_this).attr('class', "btn btn-danger released");
                         $(_this).attr('data-value', "0");
                         $(_this).html("Hide");
@@ -192,6 +194,24 @@
                         $(_this).html("Open");
                     }
                 }
+
+
+                // if (result.setstatus === 'fail') {
+                //     alert("操作失敗");
+                // } else if (result.setstatus === 'notlogin') {
+                //     alert("請先登入");
+                //     $(window).attr('location', '{{URL}}loginback/index');
+                // } else if (result.setstatus === 'success') {
+                //     if (status === '1') {
+                //         $(_this).attr('class', "btn btn-danger released");
+                //         $(_this).attr('data-value', "0");
+                //         $(_this).html("Hide");
+                //     } else {
+                //         $(_this).attr('class', "btn btn-success released");
+                //         $(_this).attr('data-value', "1");
+                //         $(_this).html("Open");
+                //     }
+                // }
             }
         });
     });

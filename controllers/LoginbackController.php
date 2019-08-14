@@ -1,6 +1,6 @@
 <?php
 
-class LoginbackController extends Controller
+class LoginbackController extends AdminController
 {
     public function __construct()
     {
@@ -138,53 +138,39 @@ class LoginbackController extends Controller
 
     public function logout()
     {
-        setcookie('admintoken', 0, time() - 10, "/");
-        header("Location:index");
+        if (isset($_COOKIE['admintoken'])) {
+            unset($_COOKIE['admintoken']);
+        }
+        setcookie('admintoken', '', time()-3600, "/");
+        $path = URL . 'loginback/index';
+        header("Location:{$path}");
     }
 
 
     public function edit($reg = false)
     {
-        ## 檢查是否登入
-        $path = URL . "loginback/index";
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            setcookie('admintoken', 0, time() - 10, "/");
-            header("Location: {$path}");
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                setcookie('admintoken', 0, time() - 10, "/");
-                header("Location: {$path}");
-                exit;
-            }
-        }
 
-        $loginFlag = !empty($userInfo);
+        $loginflag = $this->loginflag;
+        $userInfo = $this->userInfo;
 
         $this->smarty->assign('userinfo', $userInfo);
-        $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->display("back/login/edit.html");
     }
 
     public function update()
     {
-        ## 檢查是否登入
-        $path = URL . "loginback/index";
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            setcookie('admintoken', 0, time() - 10, "/");
-            header("Location: {$path}");
+        $loginflag = $this->loginflag;
+        if ($loginflag === false) {
+            $checkOutInfo = [
+                'info' => false,
+                'message' => "請先會員登入",
+            ];
+            echo json_encode($checkOutInfo);
             exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                setcookie('admintoken', 0, time() - 10, "/");
-                header("Location: {$path}");
-                exit;
-            }
         }
+
+        $userInfo = $this->userInfo;
 
         ##接收參數
         parse_str(file_get_contents('php://input'), $editInfo);
@@ -193,6 +179,7 @@ class LoginbackController extends Controller
         }
 
         if ($editInfo['aid'] != $userInfo['aid']) {
+            $path = URL . "loginback/index";
             setcookie('admintoken', 0, time() - 10, "/");
             header("Location: {$path}");
             exit;
@@ -230,6 +217,7 @@ class LoginbackController extends Controller
         unset($editInfo['repassword']);
         unset($editInfo['oldpassword']);
         $password =  password_hash($editInfo['password'], PASSWORD_DEFAULT);
+        $DBAdmin = $this->DBAdmin;
         if ($DBAdmin->update(['password' => $password], $aid) !== 1) {
             echo json_encode(['editinfo' => "fail"]);
             exit;

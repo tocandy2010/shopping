@@ -1,6 +1,6 @@
 <?php
 
-class GoodsbackController extends Controller
+class GoodsbackController extends AdminController
 {
     public function __construct()
     {
@@ -12,20 +12,22 @@ class GoodsbackController extends Controller
      */
     public function index($reg = false)
     {
-        ## 檢查使用者登入
-        $path = URL . "loginback/index";
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            header("Location: {$path}");
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                setcookie('admintoken', 0, time() - 10, "/");
-                header("Location: {$path}");
-                exit;
-            }
-        }
+        // ## 檢查使用者登入
+        // $path = URL . "loginback/index";
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     header("Location: {$path}");
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         setcookie('admintoken', 0, time() - 10, "/");
+        //         header("Location: {$path}");
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
 
         $DBGoods = $this->DBGoods;
         $goodsInfo = $DBGoods->getAll();
@@ -39,7 +41,7 @@ class GoodsbackController extends Controller
 
         $loginFlag = true;
         $this->smarty->assign('goods', $goodsInfo);
-        $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
         return $this->smarty->display('back/goods/goods.html');
     }
@@ -49,19 +51,21 @@ class GoodsbackController extends Controller
      */
     public function create()
     {
-        $path = URL . "loginback/index";
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            header("Location: {$path}");
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                setcookie('admin', 0, time() - 10, "/");
-                header("Location: {$path}");
-                exit;
-            }
-        }
+        // $path = URL . "loginback/index";
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     header("Location: {$path}");
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         setcookie('admin', 0, time() - 10, "/");
+        //         header("Location: {$path}");
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
 
         $DBGtype = $this->DBGtype;
         $typeinfo = $DBGtype->getAll();
@@ -76,25 +80,40 @@ class GoodsbackController extends Controller
      */
     public function add()
     {
-        ## 檢查登入
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            echo json_encode(['addinfo' => "notlogin"]);
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                echo json_encode(['addinfo' => "notlogin"]);
-                exit;
-            }
-        }
+        // ## 檢查登入
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     echo json_encode(['addinfo' => "notlogin"]);
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         echo json_encode(['addinfo' => "notlogin"]);
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
+
+        $info = [
+            'info' => false,
+            'message' => '',
+            'error' => '',
+            'redirect' => '',
+        ];
 
         ## 檢查商品分類
         if (isset($_POST['tnum'])) {
             $addInfo['tnum'] = $_POST['tnum'];
         } else {
             $error['tnum'] = "商品分類未選擇";
-            echo json_encode(['addinfo' => $error]);
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $error,
+                'redirect' => '',
+            ];
+            echo json_encode($info);
             exit;
         }
         $addInfo['name'] = trim($_POST['name']);
@@ -103,16 +122,22 @@ class GoodsbackController extends Controller
         $addInfo['uses'] = trim($_POST['uses']);
         $addInfo['material'] = trim($_POST['material']);
 
-
         ## 檢查上傳圖片
         $gimg = $_FILES['gimg'];
+        $error = [];
         if ($gimg['error'] === 4) {
             $error['gimg'] = '未上傳商品圖片';
         } else if ($gimg['error'] !== 0) {
-            $addInfo['gimg'] = '上傳失敗';
+            $error['gimg'] = '上傳失敗';
         }
         if (!empty($error)) {
-            echo json_encode(['addinfo' => $error]);
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $error,
+                'redirect' => '',
+            ];
+            echo json_encode($info);
             exit;
         }
         $gimgtype = explode('/', $gimg['type']);
@@ -120,7 +145,13 @@ class GoodsbackController extends Controller
             $error['gimg'] = '上傳了非圖片文件';
         }
         if (!empty($error)) {
-            echo json_encode(['addinfo' => $error]);
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $error,
+                'redirect' => '',
+            ];
+            echo json_encode($info);
             exit;
         }
 
@@ -135,7 +166,14 @@ class GoodsbackController extends Controller
         ## 對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($addInfo, $verification);
         if (!empty($this->helper->checkForm($addInfo, $verification))) {
-            echo json_encode(['addinfo' => $errorMessage]);
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $errorMessage,
+                'redirect' => '',
+
+            ];
+            echo json_encode($info);
             exit;
         }
 
@@ -144,7 +182,13 @@ class GoodsbackController extends Controller
         $typeinfo = $DBGtype->getOne(['tnum' => $addInfo['tnum']]);
         if (empty($typeinfo)) {
             $error['tnum'] = "商品分類錯誤";
-            echo json_encode(['addinfo' => $error]);
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $error,
+                'redirect' => '',
+            ];
+            echo json_encode($info);
             exit;
         } else {
             $addInfo['tnum'] = $typeinfo['tnum'];
@@ -155,7 +199,13 @@ class GoodsbackController extends Controller
         $checkName = $DBGoods->getOne(['name' => $addInfo['name']]);
         if (!empty($checkName)) {
             $error['name'] = "商品名稱已被使用";
-            echo json_encode(['addinfo' => $error]);
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $error,
+                'redirect' => '',
+            ];
+            echo json_encode($info);
             exit;
         }
 
@@ -164,8 +214,14 @@ class GoodsbackController extends Controller
         if (move_uploaded_file($gimg['tmp_name'], $path . $addInfo['name'] . ".png")) {
             $addInfo['gimg'] = $path . $addInfo['name'] . ".png";
         } else {
-            $error['gimg'] = '上傳失敗';
-            echo json_encode(['addinfo' => $error]);
+            $error['gimg'] = '圖片上傳失敗';
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $error,
+                'redirect' => '',
+            ];
+            echo json_encode($info);
             exit;
         }
 
@@ -175,19 +231,37 @@ class GoodsbackController extends Controller
         $addInfo['uses'] = htmlspecialchars($addInfo['uses'], ENT_QUOTES);
         $addInfo['material'] = htmlspecialchars($addInfo['material'], ENT_QUOTES);
 
-        if (file_exists($path . $addInfo['name'] . ".png")) {
-            if ($DBGoods->add($addInfo) === 1) {
-                echo json_encode(['addinfo' => 'success']);
-                exit;
-            } else {
-                echo json_encode(['addinfo' => 'fail']);
-                exit;
-            }
-        } else {
+        if (!file_exists($path . $addInfo['name'] . ".png")) {
             $error['gimg'] = '上傳失敗';
-            echo json_encode(['addinfo' => $error]);
+            $info = [
+                'info' => false,
+                'message' => '',
+                'error' => $error,
+                'redirect' => '',
+            ];
+            echo json_encode($info);
             exit;
         }
+
+        if ($DBGoods->add($addInfo) !== 1) {
+            $info = [
+                'info' => false,
+                'message' => "錯誤",
+                'error' => '',
+                'redirect' => '',
+            ];
+            echo json_encode($info);
+            exit;
+        }
+
+        $info = [
+            'info' => true,
+            'message' => "成功新增商品",
+            'error' => '',
+            'redirect' => '',
+        ];
+        echo json_encode($info);
+        exit;
     }
 
     /*
@@ -195,23 +269,34 @@ class GoodsbackController extends Controller
      */
     public function setGoodStatus()
     {
-        ## 檢查登入
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            echo json_encode(['setstatus' => "notlogin"]);
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                echo json_encode(['setstatus' => "notlogin"]);
-                exit;
-            }
-        }
+        // ## 檢查登入
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     echo json_encode(['setstatus' => "notlogin"]);
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         echo json_encode(['setstatus' => "notlogin"]);
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
+
+        $info = [
+            'info' => false,
+            'message' => '',
+            'error' => '',
+            'status' => '',
+        ];
 
         ## 接收參數
         parse_str(file_get_contents('php://input'), $data);
         if (!isset($data) || empty($data)) {
-            echo json_encode(['setstatus' => "fail"]);
+            $info['info'] = false;
+            $info['message'] = '操作失敗';
+            echo json_encode($info);
             exit;
         } else {
             $gid = $data['gid'];
@@ -222,19 +307,24 @@ class GoodsbackController extends Controller
         $DBGoods = $this->DBGoods;
         $goodsInfo = $DBGoods->findOne($gid);
         if (empty($goodsInfo)) {
-            json_encode(['setstatus' => "fail"]);
+            $info['info'] = false;
+            $info['message'] = '操作失敗';
+            echo json_encode($info);
             exit;
         }
 
         ## 變更狀態碼
         $status = $status === '1' ? 0 : 1;
-        if ($DBGoods->update(['released' => $status], $gid) === 1) {
-            echo json_encode(['setstatus' => "success"]);
-            exit;
-        } else {
-            echo json_encode(['setstatus' => "fail"]);
+        if ($DBGoods->update(['released' => $status], $gid) !== 1) {
+            $info['info'] = false;
+            $info['message'] = '操作失敗';
+            echo json_encode($info);
             exit;
         }
+        $info['info'] = true;
+        $info['status'] = $status;
+        echo json_encode($info);
+        exit;
     }
 
     /*
@@ -242,21 +332,24 @@ class GoodsbackController extends Controller
      */
     public function edit($reg = false)
     {
-        ## 檢查是否登入
-        $path = URL . "loginback/index";
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            setcookie('admintoken', 0, time() - 10, "/");
-            header("Location: {$path}");
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                setcookie('admintoken', 0, time() - 10, "/");
-                header("Location: {$path}");
-                exit;
-            }
-        }
+        // ## 檢查是否登入
+        // $path = URL . "loginback/index";
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     setcookie('admintoken', 0, time() - 10, "/");
+        //     header("Location: {$path}");
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         setcookie('admintoken', 0, time() - 10, "/");
+        //         header("Location: {$path}");
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
+        $loginflag = $this->loginflag;
 
         if (!is_numeric($reg[0])) {
             $path = URL . "loginback/index";
@@ -281,7 +374,7 @@ class GoodsbackController extends Controller
 
 
         $this->smarty->assign('type', $typeinfo);
-        $this->smarty->assign('loginflag', $loginFlag);
+        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->display("back/goods/editgoods.html");
     }
@@ -292,46 +385,65 @@ class GoodsbackController extends Controller
     public function update()
     {
         ## 回傳格式
-        $messageInfo = [
-            "info" => true,
-            "message" => null,
+        // $messageInfo = [
+        //     "info" => true,
+        //     "message" => null,
+        // ];
+
+        $info = [
+            'info' => false,
+            'message' => '',
+            'error' => '',
+            'redirect' => '',
         ];
 
-        ## 驗證使用者登入
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            $messageInfo['info'] = false;
-            $messageInfo['message'] = "未登入";
-            echo json_encode($messageInfo);
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                $messageInfo['info'] = false;
-                $messageInfo['message'] = "使用者憑證錯誤";
-                echo json_encode($messageInfo);
-                exit;
-            }
-        }
+        // ## 驗證使用者登入
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     $messageInfo['info'] = false;
+        //     $messageInfo['message'] = "未登入";
+        //     echo json_encode($messageInfo);
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         $messageInfo['info'] = false;
+        //         $messageInfo['message'] = "使用者憑證錯誤";
+        //         echo json_encode($messageInfo);
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
 
         ## 檢查是否有接收到商品id
         if (isset($_POST['gid']) && is_numeric($_POST['gid'])) {
             $gid = $_POST['gid'];
         } else {
-            $messageInfo['info'] = false;
-            $messageInfo['message'] = "無此商品";
-            echo json_encode($messageInfo);
+            $info['info'] = false;
+            $info['message'] = "操作失敗";
+            echo json_encode($info);
             exit;
         }
 
+        ## 檢查商品id
+        $DBGoods = $this->DBGoods;
+        $goodsInfo = $DBGoods->findOne($gid);
+        if (empty($goodsInfo)) {
+            $info['info'] = false;
+            $info['message'] = "無此商品";
+            echo json_encode($info);
+            exit;
+        }
 
         ## 接收參數
         if (isset($_POST['tnum'])) {
             $editInfo['tnum'] = $_POST['tnum'];
         } else {
-            $messageInfo['info'] = false;
-            $messageInfo['message'] = "未選擇商品分類";
-            echo json_encode($messageInfo);
+            $error['tnum'] = "未選擇商品分類";
+            $info['info'] = false;
+            $info['error'] = $error;
+            echo json_encode($info);
             exit;
         }
         $editInfo['name'] = trim($_POST['name']);
@@ -345,58 +457,51 @@ class GoodsbackController extends Controller
             'name' => array('length' => '1~20'),
             'price' => array('between' => "1~100000"),
             'stock' => array('between' => "1~50000"),
-            'uses' => array('length' => '1~100'),
-            'material' => array('length' => '1~100'),
+            'uses' => array('length' => '1~50'),
+            'material' => array('length' => '1~50'),
         ];
         ## 對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($editInfo, $verification);
         if (!empty($this->helper->checkForm($editInfo, $verification))) {
-            echo json_encode(['addinfo' => $errorMessage]);
+            $info['info'] = false;
+            $info['error'] = $errorMessage;
+            echo json_encode($info);
             exit;
         }
 
         ## 檢查商品名稱是否重複
-        $DBGoods = $this->DBGoods;
         $checkName = $DBGoods->getGoodsName($editInfo['name']);
-
         foreach ($checkName as $info) {
             if ("{$info['gid']}" !== "{$gid}") {
-                $messageInfo['info'] = false;
-                $messageInfo['message'] = "此商品名稱已被使用";
-                echo json_encode($messageInfo);
+                $error['name'] = "此商品名稱已被使用";
+                $info['info'] = false;
+                $info['error'] = $error;
+                echo json_encode($info);
                 exit;
             }
-        }
-
-        ## 檢查商品id
-        $goodsInfo = $DBGoods->findOne($gid);
-        if (empty($goodsInfo)) {
-            $messageInfo['info'] = false;
-            $messageInfo['message'] = "無此商品";
-            echo json_encode($messageInfo);
-            exit;
         }
 
         ## 如果有上傳圖片則檢查上傳圖片
         if (isset($_FILES['gimg']) && $_FILES['gimg']['error'] !== 4) {
             $gimg = $_FILES['gimg'];
             if ($gimg['error'] !== 0) {
-                $messageInfo['info'] = false;
-                $messageInfo['message'] = "上傳失敗";
-            }
-            if (!empty($messageInfo['info'] === false)) {
-                echo json_encode($messageInfo);
+                $error['gimg'] = "上傳失敗";
+                $info['message'] = '';
+                $info['info'] = false;
+                $info['error'] = $error;
+                echo json_encode($info);
                 exit;
             }
             $gimgtype = explode('/', $gimg['type']);
             if ($gimgtype[0] !== 'image') {
-                $messageInfo['info'] = false;
-                $messageInfo['message'] = "上傳了非圖片文件";
-            }
-            if (!empty($messageInfo['info'] === false)) {
-                echo json_encode($messageInfo);
+                $error['gimg'] = "上傳了非圖片文件";
+                $info['info'] = false;
+                $info['message'] = '';
+                $info['error'] = $error;
+                echo json_encode($info);
                 exit;
             }
+
             ## 上傳商品圖片到指定資料夾
             $path = "public/homeimg/goodsimg/";
             if (file_exists($path . $editInfo['name'] . ".png")) {
@@ -405,9 +510,9 @@ class GoodsbackController extends Controller
             if (move_uploaded_file($gimg['tmp_name'], $path . $editInfo['name'] . ".png")) {
                 $editInfo['gimg'] = $path . $editInfo['name'] . ".png";
             } else {
-                $messageInfo['info'] = false;
-                $messageInfo['message'] = "上傳失敗";
-                echo json_encode($messageInfo);
+                $info['info'] = false;
+                $info['message'] = "上傳失敗";
+                echo json_encode($info);
                 exit;
             }
         }
@@ -424,27 +529,34 @@ class GoodsbackController extends Controller
         if (!isset($editInfo['gimg'])) {
             unset($goodsInfo['gimg']);
         }
-        if (empty(array_diff($goodsInfo, $editInfo))) {
-            $messageInfo['info'] = true;
-            $messageInfo['message'] = "未做任何修改";
-            echo json_encode($messageInfo);
+
+        ## 檢查是否有修改商品訊息
+        if (empty(array_diff($goodsInfo, $editInfo)) && !isset($gimg)) {
+            $info['info'] = true;
+            $info['message'] = "未做任何修改";
+            $info['redirect'] = URL . 'indexback/index';
+            echo json_encode($info);
+            exit;
+        } else if (isset($gimg)) {
+            $info['info'] = true;
+            $info['message'] = "修改成功";
+            $info['redirect'] = URL . 'indexback/index';
+            echo json_encode($info);
             exit;
         }
 
-        ## 判斷是否有修改
+        ## 判斷是否有修改成功
         if ($DBGoods->update($editInfo, $gid) !== 1) {
-            $messageInfo['info'] = false;
-            $messageInfo['message'] = "修改失敗";
-            echo json_encode($messageInfo);
+            $info['info'] = false;
+            $info['message'] = "修改失敗";
+            echo json_encode($info);
             exit;
         }
 
-        $messageInfo['info'] = true;
-        $messageInfo['message'] = "修改成功";
-        if (isset($editInfo['gimg'])) {
-            $messageInfo['path'] = $editInfo['gimg'];
-        }
-        echo json_encode($messageInfo);
+        $info['info'] = true;
+        $info['message'] = "修改成功";
+        $info['redirect'] = URL . 'indexback/index';
+        echo json_encode($info);
         exit;
     }
 }

@@ -1,23 +1,26 @@
 <?php
 
-class CustomerbackController extends controller
+class CustomerbackController extends Admincontroller
 {
     /*
      * 會員管理
      */
     public function index()
     {
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            header("Location: ../loginback/index");
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                header("Location: ../loginback/index");
-                exit;
-            }
-        }
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     header("Location: ../loginback/index");
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         header("Location: ../loginback/index");
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
+
         $loginFlag = true;
         $DBCustomer = $this->DBCustomer;
         $customer = $DBCustomer->getAll();
@@ -36,23 +39,29 @@ class CustomerbackController extends controller
 
     public function setCustonerStatus()
     {
-        ## 驗證此用者登入
-        if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-            echo json_encode(['setstatus' => "notlogin"]);
-            exit;
-        } else {
-            $DBAdmin = $this->DBAdmin;
-            $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-            if (empty($userInfo)) {
-                echo json_encode(['setstatus' => "notlogin"]);
-                exit;
-            }
-        }
+        // ## 驗證此用者登入
+        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
+        //     echo json_encode(['setstatus' => "notlogin"]);
+        //     exit;
+        // } else {
+        //     $DBAdmin = $this->DBAdmin;
+        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
+        //     if (empty($userInfo)) {
+        //         echo json_encode(['setstatus' => "notlogin"]);
+        //         exit;
+        //     }
+        // }
+
+        $userInfo = $this->userInfo;
 
         ## 接收並檢查接收變數
         parse_str(file_get_contents('php://input'), $data);
         if (!isset($data) || empty($data)) {
-            echo json_encode(['setstatus' => "fail"]);
+            $info = [
+                'info' => false,
+                'message' => '錯誤',
+            ];
+            echo json_encode($info);
             exit;
         } else {
             $cid = $data['cid'];
@@ -63,18 +72,30 @@ class CustomerbackController extends controller
         $DBCustomer = $this->DBCustomer;
         $customerInfo = $DBCustomer->findOne($cid);
         if (empty($customerInfo)) {
-            echo json_encode(['setstatus' => "fail"]);
+            $info = [
+                'info' => false,
+                'message' => '錯誤',
+            ];
+            echo json_encode($info);
             exit;
         }
 
         ## 修改 released 狀態
         $status = $status === '1' ? 0 : 1;
-        if ($DBCustomer->update(['released' => $status], $cid) === 1) {
-            echo json_encode(['setstatus' => "success"]);
-            exit;
-        } else {
-            echo json_encode(['setstatus' => "fail"]);
+        if ($DBCustomer->update(['released' => $status], $cid) !== 1) {
+            $info = [
+                'info' => false,
+                'message' => '錯誤',
+            ];
+            echo json_encode($info);
             exit;
         }
+
+        $info = [
+            'info' => true,
+            'status' => $status,
+        ];
+        echo json_encode($info);
+        exit;
     }
 }

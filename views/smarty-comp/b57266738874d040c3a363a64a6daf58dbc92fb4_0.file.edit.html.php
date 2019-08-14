@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-12 08:15:46
+/* Smarty version 3.1.33, created on 2019-08-14 05:09:46
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\login\edit.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d510412cbded9_15389102',
+  'unifunc' => 'content_5d537b7a418cb6_86175133',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b57266738874d040c3a363a64a6daf58dbc92fb4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\edit.html',
-      1 => 1565590546,
+      1 => 1565752185,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d510412cbded9_15389102 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d537b7a418cb6_86175133 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -213,7 +213,7 @@ public/js/helper.js'><?php echo '</script'; ?>
         if (checkInput(oldpassword, 'notempty') === false) {
             $("#oldpasswordinfo").html("請輸入舊密碼");
         } else {
-            oldpasswordfalg = true;
+            oldpasswordflag = true;
             $("#oldpasswordinfo").html("&nbsp");
         }
     })
@@ -223,7 +223,7 @@ public/js/helper.js'><?php echo '</script'; ?>
         if (checkInput(password, 'length', "6~20") === false) {
             $("#passwordinfo").html("密碼長度錯誤");
         } else {
-            passwordfalg = true;
+            passwordflag = true;
             $("#passwordinfo").html("&nbsp");
         }
     })
@@ -237,6 +237,7 @@ public/js/helper.js'><?php echo '</script'; ?>
 
 
     $("#editsend").click(function () {
+        
         let aid = $('#gid').val();
         let oldpassword = $('#oldpassword').val();
         let password = $('#password').val();
@@ -248,6 +249,8 @@ public/js/helper.js'><?php echo '</script'; ?>
 
         if (password !== repassword || password === "") {
             $("#repasswordinfo").html("確認密碼錯誤")
+        } else {
+            repasswordflag = true;
         }
 
         formname.forEach(function (item) {
@@ -256,7 +259,7 @@ public/js/helper.js'><?php echo '</script'; ?>
             }
         })
 
-        if (!(oldpasswordflag && password && repassword)) {
+        if (!(oldpasswordflag && passwordflag && repasswordflag)) {
             return false;
         }
 

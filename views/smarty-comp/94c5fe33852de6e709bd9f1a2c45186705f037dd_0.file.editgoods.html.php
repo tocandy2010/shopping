@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-09 07:55:31
+/* Smarty version 3.1.33, created on 2019-08-14 12:34:03
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\editgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4d0ad3901eb1_60650280',
+  'unifunc' => 'content_5d53e39b8e65d9_11087874',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '94c5fe33852de6e709bd9f1a2c45186705f037dd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\editgoods.html',
-      1 => 1565312619,
+      1 => 1565778795,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4d0ad3901eb1_60650280 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d53e39b8e65d9_11087874 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -131,7 +131,7 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="tnum">商品分類</label>
                         <div class="col-md-4">
-                            <select name='tnum' class="form-control">
+                            <select name='tnum' id='tnum' class="form-control">
                                 <option selected disabled>Type</option>
                                 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['type']->value, 'typeinfo');
@@ -208,7 +208,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <input id="uses" name="uses" type="text" placeholder="" class="form-control input-md"
                                 autocomplete="off" value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['uses'];?>
 ">
-                            <span class="help-block">請說明商品用途 文字限制30
+                            <span class="help-block">請說明商品用途 文字限制50
                                 <span class="errorinfo" id="usesinfo"></span>
                             </span>
                         </div>
@@ -221,7 +221,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <input id="material	" name="material" type="text" placeholder=""
                                 class="form-control input-md" autocomplete="off" value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['material'];?>
 ">
-                            <span class="help-block">請說明商品用途 文字限制30
+                            <span class="help-block">請說明商品用途 文字限制50
                                 <span class="errorinfo" id="materialinfo"></span>
                             </span>
                         </div>
@@ -261,45 +261,157 @@ goodsback/index"><button type="button"
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <?php echo '<script'; ?>
->
-        $("#addgoodssend").click(function () {
-            var formData = new FormData($('#addgoodsform')[0]);
-            let formname = ['name', 'tnum', 'price', 'stock', 'uses', 'material', 'gimg'];
-            for (error of formname) {
-                $('#' + error + 'info').html("");
-            }
-
-            $.ajax({
-                url: "../update",
-                type: "POST",
-                dataType: "json",
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: formData,
-                success: function (result) {
-                    console.log(result.info);
-                    if (result.info === true) {
-                        alert(result.message);
-                        $(window).attr('location', '<?php echo URL;?>
-goodsback/index/index');
-                    } else if (result.info === false) {
-                        alert(result.message);
-                        $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                    } else {
-                        $('#errorinfo').html("錯誤");
-                    }
-                }
-            });
-        })
-
-
-
-    <?php echo '</script'; ?>
->
 </body>
 
-</html><?php }
+</html>
+<?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
+
+    let tnumflag = true;
+    let nameflag = true;
+    let priceflag = true;
+    let stockflag = true;
+    let usesflag = true;
+    let materialflag = true;
+    let gimgflag = true;
+
+    $("#name").blur(function () {
+        let name = $(this).val();
+        name = name.trim();
+        if (checkInput(name, 'length', "1~20") === false) {
+            $('#nameinfo').html('欄位填寫不正確');
+            nameflag = false;
+        } else {
+            nameflag = true;
+            $('#nameinfo').html('');
+        }
+    })
+
+    $("#price").blur(function () {
+        let price = $(this).val();
+        if (checkInput(price, 'range', "1~100000") === false) {
+            priceflag = false;
+            $('#priceinfo').html('欄位填寫不正確');
+        } else {
+            priceflag = true;
+            $('#priceinfo').html('');
+        }
+    })
+
+    $("#stock").blur(function () {
+        let stock = $(this).val();
+        if (checkInput(stock, 'range', "1~50000") === false) {
+            stockflag = false;
+            $('#stockinfo').html('欄位填寫不正確');
+        } else {
+            stockflag = true;
+            $('#stockinfo').html('');
+        }
+    })
+
+    $("#uses").blur(function () {
+        let uses = $(this).val();
+        uses = uses.trim();
+        if (checkInput(uses, 'length', "1~50") === false) {
+            usesflag = false;
+            $('#usesinfo').html('欄位填寫不正確');
+        } else {
+            usesflag = true;
+            $('#usesinfo').html('');
+            
+        }
+    })
+
+    $("#material").blur(function () {
+        let material = $(this).val();
+        material = material.trim();
+        if (checkInput(material, 'length', "1~50") === false) {
+            materialflag = false;
+            $('#materialinfo').html('欄位填寫不正確');
+        } else {
+            materialflag = true;
+            $('#materialinfo').html('');
+            
+        }
+    })
+
+    $("#addgoodssend").click(function () {
+        var formData = new FormData($('#addgoodsform')[0]);
+        let formname = ['name', 'tnum', 'price', 'stock', 'uses', 'material', 'gimg'];
+
+        // 檢查圖片檔案類型
+        let allowtype = ['png', 'gif', 'jpg', 'jpeg', 'bmp'];
+        let filetype = $("#gimg").val().split(".").pop();
+        if (($("#gimg").val() !== "")) {
+            if (allowtype.indexOf(filetype) < 0) {
+                $('#gimginfo').html('請上傳圖片檔');
+                return false;
+            }
+        } else {
+            gimgflag = true;
+            $('#gimginfo').html('');
+        }
+
+        // 檢查商品分類
+        let tnum = $("#tnum").val();
+        if (checkInput(tnum, 'number') === false) {
+            $('#tnuminfo').html('請選擇商品分類');
+        } else {
+            tnumflag = true;
+            $('#tnuminfo').html('');
+        }
+
+        // input 欄位判斷
+        if (!(tnumflag && nameflag && priceflag && stockflag && usesflag && materialflag)) {
+            return false;
+        }
+
+        // 清空錯訊息
+        for (error of formname) {
+            $('#' + error + 'info').html("");
+        }
+
+        $.ajax({
+            url: "../update",
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (result) {
+                if (result['info'] === true) {
+                    if (result['message'] !== '') {
+                        alert(result.message);
+                    }
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
+                } else if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
+                    }
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
+                    if (result['error'] !== '') {
+                        for (error of formname) {
+                            $('#' + error + 'info').html(result['error'][error]);
+                        }
+                    }
+                } else {
+                    $('#errorinfo').html("錯誤");
+                }
+            }
+        });
+    })
+
+
+
+<?php echo '</script'; ?>
+><?php }
 }

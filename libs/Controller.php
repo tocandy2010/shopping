@@ -13,32 +13,20 @@ class Controller
         $this->view = new View();
         $this->smarty = new Mysmarty();
         $this->helper = new Helper();
-        $path = URL . "login/index";
+        // $path = URL . "login/index";
+
         if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === "xmlhttprequest") {
-                $checkOutInfo['info'] = false;
-                $checkOutInfo['message'] = "請先會員登入";
-                echo json_encode($checkOutInfo);
-                exit;
-            }
             $this->loginflag = false;
         } else {
             $DBCustomer = $this->DBCustomer;
             $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
             if (empty($userInfo) || $userInfo['released'] !== '1') {
-                if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === "xmlhttprequest") {
-                    $checkOutInfo['info'] = false;
-                    $checkOutInfo['message'] = "請先會員登入";
-                    echo json_encode($checkOutInfo);
-                    exit;
-                }
                 $this->loginflag = false;
             } else {
                 $this->loginflag = true;
                 $this->userInfo = $userInfo;
             }
         }
-
     }
 
     function __get($modelname)
