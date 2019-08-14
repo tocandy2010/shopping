@@ -17,7 +17,7 @@
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height:632px
+            height: 632px
         }
 
         /* Set gray background color and 100% height */
@@ -175,8 +175,8 @@
                             <tr>
                                 <td class='eamil'>{{$ordersinfo['onum']}}</td>
                                 <td>{{$ordersinfo['buynum']}}</td>
-                                <td class="checkorder"><a
-                                        href="{{URL}}order/showGoods/{{$ordersinfo['onum']}}">訂單商品</a></td>
+                                <td class="checkorder"><a href="{{URL}}order/showGoods/{{$ordersinfo['onum']}}">訂單商品</a>
+                                </td>
                                 <td class='address'>{{$ordersinfo['address']}}</td>
                                 <td>{{$ordersinfo['createTime']}}</td>
                                 <td>{{$ordersinfo['statusname']}}</td>
@@ -190,18 +190,18 @@
         </div>
     </div>
     <div class="container-fluid page">
-            <span class='pull-center'>
-                <ul class="pagination">
+        <span class='pull-center'>
+            <ul class="pagination">
                 {{foreach from=$pagenum item=$pnum}}
-                    {{if $pnum !== $nowpage}}
-                    <li><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
-                    {{else}}
-                    <li class='active'><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
-                    {{/if}}
+                {{if $pnum === $nowpage}}
+                <li class='active'><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
+                {{else}}
+                <li><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
+                {{/if}}
                 {{/foreach}}
-                </ul>
-            </span>
-        </div>
+            </ul>
+        </span>
+    </div>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>

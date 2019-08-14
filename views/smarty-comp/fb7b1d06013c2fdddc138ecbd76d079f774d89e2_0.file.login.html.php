@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 15:51:25
+/* Smarty version 3.1.33, created on 2019-08-14 16:49:51
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4ad75dc9c628_86528587',
+  'unifunc' => 'content_5d541f8f792ae2_66387126',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fb7b1d06013c2fdddc138ecbd76d079f774d89e2' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\login.html',
-      1 => 1565185767,
+      1 => 1565793222,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4ad75dc9c628_86528587 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d541f8f792ae2_66387126 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -156,8 +156,8 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                         <h1>員工登入</h1>
                         <div class="col-md-10">
                             <label for="email">account</label>
-                            <input id="account" name="account" type="text" placeholder=""
-                                class="form-control input-md" autocomplete="off">
+                            <input id="account" name="account" type="text" placeholder="" class="form-control input-md"
+                                autocomplete="off">
                             <span class="help-block">
                                 <span class="errorinfo" id='accountinfo'></span></span>
                         </div>
@@ -222,9 +222,24 @@ public/vcode/vcode.php?" + Math.random();
         let vcode = $('#vcode').val();
         let formname = ['account', 'password', 'error'];
 
-        for(error of formname) {
-                $('#' + error + 'info').html("");
-            }
+        for (error of formname) {
+            $('#' + error + 'info').html("");
+        }
+
+        if (vcode === "") {
+            $('#errorinfo').html('驗證碼未填');
+            return false;
+        }
+
+        if (account === "") {
+            $('#errorinfo').html('帳號未填');
+            return false;
+        }
+
+        if (password === "") {
+            $('#errorinfo').html('密碼未填');
+            return false;
+        }
 
         $.ajax({
             url: "loginCheck",
@@ -236,13 +251,11 @@ public/vcode/vcode.php?" + Math.random();
                 'vcode': vcode,
             },
             success: function (result) {
-                console.log(result.logininfo)
                 if (result.logininfo === 'success') {
                     $(window).attr('location', '<?php echo URL;?>
 indexback/index');
                 } else if (result.logininfo === 'fail') {
                     $('#errorinfo').html("登入失敗");
-                    changevcode()
                 } else if (result.logininfo) {
                     for (error of formname) {
                         $('#' + error + 'info').html(result.logininfo[error]);

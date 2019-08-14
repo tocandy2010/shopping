@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Myorder</title>
+    <title>Orders</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
 
         /* Remove the jumbotron's default bottom margin */
         .jumbotron {
-            margin-bottom: 30px;
+            margin-bottom: 0px;
         }
 
         /* Add a gray background color and some padding to the footer */
@@ -98,6 +98,10 @@
             font-weight: bolder;
             text-align: center
         }
+
+        .page {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -142,10 +146,14 @@
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
-                    <p>
+                    <div class="container">
                         <h2>訂單管理</h2>
-                    </p>
-                    <p>&nbsp</p>
+                        <form class="form-inline" actuin="{{URL}}/ordersback/index" method="get">
+                            <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"
+                                value="{{$searchdata}}">
+                            <button type="submit" id="searchsend" class="btn btn-info">search</button>
+                        </form>
+                    </div>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -155,7 +163,24 @@
                                 <th>商品</th>
                                 <th>收件地址</th>
                                 <th>成立時間</th>
-                                <th>訂單狀態</th>
+                                <form action="">
+                                    <td class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            狀態
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="{{URL}}orderback/index">全部</a></li>
+                                            {{foreach from=$ostatus item=$ostatusInfo}}
+                                            <li>
+                                                <a
+                                                    href="{{URL}}orderback/index?status={{$ostatusInfo['onum']}}">{{$ostatusInfo['name']}}</a>
+                                            </li>
+                                            {{/foreach}}
+                                        </ul>
+                                    </td>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
@@ -225,6 +250,19 @@
         </div>
     </div>
     <!-- 模態框 -->
+    <div class="container-fluid page">
+        <span class='pull-center'>
+            <ul class="pagination">
+                {{foreach from=$pagenum item=$pnum}}
+                {{if $pnum !== $nowpage}}
+                <li><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
+                {{else}}
+                <li class='active'><a href="{{$url}}page={{$pnum}}">{{$pnum}}</a></li>
+                {{/if}}
+                {{/foreach}}
+            </ul>
+        </span>
+    </div>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>

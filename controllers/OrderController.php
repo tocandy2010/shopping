@@ -40,7 +40,7 @@ class OrderController extends CustomerController
         } else {
             $searchdata = "";
         }
-
+        
         ## 取得狀態GET參數
         if (isset($_GET['status']) && !empty($_GET['status'])) {
             $condition['status'] = $_GET['status'];
@@ -49,17 +49,23 @@ class OrderController extends CustomerController
             $statusdata = "";
         }
 
-        ## 分頁
+        ## 計算總訂單量
         $DBOrders = $this->DBOrders;
         $perpage = 5;
         $orderlgn = count($DBOrders->getOrders($userInfo['cid'], $condition));
-        $page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1 ? $_GET['page'] : 1;
+
+        ## 檢查分頁參數合法
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) && ($_GET['page'] >= 1) ? $_GET['page'] : 1;
         $pagetool = new Pagetool($orderlgn, $page, $perpage);
         $pagenum = $pagetool->show();
         $url = $pagetool->getUrl();
+        ## 檢查分頁參數超過總頁數則顯示最後大分頁
+        if ($pagetool->getPageTotal() <= $page) {
+            $page = $pagetool->getPageTotal();
+        }
 
         ## 與 goods 表連接查詢取得訂單資訊和商品資訊
-        $offset = ($page - 1) * $perpage; 
+        $offset = ($page - 1) * $perpage;
         $orderInfo = $DBOrders->getOrders($userInfo['cid'], $condition, $offset, $perpage);
         if (!empty($orderInfo)) {
             foreach ($orderInfo as $key => $info) {
@@ -81,7 +87,7 @@ class OrderController extends CustomerController
 
         $this->smarty->assign('url', $url);
         $this->smarty->assign('pagenum', $pagenum);
-        $this->smarty->assign('nowpage', $page);
+        $this->smarty->assign('nowpage', (int)$page);
         $this->smarty->assign('searchdata', $searchdata);
         $this->smarty->assign('statushdata', $statusdata);
         $this->smarty->assign('ostatus', $ostatusInfo);

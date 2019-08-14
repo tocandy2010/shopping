@@ -164,7 +164,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="material	">商品材質</label>
                         <div class="col-md-4">
-                            <input id="material	" name="material" type="text" placeholder=""
+                            <input id="material" name="material" type="text" placeholder=""
                                 class="form-control input-md" autocomplete="off" value="{{$goods['material']}}">
                             <span class="help-block">請說明商品用途 文字限制50
                                 <span class="errorinfo" id="materialinfo"></span>
@@ -189,7 +189,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="addgoodssend" class="btn btn-info">Create</button>
+                            <button type="button" id="addgoodssend" class="btn btn-info">Edit</button>
                             <a href="{{URL}}goodsback/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo" id='errorinfo'></span>
@@ -273,7 +273,6 @@
         } else {
             materialflag = true;
             $('#materialinfo').html('');
-            
         }
     })
 

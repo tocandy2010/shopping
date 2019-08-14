@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 18:50:29
+/* Smarty version 3.1.33, created on 2019-08-14 17:14:59
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\login\edit.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4b01553a9235_88945626',
+  'unifunc' => 'content_5d542573e87d95_50763205',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '62668d43f766845d671b3da3937969c4226ab2f9' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\login\\edit.html',
-      1 => 1565196628,
+      1 => 1565793222,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4b01553a9235_88945626 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d542573e87d95_50763205 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -193,52 +193,103 @@ indexback/index"><button type="button"
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <?php echo '<script'; ?>
->
-        $("#editsend").click(function () {
-            let aid = $('#gid').val();
-            let oldpassword = $('#oldpassword').val();
-            let password = $('#password').val();
-            let repassword = $('#repassword').val();
-            let formname = ['oldpassword', 'password', 'repassword'];
-
-            for (error of formname) {
-                $('#' + error + 'info').html("&nbsp");
-            }
-
-            $.ajax({
-                url: "../update",
-                type: "PUT",
-                dataType: "json",
-                data: {
-                    'aid': aid,
-                    'oldpassword': oldpassword,
-                    'password': password,
-                    'repassword': repassword,
-                },
-                success: function (result) {
-                    console.log(result);
-                    if (result.editinfo === 'success') {
-                        $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                    } else if (result.editinfo === 'fail') {
-                        $('#errorinfo').html("註冊失敗");
-                    } else if (result.editinfo) {
-                        for (error of formname) {
-                            $('#' + error + 'info').html(result.editinfo[error]);
-                        }
-                    } else {
-                        $('#errorinfo').html("錯誤");
-                    }
-                }
-            });
-        })
-
-
-
-    <?php echo '</script'; ?>
->
 </body>
 
-</html><?php }
+</html>
+
+<?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
+
+    let oldpasswordflag = false;
+    let passwordflag = false;
+    let repasswordflag = false;
+
+    $('#oldpassword').blur(function () {
+        let oldpassword = $(this).val();
+        if (checkInput(oldpassword, 'notempty') === false) {
+            $("#oldpasswordinfo").html("請輸入舊密碼");
+        } else {
+            oldpasswordflag = true;
+            $("#oldpasswordinfo").html("&nbsp");
+        }
+    })
+
+    $('#password').blur(function () {
+        let password = $(this).val();
+        if (checkInput(password, 'length', "6~20") === false) {
+            $("#passwordinfo").html("密碼長度錯誤");
+        } else {
+            passwordflag = true;
+            $("#passwordinfo").html("&nbsp");
+        }
+    })
+
+    $('#repassword').blur(function () {
+        $('#repasswordinfo').html("&nbsp");
+    })
+
+ 
+
+
+
+    $("#editsend").click(function () {
+        
+        let aid = $('#gid').val();
+        let oldpassword = $('#oldpassword').val();
+        let password = $('#password').val();
+        let repassword = $('#repassword').val();
+        let formname = ['oldpassword', 'password', 'repassword'];
+        for (error of formname) {
+            $('#' + error + 'info').html("&nbsp");
+        }
+
+        if (password !== repassword || password === "") {
+            $("#repasswordinfo").html("確認密碼錯誤")
+        } else {
+            repasswordflag = true;
+        }
+
+        formname.forEach(function (item) {
+            if ($("#" + item).val() === '') {
+                $("#" + item).focus();
+            }
+        })
+
+        if (!(oldpasswordflag && passwordflag && repasswordflag)) {
+            return false;
+        }
+
+        $.ajax({
+            url: "../update",
+            type: "PUT",
+            dataType: "json",
+            data: {
+                'aid': aid,
+                'oldpassword': oldpassword,
+                'password': password,
+                'repassword': repassword,
+            },
+            success: function (result) {
+                if (result.editinfo === 'success') {
+                    alert('密碼修改成功')
+                    $(window).attr('location', '<?php echo URL;?>
+indexback/index');
+                } else if (result.editinfo === 'fail') {
+                    $('#errorinfo').html("密碼修改失敗");
+                } else if (result.editinfo) {
+                    for (error of formname) {
+                        $('#' + error + 'info').html(result.editinfo[error]);
+                    }
+                } else {
+                    $('#errorinfo').html("錯誤");
+                }
+            }
+        });
+    })
+<?php echo '</script'; ?>
+><?php }
 }

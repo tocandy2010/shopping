@@ -51,8 +51,12 @@ class OrdersModel extends Model
                 $value = array_values($condition)[0];
                 $sql .= "where {$key} like '%{$value}%' ";
             }
-            $sql .= "group by onum order by createTime desc";
+            $sql .= "group by onum order by createTime desc ";
+            if ($offset !== false && $length !== false) {
+                $sql .= "limit {$offset},{$length} ";
+            }
         }
+        // return $sql;
         $res = $this->db->prepare($sql);
         $res->execute();
         return $res->fetchAll(PDO::FETCH_ASSOC);

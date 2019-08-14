@@ -28,12 +28,43 @@ class OrderbackController extends AdminController
         //     exit;
         // }
 
+        ## 取得登入資訊
         $userInfo = $this->userInfo;
         $loginflag = $this->loginflag;
 
-        ## 取得訂單資訊
+        ## 取得搜尋GET參數
+        $condition = [];
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $condition['onum'] = htmlspecialchars($_GET['search'], ENT_QUOTES);
+            $searchdata = $_GET['search'];
+        } else {
+            $searchdata = "";
+        }
+
+        ## 取得訂單狀態GET參數
+        if (isset($_GET['status']) && !empty($_GET['status'])) {
+            $condition['status'] = $_GET['status'];
+            $statusdata = $_GET['status'];
+        } else {
+            $statusdata = "";
+        }
+
+        ## 分頁
         $DBOrders = $this->DBOrders;
-        $orderInfo = $DBOrders->getOrders();
+        $perpage = 10;
+        $orderlgn = count($DBOrders->getOrders(false, $condition));
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 1 ? $_GET['page'] : 1;
+
+        $pagetool = new Pagetool($orderlgn, $page, $perpage);
+        $pagenum = $pagetool->show();
+        $url = $pagetool->getUrl();
+        if ($pagetool->getPageTotal() <= $page) {
+            $page = $pagetool->getPageTotal();
+        }
+
+        ## 取得訂單資訊
+        $offset = ($page - 1) * $perpage;
+        $orderInfo = $DBOrders->getOrders(false, $condition, $offset, $perpage);
         if (!empty($orderInfo)) {
             foreach ($orderInfo as $key => $info) {
                 date_default_timezone_set("Asia/Taipei");
@@ -55,8 +86,11 @@ class OrderbackController extends AdminController
             }
         }
 
-        $loginFlag = !empty($userInfo);
-
+        $this->smarty->assign('url', $url);
+        $this->smarty->assign('pagenum', $pagenum);
+        $this->smarty->assign('nowpage', (int)$page);
+        $this->smarty->assign('searchdata', $searchdata);
+        $this->smarty->assign('statushdata', $statusdata);
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('ostatus', $ostatusInfo);
         $this->smarty->assign('loginflag', $loginflag);
@@ -184,7 +218,7 @@ class OrderbackController extends AdminController
             exit;
         }
 
-        if ($DBOrders->editOrders(['status' => $status], $orderInfo['onum']) !== 1 ){
+        if ($DBOrders->editOrders(['status' => $status], $orderInfo['onum']) !== 1) {
             $info = [
                 "info" => false,
                 "message" => '修改失敗'

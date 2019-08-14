@@ -28,6 +28,7 @@ class GoodsbackController extends AdminController
         // }
 
         $userInfo = $this->userInfo;
+        $loginflag = $this->loginflag;
 
         $DBGoods = $this->DBGoods;
         $goodsInfo = $DBGoods->getAll();
@@ -555,7 +556,7 @@ class GoodsbackController extends AdminController
 
         $info['info'] = true;
         $info['message'] = "修改成功";
-        $info['redirect'] = URL . 'indexback/index';
+        $info['redirect'] = URL . 'goodsback/index';
         echo json_encode($info);
         exit;
     }

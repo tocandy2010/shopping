@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-11 16:56:06
+/* Smarty version 3.1.33, created on 2019-08-14 16:52:27
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d502c86d156f4_19597862',
+  'unifunc' => 'content_5d54202b91c4e0_68365163',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'de0b3f9afc07ce7a62010495fe4f813c73442963' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
-      1 => 1565535213,
+      1 => 1565793222,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d502c86d156f4_19597862 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d54202b91c4e0_68365163 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -230,14 +230,29 @@ public/vcode/vcode.php?" + Math.random();
     })
 
     $("#loginsend").click(function () {
+        
         let eamil = $('#email').val();
         let password = $('#password').val();
         let vcode = $('#vcode').val();
         let formname = ['email', 'password', 'error'];
-        for(error of formname) {
-                $('#' + error + 'info').html("&nbsp");
-            }
+        for (error of formname) {
+            $('#' + error + 'info').html("&nbsp");
+        }
 
+        if (vcode === "") {
+            $('#errorinfo').html('驗證碼未填');
+            return false;
+        }
+
+        if (eamil === "") {
+            $('#errorinfo').html('email未填');
+            return false;
+        }
+
+        if (password === "") {
+            $('#errorinfo').html('密碼未填');
+            return false;
+        }
         $.ajax({
             url: "loginCheck",
             type: "POST",
@@ -248,21 +263,39 @@ public/vcode/vcode.php?" + Math.random();
                 'vcode': vcode,
             },
             success: function (result) {
-                if (result.logininfo === 'success') {
+                console.log(result)
+                if (result['info'] === true) {
                     $(window).attr('location', '<?php echo URL;?>
 index/index');
-                } else if (result.logininfo === 'fail') {
-                    $('#errorinfo').html("登入失敗");
-                    changevcode()
-                } else if (result.logininfo) {
-                    for (error of formname) {
-                        $('#' + error + 'info').html(result.logininfo[error]);
+                } else if (result['info'] === false) {
+                    if (result['message'] !== "") {
+                        alert(result['message']);
+                    }
+                    if (result['error'] !== "") {
+                        for (error of formname) {
+                            $('#' + error + 'info').html(result['error'][error]);
+                        }
                     }
                     changevcode()
                 } else {
-                    $('#errorinfo').html("錯誤");
+                    $('#errorinfo').html("登入失敗");
                     changevcode()
                 }
+                // if (result.logininfo === 'success') {
+                //     $(window).attr('location', '<?php echo URL;?>
+index/index');
+                // } else if (result.logininfo === 'fail') {
+                //     
+                //     changevcode()
+                // } else if (result.logininfo) {
+                //     for (error of formname) {
+                //         $('#' + error + 'info').html(result.logininfo[error]);
+                //     }
+                //     changevcode()
+                // } else {
+                //     $('#errorinfo').html("錯誤");
+                //     changevcode()
+                // }
             }
         });
     })

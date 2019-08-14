@@ -17,34 +17,24 @@ class Pagetool
         }
     }
 
+    public function getPageTotal()
+    {
+        if ($this->totalpage < 1) {
+            return 1;
+        }
+        return $this->totalpage;
+    }
+
     public function show()
     {
-        $cnt = ceil(($this->total / $this->perpage));  //得到總頁數
+        $cnt = (int)ceil(($this->total / $this->perpage));  //得到總頁數
 
-        if ($cnt < $this->page) {
-            $this->page = $cnt;
-        }
-
-        // $uri = $_SERVER["REQUEST_URI"];
-
-        // $parse = parse_url($uri);   //parse_url()  分析URL
-
-        // $param = array();
-        // if (isset($parse["query"])) {  //如果query存在則存在陣列裡
-        //     parse_str($parse["query"], $param);   //將 $parse 下的query 用parse_str 存為陣列
-        // }
-        // if (isset($param["page"])) {
-        //     unset($param["page"]);
-        // }
-
-        // $url = $parse["path"] . "?";
-
-        // if (!empty($param)) {
-        //     $url = $url . http_build_query($param) . "&";
-        // }
+        $this->page = ($this->page <= $cnt) && ($this->page >= 1) ? $cnt : 1;
+        
+        $this->totalpage = $cnt;
 
         $nav = array($this->page);
-
+        
         $left = $this->page - 1;
         $right = $this->page + 1;
 

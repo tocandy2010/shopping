@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 17:31:44
+/* Smarty version 3.1.33, created on 2019-08-14 18:58:13
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\goods\newgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4aeee0144f34_00587510',
+  'unifunc' => 'content_5d543da5caa914_82780872',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '281fe4731621c1f073139feaae95e8602fc5eea8' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\newgoods.html',
-      1 => 1565191607,
+      1 => 1565793222,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4aeee0144f34_00587510 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d543da5caa914_82780872 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -97,16 +97,26 @@ indexback/index">Home</a>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo URL;?>
-ordersback/index">訂單管理</a></li>
+orderback/index">訂單管理</a></li>
                     <li><a href="<?php echo URL;?>
 Customerback/index">會員管理</a></li>
                     <li><a href="<?php echo URL;?>
 goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
+loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
+"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
+                            Logout</a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo URL;?>
+loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Login</a></li>
+                    <?php }?>
                 </ul>
             </div>
         </div>
@@ -121,7 +131,7 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="tnum">商品分類</label>
                         <div class="col-md-4">
-                            <select name='tnum' class="form-control">
+                            <select id='tnum' name='tnum' class="form-control">
                                 <option selected disabled>Type</option>
                                 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['type']->value, 'typeinfo');
@@ -193,7 +203,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="material	">商品材質</label>
                         <div class="col-md-4">
-                            <input id="material	" name="material" type="text" placeholder=""
+                            <input id="material" name="material" type="text" placeholder=""
                                 class="form-control input-md" autocomplete="off">
                             <span class="help-block">請說明商品用途 文字限制30
                                 <span class="errorinfo" id="materialinfo"></span>
@@ -232,51 +242,166 @@ goodsback/index"><button type="button"
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <?php echo '<script'; ?>
->
-        $("#addgoodssend").click(function () {
-            var formData = new FormData($('#addgoodsform')[0]);
-            let formname = ['name', 'tnum', 'price', 'stock', 'uses', 'material', 'gimg'];
-            for (error of formname) {
-                $('#' + error + 'info').html("");
-            }
-
-            $.ajax({
-                url: "add",
-                type: "POST",
-                dataType: "json",
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: formData,
-                success: function (result) {
-                    console.log(result.addinfo);
-                    if (result.addinfo === 'success') {
-                        alert("新增商品成功");
-                        $(window).attr('location', '<?php echo URL;?>
-goodsback/index');
-                    } else if (result.addinfo === 'notlogin') {
-                        alert("請先登入");
-                        $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                    } else if (result.addinfo === 'fail') {
-                        $('#errorinfo').html("新增商品失敗");
-                    } else if (result.addinfo) {
-                        for (error of formname) {
-                            $('#' + error + 'info').html(result.addinfo[error]);
-                        }
-                    } else {
-                        $('#errorinfo').html("錯誤");
-                    }
-                }
-            });
-        })
-
-
-
-    <?php echo '</script'; ?>
->
 </body>
 
-</html><?php }
+</html>
+
+<?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
+
+    let tnumflag = false;
+    let nameflag = false;
+    let priceflag = false;
+    let stockflag = false;
+    let usesflag = false;
+    let materialflag = false;
+    let gimgflag = false;
+
+    $("#name").blur(function () {
+        let name = $(this).val();
+        name = name.trim();
+        if (checkInput(name, 'length', "1~20") === false) {
+            $('#nameinfo').html('欄位填寫不正確');
+        } else {
+            $nameflag = true;
+            $('#nameinfo').html('');
+        }
+    })
+
+    $("#price").blur(function () {
+        let price = $(this).val();
+        if (checkInput(price, 'range', "1~100000") === false) {
+            $('#priceinfo').html('欄位填寫不正確');
+        } else {
+            $priceflag = true;
+            $('#priceinfo').html('');
+        }
+    })
+
+    $("#stock").blur(function () {
+        let stock = $(this).val();
+        if (checkInput(stock, 'range', "1~50000") === false) {
+            $('#stockinfo').html('欄位填寫不正確');
+        } else {
+            $stockflag = true;
+            $('#stockinfo').html('');
+        }
+    })
+
+    $("#uses").blur(function () {
+        let uses = $(this).val();
+        uses = uses.trim();
+        if (checkInput(uses, 'length', "1~50") === false) {
+            $('#usesinfo').html('欄位填寫不正確');
+        } else {
+            $usesflag = true;
+            $('#usesinfo').html('');
+        }
+    })
+
+    $("#material").blur(function () {
+        let material = $(this).val();
+        material = material.trim();
+        if (checkInput(material, 'length', "1~50") === false) {
+            $('#materialinfo').html('欄位填寫不正確');
+        } else {
+            $materialflag = true;
+            $('#materialinfo').html('');
+        }
+    })
+
+    $("#addgoodssend").click(function () {
+        let allowtype = ['png', 'gif', 'jpg', 'jpeg', 'bmp'];
+        let filetype = $("#gimg").val().split(".").pop();
+        if (!($("#gimg").val() !== "" && allowtype.indexOf(filetype) >= 0)) {
+            $('#gimginfo').html('請上傳圖片檔');
+        } else {
+            $gimgflag = true;
+            $('#gimginfo').html('');
+        }
+
+        let formname = ['tnum', 'name', 'price', 'stock', 'uses', 'material', 'gimg'];
+        formname.forEach(function (item) {
+            if ($("#" + item).val() === '') {
+                $("#" + item).focus();
+            }
+        })
+
+        let tnum = $("#tnum").val();
+        if (checkInput(tnum, 'number') === false) {
+            $('#tnuminfo').html('請選擇商品分類');
+        } else {
+            $tnumflag = true;
+            $('#tnuminfo').html('');
+        }
+
+        if (!(tnumflag && nameflag && priceflag && stockflag && usesflag && materialfflag)) {
+            return false;
+        }
+
+        var formData = new FormData($('#addgoodsform')[0]);
+        for (error of formname) {
+            $('#' + error + 'info').html("");
+        }
+
+        $.ajax({
+            url: "add",
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (result) {
+                if (result['info'] === true) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
+                    }
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
+                } else if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
+                    }
+                    if (result['error'] !== '') {
+                        console.log(result['error'])
+                        for (error of formname) {
+                            console.log(error)
+                            $('#' + error + 'info').html(result['error'][error]);
+                        }
+                    }
+                    if (result['redirect'] !== '') {
+                        $(window).attr('location', result['redirect']);
+                    }
+                }
+
+
+                // console.log(result.addinfo);
+                // if (result.addinfo === 'success') {
+                //     alert("新增商品成功");
+                //     $(window).attr('location', '<?php echo URL;?>
+goodsback/index');
+                // } else if (result.addinfo === 'notlogin') {
+                //     alert("請先登入");
+                //     $(window).attr('location', '<?php echo URL;?>
+loginback/index');
+                // } else if (result.addinfo === 'fail') {
+                //     $('#errorinfo').html("新增商品失敗");
+                // } else if (result.addinfo) {
+                //     for (error of formname) {
+                //         $('#' + error + 'info').html(result.addinfo[error]);
+                //     }
+                // } else {
+                //     $('#errorinfo').html("錯誤");
+                // }
+            }
+        });
+    })
+<?php echo '</script'; ?>
+><?php }
 }
