@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 03:24:04
+/* Smarty version 3.1.33, created on 2019-08-15 13:02:19
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4b79b45dec41_67590836',
+  'unifunc' => 'content_5d553bbb24a346_65671667',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0798c9990c6f0bf7723e9c5993b9362f214d5aca' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\ordergoods.html',
-      1 => 1565227443,
+      1 => 1565866938,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4b79b45dec41_67590836 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d553bbb24a346_65671667 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -75,6 +75,11 @@ function content_5d4b79b45dec41_67590836 (Smarty_Internal_Template $_smarty_tpl)
         #username:hover {
             cursor: default;
             color: white;
+        }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -184,6 +189,14 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
+indexback/index">Home</a></li>
+                    <li><a href="<?php echo URL;?>
+orderback/index">訂單管理</a></li>
+                    <li>訂單編號&nbsp<?php echo $_smarty_tpl->tpl_vars['onum']->value;?>
+</li>
+                </ol>
                 <div class="container-fluid">
                     <h2>訂單商品</h2>
                     <div id='checkcookie'></div>

@@ -83,6 +83,11 @@
         .page {
             text-align: center;
         }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -133,7 +138,13 @@
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
+
                     <div class="container">
+                        <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                            <li><a href="{{URL}}index/index">Home</a></li>
+                            <li>Myorder</li>
+                            <!-- <li class="active">goodsname</li> -->
+                        </ol>
                         <h2>我的訂單紀錄</h2>
                         <form class="form-inline" actuin="{{URL}}/orders/index" method="get">
                             <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"

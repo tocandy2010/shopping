@@ -90,4 +90,27 @@ class OrdersModel extends Model
         $res->execute();
         return $this->affectedRows($res);
     }
+
+    /*
+     * 寫入所有訂單
+     */
+    public function createOrder($order)
+    {
+        $sql = "insert into {$this->table} () values ";
+        foreach ($order as $orderInfo) {
+            $sql .= "(" . $orderInfo['onum'] . ",";
+            $sql .= $orderInfo['cid'] . ",";
+            $sql .= $orderInfo['gid'] . ",";
+            $sql .= "'{$orderInfo['name']}'" . ",";
+            $sql .= $orderInfo['price'] . ",";
+            $sql .= $orderInfo['number'] . ",";
+            $sql .= "'{$orderInfo['address']}'" . ",";
+            $sql .= $orderInfo['status'] . ",";
+            $sql .= $orderInfo['createTime'] . "),";
+        }
+        $sql = rtrim($sql, ',');
+        $res = $this->db->prepare($sql);
+        $res->execute();
+        return $this->affectedRows($res);
+    }
 }

@@ -61,14 +61,18 @@
             -webkit-box-orient: vertical;
         }
 
-        .address{
-            width:30%
+        .address {
+            width: 30%
         }
 
         .edit {
-            width:20%
+            width: 20%
         }
 
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -91,7 +95,8 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
                     {{else}}
@@ -111,6 +116,10 @@
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="{{URL}}indexback/index">Home</a></li>
+                    <li>會員管理</li>
+                </ol>
                 <div class="container-fluid">
                     <p>
                         <h2>會員管理</h2>
@@ -124,7 +133,7 @@
                                 <th>手機號碼</th>
                                 <th>註冊地址</th>
                                 <th>註冊時間</th>
-                                <th>操作</th>
+                                <th>會員狀態</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,11 +146,11 @@
                                 <td>{{$customerinfo['regTime']}}</td>
                                 <td class='edit'>
                                     {{if $customerinfo['released'] === '1'}}
-                                    <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="{{$customerinfo['cid']}}">Open</button>
+                                    <button type="button" class="btn btn-success released" data-value='1'
+                                        data-gid="{{$customerinfo['cid']}}">Open</button>
                                     {{else}}
-                                    <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="{{$customerinfo['cid']}}">Hide</button>
+                                    <button type="button" class="btn btn-danger released" data-value='0'
+                                        data-gid="{{$customerinfo['cid']}}">Lock</button>
                                     {{/if}}
                                 </td>
                             </tr>
@@ -163,7 +172,7 @@
 <script>
 
     //變更商品狀態商品
-    $('.released').click(function(){
+    $('.released').click(function () {
         let status = $(this).attr('data-value');
         let cid = $(this).attr('data-gid');
         let _this = this;
@@ -172,8 +181,8 @@
             dataType: "json",
             type: 'PUT',
             data: {
-                'cid' : cid,
-                'status' : status,
+                'cid': cid,
+                'status': status,
             },
             success: function (result) {
                 if (result['info'] === false) {
@@ -187,7 +196,7 @@
                     if (result['status'] !== 1) {
                         $(_this).attr('class', "btn btn-danger released");
                         $(_this).attr('data-value', "0");
-                        $(_this).html("Hide");
+                        $(_this).html("Lock");
                     } else {
                         $(_this).attr('class', "btn btn-success released");
                         $(_this).attr('data-value', "1");

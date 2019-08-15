@@ -12,26 +12,24 @@ class GoodsbackController extends AdminController
      */
     public function index($reg = false)
     {
-        // ## 檢查使用者登入
-        // $path = URL . "loginback/index";
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     header("Location: {$path}");
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         setcookie('admintoken', 0, time() - 10, "/");
-        //         header("Location: {$path}");
-        //         exit;
-        //     }
-        // }
-
         $userInfo = $this->userInfo;
         $loginflag = $this->loginflag;
 
+        ## 判斷商品分類參數
+        $type = ((isset($_GET['type']) && is_numeric($_GET['type']) && ($_GET['type'] >= 1))) ? $_GET['type'] : 1;
+
+        ## 獲取商品分類
+        $DBGtype = $this->DBGtype;
+        $gtypeInfo = $DBGtype->getAll();
+
+        ## 檢查商品分類參數是否存在,不存在則找分類最小數字
+        $typeinfo = $DBGtype->getOne(['tnum' =>  $type]);
+        $mintype = min($gtypeInfo);
+        $type = !empty($typeinfo) ? $type : $mintype['tnum'];
+
+        ## 獲得商品資訊
         $DBGoods = $this->DBGoods;
-        $goodsInfo = $DBGoods->getAll();
+        $goodsInfo = $DBGoods->getTypeAll($type);
         if (!empty($goodsInfo)) {
             date_default_timezone_set("Asia/Taipei");
             foreach ($goodsInfo as $key => $item) {
@@ -40,7 +38,8 @@ class GoodsbackController extends AdminController
             }
         }
 
-        $loginFlag = true;
+        $this->smarty->assign('typename', $typeinfo['name']);
+        $this->smarty->assign('gtype', $gtypeInfo);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
@@ -52,26 +51,13 @@ class GoodsbackController extends AdminController
      */
     public function create()
     {
-        // $path = URL . "loginback/index";
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     header("Location: {$path}");
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         setcookie('admin', 0, time() - 10, "/");
-        //         header("Location: {$path}");
-        //         exit;
-        //     }
-        // }
-
         $userInfo = $this->userInfo;
 
         $DBGtype = $this->DBGtype;
         $typeinfo = $DBGtype->getAll();
         $loginflag = true;
         $this->smarty->assign('type', $typeinfo);
+        $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('loginflag', $loginflag);
         return $this->smarty->display('back/goods/newgoods.html');
     }
@@ -81,19 +67,6 @@ class GoodsbackController extends AdminController
      */
     public function add()
     {
-        // ## 檢查登入
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     echo json_encode(['addinfo' => "notlogin"]);
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         echo json_encode(['addinfo' => "notlogin"]);
-        //         exit;
-        //     }
-        // }
-
         $userInfo = $this->userInfo;
 
         $info = [
@@ -270,19 +243,6 @@ class GoodsbackController extends AdminController
      */
     public function setGoodStatus()
     {
-        // ## 檢查登入
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     echo json_encode(['setstatus' => "notlogin"]);
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         echo json_encode(['setstatus' => "notlogin"]);
-        //         exit;
-        //     }
-        // }
-
         $userInfo = $this->userInfo;
 
         $info = [
@@ -333,22 +293,6 @@ class GoodsbackController extends AdminController
      */
     public function edit($reg = false)
     {
-        // ## 檢查是否登入
-        // $path = URL . "loginback/index";
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     setcookie('admintoken', 0, time() - 10, "/");
-        //     header("Location: {$path}");
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         setcookie('admintoken', 0, time() - 10, "/");
-        //         header("Location: {$path}");
-        //         exit;
-        //     }
-        // }
-
         $userInfo = $this->userInfo;
         $loginflag = $this->loginflag;
 
@@ -371,10 +315,15 @@ class GoodsbackController extends AdminController
 
         $DBGtype = $this->DBGtype;
         $typeinfo = $DBGtype->getAll();
-        $loginFlag = !empty($userInfo);
 
+        foreach ($typeinfo as $info) {
+            if ((int)$goodsInfo['tnum'] === $info['tnum']) {
+                $goodsInfo['typename'] = $info['name'];
+            }
+        }
 
         $this->smarty->assign('type', $typeinfo);
+        $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->display("back/goods/editgoods.html");
@@ -385,37 +334,18 @@ class GoodsbackController extends AdminController
      */
     public function update()
     {
-        ## 回傳格式
+        
         // $messageInfo = [
         //     "info" => true,
         //     "message" => null,
         // ];
-
+    ## json 回傳格式
         $info = [
             'info' => false,
             'message' => '',
             'error' => '',
             'redirect' => '',
         ];
-
-        // ## 驗證使用者登入
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     $messageInfo['info'] = false;
-        //     $messageInfo['message'] = "未登入";
-        //     echo json_encode($messageInfo);
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         $messageInfo['info'] = false;
-        //         $messageInfo['message'] = "使用者憑證錯誤";
-        //         echo json_encode($messageInfo);
-        //         exit;
-        //     }
-        // }
-
-        $userInfo = $this->userInfo;
 
         ## 檢查是否有接收到商品id
         if (isset($_POST['gid']) && is_numeric($_POST['gid'])) {
@@ -458,8 +388,8 @@ class GoodsbackController extends AdminController
             'name' => array('length' => '1~20'),
             'price' => array('between' => "1~100000"),
             'stock' => array('between' => "1~50000"),
-            'uses' => array('length' => '1~50'),
-            'material' => array('length' => '1~50'),
+            'uses' => array('length' => '1~100'),
+            'material' => array('length' => '1~100'),
         ];
         ## 對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($editInfo, $verification);
@@ -532,16 +462,19 @@ class GoodsbackController extends AdminController
         }
 
         ## 檢查是否有修改商品訊息
-        if (empty(array_diff($goodsInfo, $editInfo)) && !isset($gimg)) {
+        if (empty(array_diff($goodsInfo, $editInfo)) || !isset($gimg)) {
             $info['info'] = true;
             $info['message'] = "未做任何修改";
             $info['redirect'] = URL . 'indexback/index';
             echo json_encode($info);
             exit;
-        } else if (isset($gimg)) {
+        }
+        
+        ## 只有變更圖片 未修改訊息
+        if (isset($gimg) && empty(array_diff($goodsInfo, $editInfo))) {
             $info['info'] = true;
             $info['message'] = "修改成功";
-            $info['redirect'] = URL . 'indexback/index';
+            $info['redirect'] = URL . "goodsback/index";
             echo json_encode($info);
             exit;
         }

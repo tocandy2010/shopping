@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 04:01:04
+/* Smarty version 3.1.33, created on 2019-08-15 12:54:47
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\editgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d54bce0409ca6_43944158',
+  'unifunc' => 'content_5d5539f7b6fa07_51850318',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '94c5fe33852de6e709bd9f1a2c45186705f037dd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\editgoods.html',
-      1 => 1565831340,
+      1 => 1565866485,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d54bce0409ca6_43944158 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5539f7b6fa07_51850318 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -65,6 +65,11 @@ function content_5d54bce0409ca6_43944158 (Smarty_Internal_Template $_smarty_tpl)
             color: darkred;
             font-weight: bold;
             letter-spacing: 0.5px
+        }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -126,6 +131,16 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
+indexback/index">Home</a></li>
+                    <li><a href="<?php echo URL;?>
+goodsback/index"><?php echo $_smarty_tpl->tpl_vars['goods']->value['typename'];?>
+</a></li>
+                    <li><?php echo $_smarty_tpl->tpl_vars['goods']->value['name'];?>
+</li>
+                    <!-- <li class="active">goodsname</li> -->
+                </ol>
                 <form class="form-horizontal" id='addgoodsform' enctype="multipart/form-data">
                     <!-- Single button -->
                     <div class="form-group">
@@ -316,20 +331,20 @@ public/js/helper.js'><?php echo '</script'; ?>
     $("#uses").blur(function () {
         let uses = $(this).val();
         uses = uses.trim();
-        if (checkInput(uses, 'length', "1~50") === false) {
+        if (checkInput(uses, 'length', "1~100") === false) {
             usesflag = false;
             $('#usesinfo').html('欄位填寫不正確');
         } else {
             usesflag = true;
             $('#usesinfo').html('');
-            
+
         }
     })
 
     $("#material").blur(function () {
         let material = $(this).val();
         material = material.trim();
-        if (checkInput(material, 'length', "1~50") === false) {
+        if (checkInput(material, 'length', "1~100") === false) {
             materialflag = false;
             $('#materialinfo').html('欄位填寫不正確');
         } else {

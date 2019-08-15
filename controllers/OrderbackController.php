@@ -12,22 +12,6 @@ class OrderbackController extends AdminController
      */
     public function index($reg = false)
     {
-        // $path = URL . "loginback/index";
-        // ##檢查使用者是否登入
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
-        // ## 檢查用戶合法性
-        // $token = $_COOKIE['admintoken'];
-        // $DBAdmin = $this->DBAdmin;
-        // $userInfo = $DBAdmin->getOne(['token' => $token]);
-        // if (empty($userInfo)) {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
         ## 取得登入資訊
         $userInfo = $this->userInfo;
         $loginflag = $this->loginflag;
@@ -72,7 +56,7 @@ class OrderbackController extends AdminController
             }
         }
 
-        ##取得狀態資訊
+        ## 取得狀態資訊
         $DBOstatus = $this->DBOstatus;
         $ostatusInfo = $DBOstatus->getAll();
 
@@ -100,22 +84,6 @@ class OrderbackController extends AdminController
 
     public function showGoods($reg = false)
     {
-        // $path = URL . "loginback/index";
-        // ##檢查使用者是否登入
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     header("Location: {$path}");
-        //     exit;
-        // }
-
-        // ## 檢查用戶合法性
-        // $token = $_COOKIE['admintoken'];
-        // $DBAdmin = $this->DBAdmin;
-        // $userInfo = $DBAdmin->getOne(['token' => $token]);
-        // if (empty($userInfo)) {
-        //     header("Location: {$path}");
-        //     exit;
-        // }
-
         $userInfo = $this->userInfo;
 
         $path = URL . "indexback/index";
@@ -139,6 +107,7 @@ class OrderbackController extends AdminController
 
         $loginFlag = !empty($userInfo);
 
+        $this->smarty->assign('onum', $onum);
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->assign('loginflag', $loginFlag);
@@ -147,23 +116,6 @@ class OrderbackController extends AdminController
 
     public function editstatus()
     {
-        // $path = URL . "loginback/index";
-        // ##檢查使用者是否登入
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
-        // ## 檢查用戶合法性
-        // $token = $_COOKIE['admintoken'];
-        // $DBAdmin = $this->DBAdmin;
-        // $userInfo = $DBAdmin->getOne(['token' => $token]);
-        // if (empty($userInfo)) {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-        $userInfo = $this->userInfo;
-
         $info = [
             'info' => false,
             'message' => '',

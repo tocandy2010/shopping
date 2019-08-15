@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 16:52:46
+/* Smarty version 3.1.33, created on 2019-08-15 18:55:02
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d53cbde878e81_89340993',
+  'unifunc' => 'content_5d553a06bda641_26967595',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7fbdec4cdcc6dea19e333cfb1dd51ff165831be6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\goods.html',
-      1 => 1565772755,
+      1 => 1565866502,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d53cbde878e81_89340993 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d553a06bda641_26967595 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +44,7 @@ function content_5d53cbde878e81_89340993 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 691px
+            height: 711px
         }
 
         /* Set gray background color and 100% height */
@@ -85,7 +85,7 @@ function content_5d53cbde878e81_89340993 (Smarty_Internal_Template $_smarty_tpl)
         }
 
         td {
-            width:5%;
+            width: 5%;
         }
 
         .goodsname {
@@ -111,7 +111,12 @@ function content_5d53cbde878e81_89340993 (Smarty_Internal_Template $_smarty_tpl)
 
         #newbtn {
             position: relative;
-            left:70%
+            left: 70%
+        }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -141,7 +146,8 @@ goodsback/index">商品管理</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
 loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -163,11 +169,20 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
+indexback/index">Home</a></li>
+                    <li><?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
+</li>
+                </ol>
                 <div class="container-fluid">
                     <p>
                         <h2>商品管理</h2>
                         <a href="<?php echo URL;?>
-goodsback/create" id='newbtn'><button type="button" class="btn btn-primary btn-lg glyphicon glyphicon-plus">&nbspNew</button></a>
+goodsback/create" id='newbtn'>
+                            <button type="button"
+                                class="btn btn-primary btn-lg glyphicon glyphicon-plus">&nbspNew</button>
+                        </a>
                     </p>
                     <p>&nbsp</p>
                     <table class="table table-hover">
@@ -178,9 +193,35 @@ goodsback/create" id='newbtn'><button type="button" class="btn btn-primary btn-l
                                 <th>單價</th>
                                 <th>庫存量</th>
                                 <th>上架時間</th>
-                                <th>操作</th>
+                                <th>商品狀態</th>
                             </tr>
                         </thead>
+                        <div class="dropdown">
+                            <span>商品分類</span>
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
+
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['gtype']->value, 'gtypeInfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['gtypeInfo']->value) {
+?>
+                                <li><a
+                                        href="<?php echo URL;?>
+goodsback/index?type=<?php echo $_smarty_tpl->tpl_vars['gtypeInfo']->value['tnum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['gtypeInfo']->value['name'];?>
+</a>
+                                </li>
+                                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                            </ul>
+                        </div>
                         <tbody>
                             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['goods']->value, 'goodsinfo');
@@ -189,10 +230,10 @@ foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
 ?>
                             <tr>
                                 <td>
-                                        <img class="img-responsive" src="<?php echo URL;
+                                    <img class="img-responsive" src="<?php echo URL;
 echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 "
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
+                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre">
                                 </td>
                                 <td><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
 <span></td>
@@ -202,18 +243,19 @@ echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 </td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['addTime'];?>
 </td>
-                                <td  data-gid="1" class='edit'>
+                                <td data-gid="1" class='edit'>
                                     <a href="<?php echo URL;?>
 goodsback/edit/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-"><button type="button" class="btn btn-info">Edit</button></a>
+"><button type="button"
+                                            class="btn btn-info">Edit</button></a>
                                     <?php if ($_smarty_tpl->tpl_vars['goodsinfo']->value['released'] === '1') {?>
-                                    <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+                                    <button type="button" class="btn btn-success released" data-value='1'
+                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 ">Open</button>
                                     <?php } else { ?>
-                                    <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">Hide</button>
+                                    <button type="button" class="btn btn-danger released" data-value='0'
+                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+">Close</button>
                                     <?php }?>
                                 </td>
                             </tr>
@@ -239,7 +281,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 >
 
     //變更商品狀態商品
-    $('.released').click(function(){
+    $('.released').click(function () {
         let status = $(this).attr('data-value');
         let gid = $(this).attr('data-gid');
         let _this = this;
@@ -248,21 +290,21 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             dataType: "json",
             type: 'PUT',
             data: {
-                'gid' : gid,
-                'status' : status,
+                'gid': gid,
+                'status': status,
             },
             success: function (result) {
                 if (result['info'] === true) {
                     if (result['status'] !== 1) {
                         $(_this).attr('class', "btn btn-danger released");
                         $(_this).attr('data-value', "0");
-                        $(_this).html("Hide");
+                        $(_this).html("Close");
                     } else {
                         $(_this).attr('class', "btn btn-success released");
                         $(_this).attr('data-value', "1");
                         $(_this).html("Open");
                     }
-                } else if(result['info'] === false) {
+                } else if (result['info'] === false) {
                     if (result['message'] !== '') {
                         alert(result['message']);
                     }
@@ -272,24 +314,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 } else {
                     alert('操作失敗')
                 }
-
-                // if (result.setstatus === 'fail') {
-                //     alert("操作失敗");
-                // } else if (result.setstatus === 'notlogin') {
-                //     alert("請先登入");
-                //     $(window).attr('location', '<?php echo URL;?>
-loginback/index');
-                // } else if (result.setstatus === 'success') {
-                //     if (status === '1') {
-                //         $(_this).attr('class', "btn btn-danger released");
-                //         $(_this).attr('data-value', "0");
-                //         $(_this).html("Hide");
-                //     } else {
-                //         $(_this).attr('class', "btn btn-success released");
-                //         $(_this).attr('data-value', "1");
-                //         $(_this).html("Open");
-                //     }
-                // }
             }
         });
     });

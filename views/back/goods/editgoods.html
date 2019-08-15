@@ -40,6 +40,11 @@
             letter-spacing: 0.5px
         }
 
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -91,6 +96,12 @@
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="{{URL}}indexback/index">Home</a></li>
+                    <li><a href="{{URL}}goodsback/index">{{$goods['typename']}}</a></li>
+                    <li>{{$goods['name']}}</li>
+                    <!-- <li class="active">goodsname</li> -->
+                </ol>
                 <form class="form-horizontal" id='addgoodsform' enctype="multipart/form-data">
                     <!-- Single button -->
                     <div class="form-group">
@@ -254,20 +265,20 @@
     $("#uses").blur(function () {
         let uses = $(this).val();
         uses = uses.trim();
-        if (checkInput(uses, 'length', "1~50") === false) {
+        if (checkInput(uses, 'length', "1~100") === false) {
             usesflag = false;
             $('#usesinfo').html('欄位填寫不正確');
         } else {
             usesflag = true;
             $('#usesinfo').html('');
-            
+
         }
     })
 
     $("#material").blur(function () {
         let material = $(this).val();
         material = material.trim();
-        if (checkInput(material, 'length', "1~50") === false) {
+        if (checkInput(material, 'length', "1~100") === false) {
             materialflag = false;
             $('#materialinfo').html('欄位填寫不正確');
         } else {

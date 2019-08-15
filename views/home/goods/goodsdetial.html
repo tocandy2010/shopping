@@ -128,8 +128,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                     {{if $loginflag|default:false}}
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
+                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
                     {{else}}

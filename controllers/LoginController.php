@@ -107,21 +107,6 @@ class LoginController extends Controller
     public function editInfo()
     {
         $path = URL . "login/index";
-        // ##檢查使用者是否登入
-        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
-        // ## 檢查用戶合法性
-        // $token = $_COOKIE['token'];
-        // $DBCustomer = $this->DBCustomer;
-        // $userInfo = $DBCustomer->getOne(['token' => $token]);
-        // if (empty($userInfo) || $userInfo['released'] !== '1') {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
         $loginflag = $this->loginflag;
 
         if ($loginflag === false) {
@@ -143,21 +128,6 @@ class LoginController extends Controller
     public function editpassword()
     {
         $path = URL . "login/index";
-        ##檢查使用者是否登入
-        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
-        // ## 檢查用戶合法性
-        // $token = $_COOKIE['token'];
-        // $DBCustomer = $this->DBCustomer;
-        // $userInfo = $DBCustomer->getOne(['token' => $token]);
-        // if (empty($userInfo) || $userInfo['released'] !== '1') {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
         $loginflag = $this->loginflag;
 
         if ($loginflag === false) {
@@ -233,7 +203,7 @@ class LoginController extends Controller
             exit;
         }
 
-        ##針對設定格式驗證表單
+        ## 針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($editInfo, $verification);
         if (!empty($this->helper->checkForm($editInfo, $verification))) {
             $message = [
@@ -342,7 +312,7 @@ class LoginController extends Controller
         $loginInfo['password'] = $_POST['password'];
         $loginInfo['vcode'] = $_POST['vcode'];
         
-        ##檢查驗證碼
+        ## 檢查驗證碼
         Session::init();
         if (Session::get('vcode') !== $loginInfo['vcode']) {
             $error['error'] = '驗證碼錯誤';
@@ -360,11 +330,9 @@ class LoginController extends Controller
             'vcode' => array('notempty' => '0'),
         ];
 
-        ##針對設定格式驗證表單
+        ## 針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($loginInfo, $verification);
         if (!empty($this->helper->checkForm($loginInfo, $verification))) {
-            // echo json_encode(['logininfo' => $errorMessage]);
-            // exit;
             $info['info'] = false;
             $info['message'] = '';
             $info['error'] = $errorMessage;
@@ -372,10 +340,10 @@ class LoginController extends Controller
             exit;
         }
 
-        ##使用$this->DB加上Model名稱即實體化
+        ## 使用$this->DB加上Model名稱即實體化
         $DBCustomer = $this->DBCustomer;
 
-        ##檢查登入帳號密碼
+        ## 檢查登入帳號密碼
         $userInfo = $DBCustomer->getOne(['email' => $loginInfo['email']]);
         $password = password_verify($loginInfo['password'], $userInfo['password']);
         if (empty($userInfo) || $password === false) {

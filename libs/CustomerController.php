@@ -32,7 +32,6 @@ class CustomerController extends Controller
                 }
                 header("Location:{$path}");
                 exit;
-                return false;
             } else {
                 $this->loginflag = true;
                 $this->userInfo = $userInfo;

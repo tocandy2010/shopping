@@ -150,7 +150,7 @@
                     <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
                     </li>
                     {{if $loginflag|default:false}}
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -171,8 +171,8 @@
 
     <div class="container-fluid">
         <form class="form-inline" actuin="{{URL}}/goods/index" method="get" >
-                <input type="text" class="form-control" name='search' id="search" value="{{$search}}">
-            <button type="submit" id="searchsend" class="btn btn-default">Submit</button>
+                <input type="text" class="form-control" name='search' id="search" value="{{$search}}" placeholder="搜尋商品名稱">
+            <button type="submit" id="searchsend" class="btn btn-info">Search</button>
         </form>
     </div>
 

@@ -7,18 +7,6 @@ class CustomerbackController extends Admincontroller
      */
     public function index()
     {
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     header("Location: ../loginback/index");
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         header("Location: ../loginback/index");
-        //         exit;
-        //     }
-        // }
-
         $userInfo = $this->userInfo;
 
         $loginFlag = true;

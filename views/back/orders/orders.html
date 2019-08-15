@@ -102,6 +102,11 @@
         .page {
             text-align: center;
         }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -145,6 +150,10 @@
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="{{URL}}indexback/index">Home</a></li>
+                    <li>訂單管理</li>
+                </ol>
                 <div class="container-fluid">
                     <div class="container">
                         <h2>訂單管理</h2>

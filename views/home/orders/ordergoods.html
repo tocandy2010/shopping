@@ -106,6 +106,11 @@
             font-weight: bold;
             letter-spacing: 0.5px
         }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -130,9 +135,11 @@
                     <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
+                            Modify</a></li>
                     <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
@@ -155,6 +162,12 @@
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
+                    <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                        <li><a href="{{URL}}index/index">Home</a></li>
+                        <li><a href="{{URL}}order/index">Myorder</a></li>
+                        <li>訂單編號&nbsp{{$onum}}</li>
+                        <!-- <li class="active">goodsname</li> -->
+                    </ol>
                     <h2>訂單商品</h2>
                     <div id='checkcookie'></div>
                     <p>&nbsp</p>
@@ -227,7 +240,7 @@
     //         $("#gnum" + gid).val(max);
     //     }
 
-        
+
     //     //$('#gnum' + gid).blur();
     // })
 
@@ -243,18 +256,18 @@
     // })
 
     //計算小記價格
-    $('.gnum').click(function() {
+    $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
         let gnum = $(this).val();
-        let price = parseInt($("#price"+gid).html());
+        let price = parseInt($("#price" + gid).html());
 
         if (gnum >= max) {
             gnum = max;
         }
         sum = price * gnum;
 
-        $("#sum"+gid).html(sum);
+        $("#sum" + gid).html(sum);
     })
 
     //將實際購買數量上傳到購物車內
@@ -328,7 +341,7 @@
                     alert('目前購物車內沒有任何商品');
                     $("#checkout").attr('disabled', true);
 
-                }else if (result.checkoutinfo) {
+                } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
                         $("#errorstock" + id).html("此庫存不足");
                     }

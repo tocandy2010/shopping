@@ -37,7 +37,7 @@ class LoginbackController extends AdminController
             'repassword' => array('length' => "6~20"),
         ];
 
-        ##針對設定格式驗證表單
+        ## 針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($regInfo, $verification);
         if (!empty($this->helper->checkForm($regInfo, $verification))) {
             echo json_encode(['reginfo' => $errorMessage]);
@@ -194,7 +194,7 @@ class LoginbackController extends AdminController
             'repassword' => array('length' => "6~20"),
         ];
 
-        ##針對設定格式驗證表單
+        ## 針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($editInfo, $verification);
         if (!empty($this->helper->checkForm($editInfo, $verification))) {
             echo json_encode(['editinfo' => $errorMessage]);

@@ -12,22 +12,6 @@ class OrderController extends CustomerController
      */
     public function index($reg = false)
     {
-        // $path = URL . "login/index";
-        // ##檢查使用者是否登入
-        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
-        // ## 檢查用戶合法性
-        // $token = $_COOKIE['token'];
-        // $DBCustomer = $this->DBCustomer;
-        // $userInfo = $DBCustomer->getOne(['token' => $token]);
-        // if (empty($userInfo) || $userInfo['released'] !== '1') {
-        //     header("Location:{$path}");
-        //     exit;
-        // }
-
         ## 取得登入資訊
         $loginflag = $this->loginflag;
         $userInfo = $this->userInfo;
@@ -126,6 +110,7 @@ class OrderController extends CustomerController
 
         $goodsInfo = $DBOrders->getOrderGoods($onum);
 
+        $this->smarty->assign('onum', $onum);
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->assign('loginflag', $loginflag);

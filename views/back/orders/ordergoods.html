@@ -50,6 +50,11 @@
             color: white;
         }
 
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -149,6 +154,11 @@
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="{{URL}}indexback/index">Home</a></li>
+                    <li><a href="{{URL}}orderback/index">訂單管理</a></li>
+                    <li>訂單編號&nbsp{{$onum}}</li>
+                </ol>
                 <div class="container-fluid">
                     <h2>訂單商品</h2>
                     <div id='checkcookie'></div>

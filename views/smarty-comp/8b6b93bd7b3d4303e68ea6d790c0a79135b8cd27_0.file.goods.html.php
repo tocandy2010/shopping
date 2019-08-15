@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-13 07:45:42
+/* Smarty version 3.1.33, created on 2019-08-15 11:09:02
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d524e86cb4891_94347582',
+  'unifunc' => 'content_5d55212e4f6781_06009380',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8b6b93bd7b3d4303e68ea6d790c0a79135b8cd27' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\goods.html',
-      1 => 1565675141,
+      1 => 1565860141,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d524e86cb4891_94347582 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d55212e4f6781_06009380 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -186,7 +186,8 @@ goods/index/yoga">Yoga</a></li>
 cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
                     </li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
                     <li><a href="<?php echo URL;?>
@@ -212,8 +213,8 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <form class="form-inline" actuin="<?php echo URL;?>
 /goods/index" method="get" >
                 <input type="text" class="form-control" name='search' id="search" value="<?php echo $_smarty_tpl->tpl_vars['search']->value;?>
-">
-            <button type="submit" id="searchsend" class="btn btn-default">Submit</button>
+" placeholder="搜尋商品名稱">
+            <button type="submit" id="searchsend" class="btn btn-info">Search</button>
         </form>
     </div>
 

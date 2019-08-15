@@ -28,29 +28,13 @@ class GoodsController extends Controller
             header("Location: {$home}");
         }
 
-        ##判斷使用者登入
-        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-        //     $userInfo = [];
-        // } else {
-        //     $DBCustomer = $this->DBCustomer;
-        //     $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
-        //     if (!empty($userInfo)) {
-        //         $this->smarty->assign('loginflag', true);
-        //     }
-        // }
-
         $userInfo = $this->userInfo;
         $loginflag = $this->loginflag;
 
-        // ## 取得分類所有產品
+        ## 取得分類所有產品
         $DBGoods = $this->DBGoods;
-        if (isset($_GET['search']) && $_GET['search'] !== "") {
-            $search = htmlspecialchars($_GET['search'], ENT_QUOTES);
-            $goodsInfo = $DBGoods->getTypeAll($tnum, $search);
-        } else {
-            $search = "";
-            $goodsInfo = $DBGoods->getTypeAll($tnum);
-        }
+        $search = (isset($_GET['search']) && $_GET['search'] !== "") ? htmlspecialchars($_GET['search'], ENT_QUOTES) : "";
+        $goodsInfo = $DBGoods->getTypeReleaseGoods($tnum, $search);
 
         $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('search', $search);
@@ -71,7 +55,7 @@ class GoodsController extends Controller
         if (is_numeric($gid) && !empty($goodsInfo)) {
             if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart']) && !is_null($_COOKIE['cart'])) {
                 $cart = json_decode($_COOKIE['cart']);
-                ##過濾後的購物車內容放這
+                ## 過濾後的購物車內容放這
                 $cartdata = [];
                 ## 過濾購物車
                 foreach ($cart as $cgid => $cgnum) {
@@ -82,7 +66,7 @@ class GoodsController extends Controller
 
                 ## 購物車中已經有商品則回傳以加入購物車
                 if (array_key_exists($gid, $cartdata)) {
-                    $addInfo = ['addinfo' => 'already'];
+                    $addInfo = ['addinfo' => 'success'];
                     echo json_encode($addInfo);
                     exit;
                 } else {
@@ -109,26 +93,16 @@ class GoodsController extends Controller
     public function create($res = false)
     {
         $home = URL . 'index/index';
-        ##檢查商品參數
+        ## 檢查商品參數
         if (!isset($res[0]) || empty($res[0]) || !is_numeric($res[0])) {
             header("Location:{$home}");
             exit;
         }
 
-        ##判斷使用者登入
-        // if (!isset($_COOKIE['token']) || empty($_COOKIE['token'])) {
-        //     $userInfo = [];
-        // } else {
-        //     $DBCustomer = $this->DBCustomer;
-        //     $userInfo = $DBCustomer->getOne(['token' => $_COOKIE['token']]);
-        //     if (!empty($userInfo)) {
-        //         $this->smarty->assign('loginflag', true);
-        //     }
-        // }
         $userInfo = $this->userInfo;
         $loginflag = $this->loginflag;
 
-        ##取得商品資訊
+        ## 取得商品資訊
         $DBgoods = $this->DBgoods;
         $goodsInfo = $DBgoods->findOne($res[0]);
         if (empty($goodsInfo)) {
@@ -144,7 +118,7 @@ class GoodsController extends Controller
             exit;
         }
 
-        ##標記是否以加入購物車
+        ## 標記是否以加入購物車
         $incartflag = false;
         if (isset($_COOKIE['cart']) && !empty($_COOKIE['cart']) && !is_null($_COOKIE['cart'])) {
             $cart = json_decode($_COOKIE['cart']);
