@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 17:19:33
+/* Smarty version 3.1.33, created on 2019-08-15 09:22:56
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d53d22515d933_90327700',
+  'unifunc' => 'content_5d54b3f03ba624_84631521',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '79b2c484fe831588a77f6964922b34782274e02f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
-      1 => 1565772899,
+      1 => 1565831340,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d53d22515d933_90327700 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d54b3f03ba624_84631521 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Myorder</title>
+    <title>Orders</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -56,7 +56,7 @@ function content_5d53d22515d933_90327700 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Remove the jumbotron's default bottom margin */
         .jumbotron {
-            margin-bottom: 30px;
+            margin-bottom: 0px;
         }
 
         /* Add a gray background color and some padding to the footer */
@@ -125,6 +125,10 @@ function content_5d53d22515d933_90327700 (Smarty_Internal_Template $_smarty_tpl)
             font-weight: bolder;
             text-align: center
         }
+
+        .page {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -177,10 +181,16 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
-                    <p>
+                    <div class="container">
                         <h2>訂單管理</h2>
-                    </p>
-                    <p>&nbsp</p>
+                        <form class="form-inline" actuin="<?php echo URL;?>
+/ordersback/index" method="get">
+                            <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"
+                                value="<?php echo $_smarty_tpl->tpl_vars['searchdata']->value;?>
+">
+                            <button type="submit" id="searchsend" class="btn btn-info">search</button>
+                        </form>
+                    </div>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -190,7 +200,35 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                                 <th>商品</th>
                                 <th>收件地址</th>
                                 <th>成立時間</th>
-                                <th>訂單狀態</th>
+                                <form action="">
+                                    <td class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            狀態
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="<?php echo URL;?>
+orderback/index">全部</a></li>
+                                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['ostatus']->value, 'ostatusInfo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['ostatusInfo']->value) {
+?>
+                                            <li>
+                                                <a
+                                                    href="<?php echo URL;?>
+orderback/index?status=<?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['onum'];?>
+"><?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['name'];?>
+</a>
+                                            </li>
+                                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                                        </ul>
+                                    </td>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
@@ -287,6 +325,32 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         </div>
     </div>
     <!-- 模態框 -->
+    <div class="container-fluid page">
+        <span class='pull-center'>
+            <ul class="pagination">
+                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['pagenum']->value, 'pnum');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['pnum']->value) {
+?>
+                <?php if ($_smarty_tpl->tpl_vars['pnum']->value !== $_smarty_tpl->tpl_vars['nowpage']->value) {?>
+                <li><a href="<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
+page=<?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
+</a></li>
+                <?php } else { ?>
+                <li class='active'><a href="<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
+page=<?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
+</a></li>
+                <?php }?>
+                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            </ul>
+        </span>
+    </div>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>

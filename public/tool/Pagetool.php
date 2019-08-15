@@ -2,9 +2,17 @@
 
 class Pagetool
 {
-    protected $total = 0;  //總數
-    protected $perpage = 5;  //一頁顯示幾個
-    protected $page = 1;  //默認是第幾頁
+    ## 總件數
+    protected $total = 0;
+    
+    ## 一頁顯示幾個
+    protected $perpage = 5;  //
+
+    ## 默認是第幾頁
+    protected $page = 1;
+
+    ## 一次顯示幾個頁碼
+    protected $showpagelength = 5; 
 
     public function __construct($total, $page = false, $perpage = false)
     {
@@ -16,7 +24,9 @@ class Pagetool
             $this->page = $page;
         }
     }
-
+    /*
+     * 返回總頁數
+     */
     public function getPageTotal()
     {
         if ($this->totalpage < 1) {
@@ -25,11 +35,16 @@ class Pagetool
         return $this->totalpage;
     }
 
+    /*
+     * 計算分頁碼
+     */
     public function show()
     {
-        $cnt = (int)ceil(($this->total / $this->perpage));  //得到總頁數
+        $cnt = ceil(($this->total / $this->perpage));  //得到總頁數
 
-        $this->page = ($this->page <= $cnt) && ($this->page >= 1) ? $cnt : 1;
+        // $this->page = ($this->page >= $cnt) && ($this->page >= 1) ? $cnt : 1;
+        $this->page = $this->page >= $cnt ? $cnt : $this->page;
+        $this->page = $this->page <= 1 ? 1 : $this->page;
         
         $this->totalpage = $cnt;
 
@@ -38,7 +53,7 @@ class Pagetool
         $left = $this->page - 1;
         $right = $this->page + 1;
 
-        for ($left, $right; ($left >= 1 || $right <= $cnt) && count($nav) < 5; $left--, $right++) {
+        for ($left, $right; ($left >= 1 || $right <= $cnt) && count($nav) < $this->showpagelength; $left--, $right++) {
             if ($left >= 1) {
                 array_unshift($nav, $left);
             }
@@ -49,15 +64,21 @@ class Pagetool
         return $nav;
     }
 
+    /*
+     * 去除url的page參數 返回url
+     */
     public function getUrl() 
     {
         $uri = $_SERVER["REQUEST_URI"];
 
-        $parse = parse_url($uri);   //parse_url()  分析URL
+        ## 分析URL
+        $parse = parse_url($uri);   //parse_url()  
 
         $param = array();
-        if (isset($parse["query"])) {  //如果query存在則存在陣列裡
-            parse_str($parse["query"], $param);   //將 $parse 下的query 用parse_str 存為陣列
+
+        ## 如果query存在則存在陣列裡將 $parse 下的query 用parse_str 存為陣列
+        if (isset($parse["query"])) {  //
+            parse_str($parse["query"], $param);
         }
         if (isset($param["page"])) {
             unset($param["page"]);

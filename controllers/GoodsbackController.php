@@ -259,7 +259,7 @@ class GoodsbackController extends AdminController
             'info' => true,
             'message' => "成功新增商品",
             'error' => '',
-            'redirect' => '',
+            'redirect' => URL . "goodsback/index",
         ];
         echo json_encode($info);
         exit;

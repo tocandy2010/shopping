@@ -127,7 +127,7 @@
                         <div class="col-md-4">
                             <input id="name" name="name" type="text" value="{{$userinfo['name']}}"
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~30字&nbsp&nbsp&nbsp
+                            <span class="help-block">請輸入您的姓名&nbsp3~30字&nbsp&nbsp&nbsp
                                 <span class="errorinfo" id="nameinfo"></span>
                             </span>
                         </div>
@@ -224,13 +224,15 @@
                 $('#' + error + 'info').html("");
             }
 
+            // 檢查欄位是否填寫正確
             formname.forEach(function(item){
-                if($("#" + item).val() === '') {
+                // if($("#" + item).val() === '') {
                     $("#" + item).focus();
-                }
+                    $("#" + item).blur();
+                // }
             })
 
-            if (!(name && phone && address)) {
+            if (!(nameflag && phoneflag && addressflag)) {
                 return false;
             }
 

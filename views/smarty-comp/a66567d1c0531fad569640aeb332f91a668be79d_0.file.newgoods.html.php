@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 12:33:26
+/* Smarty version 3.1.33, created on 2019-08-15 04:00:05
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\newgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d53e376e4b532_78557401',
+  'unifunc' => 'content_5d54bca5f3a134_70274832',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a66567d1c0531fad569640aeb332f91a668be79d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\newgoods.html',
-      1 => 1565778805,
+      1 => 1565834404,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d53e376e4b532_78557401 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d54bca5f3a134_70274832 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -263,11 +263,11 @@ public/js/helper.js'><?php echo '</script'; ?>
 
     $("#name").blur(function () {
         let name = $(this).val();
-        name = name.trim();
+        // name = name.trim();
         if (checkInput(name, 'length', "1~20") === false) {
             $('#nameinfo').html('欄位填寫不正確');
         } else {
-            $nameflag = true;
+            nameflag = true;
             $('#nameinfo').html('');
         }
     })
@@ -277,7 +277,7 @@ public/js/helper.js'><?php echo '</script'; ?>
         if (checkInput(price, 'range', "1~100000") === false) {
             $('#priceinfo').html('欄位填寫不正確');
         } else {
-            $priceflag = true;
+            priceflag = true;
             $('#priceinfo').html('');
         }
     })
@@ -287,29 +287,29 @@ public/js/helper.js'><?php echo '</script'; ?>
         if (checkInput(stock, 'range', "1~50000") === false) {
             $('#stockinfo').html('欄位填寫不正確');
         } else {
-            $stockflag = true;
+            stockflag = true;
             $('#stockinfo').html('');
         }
     })
 
     $("#uses").blur(function () {
         let uses = $(this).val();
-        uses = uses.trim();
+        // uses = uses.trim();
         if (checkInput(uses, 'length', "1~50") === false) {
             $('#usesinfo').html('欄位填寫不正確');
         } else {
-            $usesflag = true;
+            usesflag = true;
             $('#usesinfo').html('');
         }
     })
 
     $("#material").blur(function () {
         let material = $(this).val();
-        material = material.trim();
+        // material = material.trim();
         if (checkInput(material, 'length', "1~50") === false) {
             $('#materialinfo').html('欄位填寫不正確');
         } else {
-            $materialflag = true;
+            materialflag = true;
             $('#materialinfo').html('');
         }
     })
@@ -320,7 +320,7 @@ public/js/helper.js'><?php echo '</script'; ?>
         if (!($("#gimg").val() !== "" && allowtype.indexOf(filetype) >= 0)) {
             $('#gimginfo').html('請上傳圖片檔');
         } else {
-            $gimgflag = true;
+            gimgflag = true;
             $('#gimginfo').html('');
         }
 
@@ -335,11 +335,11 @@ public/js/helper.js'><?php echo '</script'; ?>
         if (checkInput(tnum, 'number') === false) {
             $('#tnuminfo').html('請選擇商品分類');
         } else {
-            $tnumflag = true;
+            tnumflag = true;
             $('#tnuminfo').html('');
         }
 
-        if (!(tnumflag && nameflag && priceflag && stockflag && usesflag && materialfflag)) {
+        if (!(tnumflag && nameflag && priceflag && stockflag && usesflag && materialflag && gimgflag)) {
             return false;
         }
 

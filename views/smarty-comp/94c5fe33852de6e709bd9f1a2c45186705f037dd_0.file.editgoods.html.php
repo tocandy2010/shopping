@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 12:34:03
+/* Smarty version 3.1.33, created on 2019-08-15 04:01:04
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\editgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d53e39b8e65d9_11087874',
+  'unifunc' => 'content_5d54bce0409ca6_43944158',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '94c5fe33852de6e709bd9f1a2c45186705f037dd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\editgoods.html',
-      1 => 1565778795,
+      1 => 1565831340,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d53e39b8e65d9_11087874 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d54bce0409ca6_43944158 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -218,7 +218,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="material	">商品材質</label>
                         <div class="col-md-4">
-                            <input id="material	" name="material" type="text" placeholder=""
+                            <input id="material" name="material" type="text" placeholder=""
                                 class="form-control input-md" autocomplete="off" value="<?php echo $_smarty_tpl->tpl_vars['goods']->value['material'];?>
 ">
                             <span class="help-block">請說明商品用途 文字限制50
@@ -246,7 +246,7 @@ echo $_smarty_tpl->tpl_vars['goods']->value['gimg'];?>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="addgoodssend" class="btn btn-info">Create</button>
+                            <button type="button" id="addgoodssend" class="btn btn-info">Edit</button>
                             <a href="<?php echo URL;?>
 goodsback/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
@@ -335,7 +335,6 @@ public/js/helper.js'><?php echo '</script'; ?>
         } else {
             materialflag = true;
             $('#materialinfo').html('');
-            
         }
     })
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 10:43:55
+/* Smarty version 3.1.33, created on 2019-08-15 09:20:53
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\orders\myorders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d53756b154812_52956942',
+  'unifunc' => 'content_5d54b375ed5928_25622236',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '60e5fc6dac335c8bd869f988d17eec02d58cbcd6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\myorders.html',
-      1 => 1565750634,
+      1 => 1565831340,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d53756b154812_52956942 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d54b375ed5928_25622236 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +44,7 @@ function content_5d53756b154812_52956942 (Smarty_Internal_Template $_smarty_tpl)
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height:632px
+            height: 632px
         }
 
         /* Set gray background color and 100% height */
@@ -232,10 +232,10 @@ foreach ($_from as $_smarty_tpl->tpl_vars['ordersinfo']->value) {
 </td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['buynum'];?>
 </td>
-                                <td class="checkorder"><a
-                                        href="<?php echo URL;?>
+                                <td class="checkorder"><a href="<?php echo URL;?>
 order/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
-">訂單商品</a></td>
+">訂單商品</a>
+                                </td>
                                 <td class='address'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['address'];?>
 </td>
                                 <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
@@ -255,31 +255,31 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         </div>
     </div>
     <div class="container-fluid page">
-            <span class='pull-center'>
-                <ul class="pagination">
+        <span class='pull-center'>
+            <ul class="pagination">
                 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['pagenum']->value, 'pnum');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['pnum']->value) {
 ?>
-                    <?php if ($_smarty_tpl->tpl_vars['pnum']->value !== $_smarty_tpl->tpl_vars['nowpage']->value) {?>
-                    <li><a href="<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
+                <?php if ($_smarty_tpl->tpl_vars['pnum']->value === $_smarty_tpl->tpl_vars['nowpage']->value) {?>
+                <li class='active'><a href="<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
 page=<?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
 "><?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
 </a></li>
-                    <?php } else { ?>
-                    <li class='active'><a href="<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
+                <?php } else { ?>
+                <li><a href="<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
 page=<?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
 "><?php echo $_smarty_tpl->tpl_vars['pnum']->value;?>
 </a></li>
-                    <?php }?>
+                <?php }?>
                 <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                </ul>
-            </span>
-        </div>
+            </ul>
+        </span>
+    </div>
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>

@@ -214,11 +214,11 @@
 
     $("#name").blur(function () {
         let name = $(this).val();
-        name = name.trim();
+        // name = name.trim();
         if (checkInput(name, 'length', "1~20") === false) {
             $('#nameinfo').html('欄位填寫不正確');
         } else {
-            $nameflag = true;
+            nameflag = true;
             $('#nameinfo').html('');
         }
     })
@@ -228,7 +228,7 @@
         if (checkInput(price, 'range', "1~100000") === false) {
             $('#priceinfo').html('欄位填寫不正確');
         } else {
-            $priceflag = true;
+            priceflag = true;
             $('#priceinfo').html('');
         }
     })
@@ -238,29 +238,29 @@
         if (checkInput(stock, 'range', "1~50000") === false) {
             $('#stockinfo').html('欄位填寫不正確');
         } else {
-            $stockflag = true;
+            stockflag = true;
             $('#stockinfo').html('');
         }
     })
 
     $("#uses").blur(function () {
         let uses = $(this).val();
-        uses = uses.trim();
+        // uses = uses.trim();
         if (checkInput(uses, 'length', "1~50") === false) {
             $('#usesinfo').html('欄位填寫不正確');
         } else {
-            $usesflag = true;
+            usesflag = true;
             $('#usesinfo').html('');
         }
     })
 
     $("#material").blur(function () {
         let material = $(this).val();
-        material = material.trim();
+        // material = material.trim();
         if (checkInput(material, 'length', "1~50") === false) {
             $('#materialinfo').html('欄位填寫不正確');
         } else {
-            $materialflag = true;
+            materialflag = true;
             $('#materialinfo').html('');
         }
     })
@@ -271,7 +271,7 @@
         if (!($("#gimg").val() !== "" && allowtype.indexOf(filetype) >= 0)) {
             $('#gimginfo').html('請上傳圖片檔');
         } else {
-            $gimgflag = true;
+            gimgflag = true;
             $('#gimginfo').html('');
         }
 
@@ -286,11 +286,11 @@
         if (checkInput(tnum, 'number') === false) {
             $('#tnuminfo').html('請選擇商品分類');
         } else {
-            $tnumflag = true;
+            tnumflag = true;
             $('#tnuminfo').html('');
         }
 
-        if (!(tnumflag && nameflag && priceflag && stockflag && usesflag && materialfflag)) {
+        if (!(tnumflag && nameflag && priceflag && stockflag && usesflag && materialflag && gimgflag)) {
             return false;
         }
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-12 08:30:09
+/* Smarty version 3.1.33, created on 2019-08-15 03:50:49
   from 'C:\xampp\htdocs\TaiwanGYM\views\home\login\editinfo.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d510771a61f15_41455488',
+  'unifunc' => 'content_5d54ba796bd822_30444413',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a950b98ac7ee87b11bded1d1660927aa1265e288' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\editinfo.html',
-      1 => 1565591409,
+      1 => 1565833849,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d510771a61f15_41455488 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d54ba796bd822_30444413 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -167,7 +167,7 @@ login/editpassword">Security</a></li>
                             <input id="name" name="name" type="text" value="<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['name'];?>
 "
                                 class="form-control input-md" autocomplete="off">
-                            <span class="help-block">請輸入您的姓名&nbsp不可輸入空白&nbsp3~30字&nbsp&nbsp&nbsp
+                            <span class="help-block">請輸入您的姓名&nbsp3~30字&nbsp&nbsp&nbsp
                                 <span class="errorinfo" id="nameinfo"></span>
                             </span>
                         </div>
@@ -271,13 +271,15 @@ public/js/helper.js'><?php echo '</script'; ?>
                 $('#' + error + 'info').html("");
             }
 
+            // 檢查欄位是否填寫正確
             formname.forEach(function(item){
-                if($("#" + item).val() === '') {
+                // if($("#" + item).val() === '') {
                     $("#" + item).focus();
-                }
+                    $("#" + item).blur();
+                // }
             })
 
-            if (!(name && phone && address)) {
+            if (!(nameflag && phoneflag && addressflag)) {
                 return false;
             }
 

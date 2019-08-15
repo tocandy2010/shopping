@@ -55,7 +55,7 @@ class OrderController extends CustomerController
         $orderlgn = count($DBOrders->getOrders($userInfo['cid'], $condition));
 
         ## 檢查分頁參數合法
-        $page = isset($_GET['page']) && is_numeric($_GET['page']) && ($_GET['page'] >= 1) ? $_GET['page'] : 1;
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) && ($_GET['page'] > 1) ? $_GET['page'] : 1;
         $pagetool = new Pagetool($orderlgn, $page, $perpage);
         $pagenum = $pagetool->show();
         $url = $pagetool->getUrl();
@@ -87,7 +87,7 @@ class OrderController extends CustomerController
 
         $this->smarty->assign('url', $url);
         $this->smarty->assign('pagenum', $pagenum);
-        $this->smarty->assign('nowpage', (int)$page);
+        $this->smarty->assign('nowpage', $page);
         $this->smarty->assign('searchdata', $searchdata);
         $this->smarty->assign('statushdata', $statusdata);
         $this->smarty->assign('ostatus', $ostatusInfo);

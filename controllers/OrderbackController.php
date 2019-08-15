@@ -88,7 +88,7 @@ class OrderbackController extends AdminController
 
         $this->smarty->assign('url', $url);
         $this->smarty->assign('pagenum', $pagenum);
-        $this->smarty->assign('nowpage', (int)$page);
+        $this->smarty->assign('nowpage', $page);
         $this->smarty->assign('searchdata', $searchdata);
         $this->smarty->assign('statushdata', $statusdata);
         $this->smarty->assign('userinfo', $userInfo);
@@ -118,6 +118,7 @@ class OrderbackController extends AdminController
 
         $userInfo = $this->userInfo;
 
+        $path = URL . "indexback/index";
         ## 檢查訂單編號
         if (empty($reg[0]) || !is_numeric($reg[0])) {
             header("Location: {$path}");
@@ -130,7 +131,6 @@ class OrderbackController extends AdminController
         $DBOrders = $this->DBOrders;
         $orderInfo = $DBOrders->getOne(['onum' => $onum]);
         if (empty($orderInfo)) {
-            $path = URL . "indexback/index";
             header("Location: {$path}");
             exit;
         }

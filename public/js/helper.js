@@ -1,12 +1,14 @@
 function checkInput(data, condition , limit = "")
 {
     switch (condition) {
-        case "length" : 
+        case "length" :
+            data = data.trim();
             len = limit.split("~");
             datalen = data.length;
             return (datalen >= parseInt(len[0]) && datalen <= parseInt(len[1]));
             break;
         case "notempty" :
+            data = data.trim();
             return data !== "";
             break;
         case "email" :

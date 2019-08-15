@@ -357,14 +357,18 @@ class LoginController extends Controller
         ## 設定傳入資料要驗證的格式
         $verification = [
             'email' => array('email' => '0'),
-            'password' => array('length' => "6~20"),
             'vcode' => array('notempty' => '0'),
         ];
 
         ##針對設定格式驗證表單
         $errorMessage = $this->helper->checkForm($loginInfo, $verification);
         if (!empty($this->helper->checkForm($loginInfo, $verification))) {
-            echo json_encode(['logininfo' => $errorMessage]);
+            // echo json_encode(['logininfo' => $errorMessage]);
+            // exit;
+            $info['info'] = false;
+            $info['message'] = '';
+            $info['error'] = $errorMessage;
+            echo json_encode($info);
             exit;
         }
 
