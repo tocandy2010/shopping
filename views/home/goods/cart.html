@@ -130,9 +130,11 @@
                     <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
+                            Modify</a></li>
                     <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
                     <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
@@ -245,7 +247,24 @@
     let checkoutflag = true;
 
     //計算小記價格
-    $('.gnum').change(function () {
+    $('.gnum').keyup(function () {
+        let max = parseInt($(this).attr("max"));
+        let gid = $(this).attr("data-gid");
+        let gnum = parseInt($(this).val());
+        let price = parseInt($("#price" + gid).html());
+
+        if (gnum < 1 || isNaN(gnum)) {
+            gnum = 1;
+            $(this).val(1);
+            alert("商品最小購買單位為1")
+        }
+
+        sum = price * gnum;
+        $("#sum" + gid).html(sum);
+    })
+
+    //手動輸入計算小記價格
+    $('.gnum').keyup(function () {
         let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
         let gnum = parseInt($(this).val());
@@ -254,11 +273,7 @@
         if (gnum > max) {
             gnum = max;
             $(this).val(max);
-        }
-
-        if (gnum < 1 || isNaN(gnum)) {
-            gnum = 1;
-            $(this).val(1);
+            alert("商品最大購買單位為" + max)
         }
 
         sum = price * gnum;
@@ -267,7 +282,7 @@
 
 
 
-    //計算小記價格及最大購故數量限制
+    //點擊增加計算小記價格及最大購故數量限制
     $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
@@ -294,8 +309,7 @@
         if (parseInt(gnum) > parseInt(max)) {
             $(this).val(parseInt(max));
             gnum = max;
-            alert("此商品最大購買單位為" + max)
-            return false;
+            alert("商品最大購買單位為" + max)
         }
         $.ajax({
             url: 'setCart/' + gid,
@@ -335,7 +349,7 @@
         });
     })
 
-    //結帳
+    //送出結帳
     $('#checkout').click(function () {
         $.ajax({
             url: 'checkout',
@@ -361,11 +375,11 @@
                     }
                     if (result['errorstock'].length > 0) {
                         for (id of result['errorstock']) {
-                        $("#errorstock" + id).html("此商品庫存不足請確認庫存");
-                        $("#checkout").attr('disabled', true);
+                            $("#errorstock" + id).html("此商品庫存不足請確認庫存");
+                            $("#checkout").attr('disabled', true);
                         }
                     }
-                } else  {
+                } else {
                     alert("發生錯誤");
                 }
             }

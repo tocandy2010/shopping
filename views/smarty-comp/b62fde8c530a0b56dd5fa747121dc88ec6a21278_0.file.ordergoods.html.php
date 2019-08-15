@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 18:39:34
+/* Smarty version 3.1.33, created on 2019-08-15 18:31:36
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4afec64118e9_29499369',
+  'unifunc' => 'content_5d5588e8128345_78514565',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b62fde8c530a0b56dd5fa747121dc88ec6a21278' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\ordergoods.html',
-      1 => 1565195973,
+      1 => 1565884185,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4afec64118e9_29499369 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5588e8128345_78514565 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -75,6 +75,11 @@ function content_5d4afec64118e9_29499369 (Smarty_Internal_Template $_smarty_tpl)
         #username:hover {
             cursor: default;
             color: white;
+        }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -150,16 +155,19 @@ indexback/index">Home</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                        <li><a href="<?php echo URL;?>
+                    <li><a href="<?php echo URL;?>
 orderback/index">訂單管理</a></li>
-                        <li><a href="<?php echo URL;?>
+                    <li><a href="<?php echo URL;?>
 Customerback/index">會員管理</a></li>
-                        <li><a href="<?php echo URL;?>
+                    <li><a href="<?php echo URL;?>
 goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+                    <li><a href="<?php echo URL;?>
+loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
+"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -181,6 +189,14 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
+indexback/index">Home</a></li>
+                    <li><a href="<?php echo URL;?>
+orderback/index">訂單管理</a></li>
+                    <li>訂單編號&nbsp<?php echo $_smarty_tpl->tpl_vars['onum']->value;?>
+</li>
+                </ol>
                 <div class="container-fluid">
                     <h2>訂單商品</h2>
                     <div id='checkcookie'></div>
@@ -203,23 +219,13 @@ foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
 ?>
                             <tr>
                                 <td>
-                                    <a href="<?php echo URL;?>
-goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">
-                                        <img class="img-responsive" src="<?php echo URL;
+                                    <img class="img-responsive" src="<?php echo URL;
 echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 "
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
+                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre"> </a>
                                 </td>
-                                <td>
-                                    <a href="<?php echo URL;?>
-goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
-">
-                                        <span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
-<span>
-                                    </a>
-                                </td>
+                                <td><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+<span></td>
                                 <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></td>
@@ -274,7 +280,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     //         $("#gnum" + gid).val(max);
     //     }
 
-        
+
     //     //$('#gnum' + gid).blur();
     // })
 
@@ -290,18 +296,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     // })
 
     //計算小記價格
-    $('.gnum').click(function() {
+    $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
         let gnum = $(this).val();
-        let price = parseInt($("#price"+gid).html());
+        let price = parseInt($("#price" + gid).html());
 
         if (gnum >= max) {
             gnum = max;
         }
         sum = price * gnum;
 
-        $("#sum"+gid).html(sum);
+        $("#sum" + gid).html(sum);
     })
 
     //將實際購買數量上傳到購物車內
@@ -377,7 +383,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     alert('目前購物車內沒有任何商品');
                     $("#checkout").attr('disabled', true);
 
-                }else if (result.checkoutinfo) {
+                } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
                         $("#errorstock" + id).html("此庫存不足");
                     }

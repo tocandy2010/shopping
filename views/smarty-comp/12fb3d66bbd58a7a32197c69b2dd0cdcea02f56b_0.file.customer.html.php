@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 22:50:38
+/* Smarty version 3.1.33, created on 2019-08-16 00:22:07
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\customer\customer.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d541fbe3a1bb5_58765158',
+  'unifunc' => 'content_5d5586afaec725_09173757',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '12fb3d66bbd58a7a32197c69b2dd0cdcea02f56b' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\customer\\customer.html',
-      1 => 1565793222,
+      1 => 1565884185,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d541fbe3a1bb5_58765158 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5586afaec725_09173757 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -88,14 +88,18 @@ function content_5d541fbe3a1bb5_58765158 (Smarty_Internal_Template $_smarty_tpl)
             -webkit-box-orient: vertical;
         }
 
-        .address{
-            width:30%
+        .address {
+            width: 30%
         }
 
         .edit {
-            width:20%
+            width: 20%
         }
 
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -124,7 +128,8 @@ goodsback/index">商品管理</a></li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
 loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+"><span
+                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
@@ -146,6 +151,11 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
+indexback/index">Home</a></li>
+                    <li>會員管理</li>
+                </ol>
                 <div class="container-fluid">
                     <p>
                         <h2>會員管理</h2>
@@ -159,7 +169,7 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                                 <th>手機號碼</th>
                                 <th>註冊地址</th>
                                 <th>註冊時間</th>
-                                <th>操作</th>
+                                <th>會員狀態</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -181,13 +191,13 @@ foreach ($_from as $_smarty_tpl->tpl_vars['customerinfo']->value) {
 </td>
                                 <td class='edit'>
                                     <?php if ($_smarty_tpl->tpl_vars['customerinfo']->value['released'] === '1') {?>
-                                    <button type="button" class="btn btn-success released" 
-                                    data-value='1' data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
+                                    <button type="button" class="btn btn-success released" data-value='1'
+                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
 ">Open</button>
                                     <?php } else { ?>
-                                    <button type="button" class="btn btn-danger released" 
-                                        data-value='0' data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
-">Hide</button>
+                                    <button type="button" class="btn btn-danger released" data-value='0'
+                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
+">Lock</button>
                                     <?php }?>
                                 </td>
                             </tr>
@@ -213,7 +223,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 >
 
     //變更商品狀態商品
-    $('.released').click(function(){
+    $('.released').click(function () {
         let status = $(this).attr('data-value');
         let cid = $(this).attr('data-gid');
         let _this = this;
@@ -222,8 +232,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             dataType: "json",
             type: 'PUT',
             data: {
-                'cid' : cid,
-                'status' : status,
+                'cid': cid,
+                'status': status,
             },
             success: function (result) {
                 if (result['info'] === false) {
@@ -237,7 +247,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     if (result['status'] !== 1) {
                         $(_this).attr('class', "btn btn-danger released");
                         $(_this).attr('data-value', "0");
-                        $(_this).html("Hide");
+                        $(_this).html("Lock");
                     } else {
                         $(_this).attr('class', "btn btn-success released");
                         $(_this).attr('data-value', "1");

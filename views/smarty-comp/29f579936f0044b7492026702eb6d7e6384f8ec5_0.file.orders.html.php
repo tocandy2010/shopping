@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 17:35:48
+/* Smarty version 3.1.33, created on 2019-08-16 00:31:12
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d542a54d0a3b8_29993896',
+  'unifunc' => 'content_5d5588d046eb82_09792865',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '29f579936f0044b7492026702eb6d7e6384f8ec5' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
-      1 => 1565796948,
+      1 => 1565884185,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d542a54d0a3b8_29993896 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5588d046eb82_09792865 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -129,6 +129,11 @@ function content_5d542a54d0a3b8_29993896 (Smarty_Internal_Template $_smarty_tpl)
         .page {
             text-align: center;
         }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -180,6 +185,11 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
+indexback/index">Home</a></li>
+                    <li>訂單管理</li>
+                </ol>
                 <div class="container-fluid">
                     <div class="container">
                         <h2>訂單管理</h2>

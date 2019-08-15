@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 00:30:14
+/* Smarty version 3.1.33, created on 2019-08-15 23:55:32
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\orders\myorders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d543716e6bb50_92574469',
+  'unifunc' => 'content_5d5580740347e7_06890437',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '77a2ced8e2a26ca39544f03788efe8f13d046184' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\myorders.html',
-      1 => 1565800214,
+      1 => 1565884185,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d543716e6bb50_92574469 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5580740347e7_06890437 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -110,6 +110,11 @@ function content_5d543716e6bb50_92574469 (Smarty_Internal_Template $_smarty_tpl)
         .page {
             text-align: center;
         }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -171,7 +176,14 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
+
                     <div class="container">
+                        <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                            <li><a href="<?php echo URL;?>
+index/index">Home</a></li>
+                            <li>Myorder</li>
+                            <!-- <li class="active">goodsname</li> -->
+                        </ol>
                         <h2>我的訂單紀錄</h2>
                         <form class="form-inline" actuin="<?php echo URL;?>
 /orders/index" method="get">

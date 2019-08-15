@@ -243,8 +243,6 @@ class GoodsbackController extends AdminController
      */
     public function setGoodStatus()
     {
-        $userInfo = $this->userInfo;
-
         $info = [
             'info' => false,
             'message' => '',
@@ -334,12 +332,8 @@ class GoodsbackController extends AdminController
      */
     public function update()
     {
-        
-        // $messageInfo = [
-        //     "info" => true,
-        //     "message" => null,
-        // ];
-    ## json 回傳格式
+
+        ## json 回傳格式
         $info = [
             'info' => false,
             'message' => '',
@@ -462,7 +456,7 @@ class GoodsbackController extends AdminController
         }
 
         ## 檢查是否有修改商品訊息
-        if (empty(array_diff($goodsInfo, $editInfo)) || !isset($gimg)) {
+        if (empty(array_diff($goodsInfo, $editInfo)) && !isset($gimg)) {
             $info['info'] = true;
             $info['message'] = "未做任何修改";
             $info['redirect'] = URL . 'indexback/index';

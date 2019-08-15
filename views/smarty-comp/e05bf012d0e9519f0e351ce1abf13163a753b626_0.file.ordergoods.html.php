@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-11 17:18:58
+/* Smarty version 3.1.33, created on 2019-08-15 17:57:26
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5031e2436e08_36734779',
+  'unifunc' => 'content_5d5580e6f35212_29353985',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e05bf012d0e9519f0e351ce1abf13163a753b626' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\ordergoods.html',
-      1 => 1565535213,
+      1 => 1565884185,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d5031e2436e08_36734779 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5580e6f35212_29353985 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -133,6 +133,11 @@ function content_5d5031e2436e08_36734779 (Smarty_Internal_Template $_smarty_tpl)
             font-weight: bold;
             letter-spacing: 0.5px
         }
+
+        #breadcrumbs {
+            background-color: white;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -164,10 +169,12 @@ goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
-login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
+                            Modify</a></li>
                     <li><a href="<?php echo URL;?>
 order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
@@ -193,6 +200,15 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container-fluid">
+                    <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                        <li><a href="<?php echo URL;?>
+index/index">Home</a></li>
+                        <li><a href="<?php echo URL;?>
+order/index">Myorder</a></li>
+                        <li>訂單編號&nbsp<?php echo $_smarty_tpl->tpl_vars['onum']->value;?>
+</li>
+                        <!-- <li class="active">goodsname</li> -->
+                    </ol>
                     <h2>訂單商品</h2>
                     <div id='checkcookie'></div>
                     <p>&nbsp</p>
@@ -285,7 +301,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     //         $("#gnum" + gid).val(max);
     //     }
 
-        
+
     //     //$('#gnum' + gid).blur();
     // })
 
@@ -301,18 +317,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     // })
 
     //計算小記價格
-    $('.gnum').click(function() {
+    $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
         let gnum = $(this).val();
-        let price = parseInt($("#price"+gid).html());
+        let price = parseInt($("#price" + gid).html());
 
         if (gnum >= max) {
             gnum = max;
         }
         sum = price * gnum;
 
-        $("#sum"+gid).html(sum);
+        $("#sum" + gid).html(sum);
     })
 
     //將實際購買數量上傳到購物車內
@@ -388,7 +404,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     alert('目前購物車內沒有任何商品');
                     $("#checkout").attr('disabled', true);
 
-                }else if (result.checkoutinfo) {
+                } else if (result.checkoutinfo) {
                     for (id of result.checkoutinfo) {
                         $("#errorstock" + id).html("此庫存不足");
                     }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-13 18:17:58
+/* Smarty version 3.1.33, created on 2019-08-15 18:32:29
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d52e2b6bb31e3_74146042',
+  'unifunc' => 'content_5d55891ddeeca2_20953178',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '311e6a4c0f34b608e7e923c0dfeb9c6548f53378' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565713060,
+      1 => 1565886104,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d52e2b6bb31e3_74146042 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d55891ddeeca2_20953178 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -164,10 +164,12 @@ goods/index/yoga">Yoga</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+                    </li>
                     <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
-login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
+login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
+                            Modify</a></li>
                     <li><a href="<?php echo URL;?>
 order/index"><span class="glyphicon glyphicon-list-alt"></span>
                             Myorder</a></li>
@@ -305,8 +307,27 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         }
     })
 
+    let checkoutflag = true;
+
     //計算小記價格
-    $('.gnum').change(function () {
+    $('.gnum').keyup(function () {
+        let max = parseInt($(this).attr("max"));
+        let gid = $(this).attr("data-gid");
+        let gnum = parseInt($(this).val());
+        let price = parseInt($("#price" + gid).html());
+
+        if (gnum < 1 || isNaN(gnum)) {
+            gnum = 1;
+            $(this).val(1);
+            alert("商品最小購買單位為1")
+        }
+
+        sum = price * gnum;
+        $("#sum" + gid).html(sum);
+    })
+
+    //手動輸入計算小記價格
+    $('.gnum').keyup(function () {
         let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
         let gnum = parseInt($(this).val());
@@ -315,19 +336,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         if (gnum > max) {
             gnum = max;
             $(this).val(max);
+            alert("商品最大購買單位為" + max)
         }
 
-        if (gnum < 1 || isNaN(gnum)) {
-            gnum = 1;
-            $(this).val(1);
-        }
         sum = price * gnum;
         $("#sum" + gid).html(sum);
     })
 
 
 
-    //計算小記價格及最大購故數量限制
+    //點擊增加計算小記價格及最大購故數量限制
     $('.gnum').click(function () {
         let max = $(this).attr("data-max");
         let gid = $(this).attr("data-gid");
@@ -354,6 +372,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         if (parseInt(gnum) > parseInt(max)) {
             $(this).val(parseInt(max));
             gnum = max;
+            alert("商品最大購買單位為" + max)
         }
         $.ajax({
             url: 'setCart/' + gid,
@@ -393,31 +412,37 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         });
     })
 
-    //結帳
+    //送出結帳
     $('#checkout').click(function () {
         $.ajax({
             url: 'checkout',
             dataType: "json",
             type: 'POST',
             success: function (result) {
-                console.log(result);
-                if (result.checkoutinfo === 'fail') {
-                    alert('結帳失敗');
-                } else if (result.checkoutinfo === 'success') {
-                    // $(window).attr('location', '<?php echo URL;?>
+                if (result['info'] === true) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
+                    }
+                    $(window).attr('location', '<?php echo URL;?>
 /order/index');
-                    alert('訂單已成立');
-                } else if (result.checkoutinfo === 'notlogin') {
-                    alert('請先登入會員');
-                    // $(window).attr('location', '<?php echo URL;?>
+                } else if (result['info'] === false) {
+                    if (result['message'] !== '') {
+                        alert(result['message']);
+                    }
+                    if (result['redirect'] !== "") {
+                        $(window).attr('location', '<?php echo URL;?>
 /login/index');
-                } else if (result.checkoutinfo === 'luckbtn') {
-                    alert('目前購物車內沒有任何商品');
-                    $("#checkout").attr('disabled', true);
-
-                } else if (result.checkoutinfo) {
-                    for (id of result.checkoutinfo) {
-                        $("#errorstock" + id).html("此商品庫存不足請重新整理頁面");
+                    }
+                    if (result['luckbtn'] === true) {
+                        $("#checkout").attr('disabled', true);
+                    } else {
+                        $("#checkout").attr('disabled', false);
+                    }
+                    if (result['errorstock'].length > 0) {
+                        for (id of result['errorstock']) {
+                            $("#errorstock" + id).html("此商品庫存不足請確認庫存");
+                            $("#checkout").attr('disabled', true);
+                        }
                     }
                 } else {
                     alert("發生錯誤");
