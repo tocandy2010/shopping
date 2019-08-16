@@ -12,8 +12,8 @@ class GoodsbackController extends AdminController
      */
     public function index($reg = false)
     {
+        ## 取得登入資訊
         $userInfo = $this->userInfo;
-        $loginflag = $this->loginflag;
 
         ## 判斷商品分類參數
         $type = ((isset($_GET['type']) && is_numeric($_GET['type']) && ($_GET['type'] >= 1))) ? $_GET['type'] : 1;
@@ -41,7 +41,6 @@ class GoodsbackController extends AdminController
         $this->smarty->assign('typename', $typeinfo['name']);
         $this->smarty->assign('gtype', $gtypeInfo);
         $this->smarty->assign('goods', $goodsInfo);
-        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
         return $this->smarty->display('back/goods/goods.html');
     }
@@ -51,6 +50,7 @@ class GoodsbackController extends AdminController
      */
     public function create()
     {
+        ## 取得登入資訊
         $userInfo = $this->userInfo;
 
         $DBGtype = $this->DBGtype;
@@ -67,8 +67,6 @@ class GoodsbackController extends AdminController
      */
     public function add()
     {
-        $userInfo = $this->userInfo;
-
         $info = [
             'info' => false,
             'message' => '',
@@ -145,7 +143,6 @@ class GoodsbackController extends AdminController
                 'message' => '',
                 'error' => $errorMessage,
                 'redirect' => '',
-
             ];
             echo json_encode($info);
             exit;
@@ -292,7 +289,6 @@ class GoodsbackController extends AdminController
     public function edit($reg = false)
     {
         $userInfo = $this->userInfo;
-        $loginflag = $this->loginflag;
 
         if (!is_numeric($reg[0])) {
             $path = URL . "loginback/index";
@@ -322,7 +318,6 @@ class GoodsbackController extends AdminController
 
         $this->smarty->assign('type', $typeinfo);
         $this->smarty->assign('userinfo', $userInfo);
-        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('goods', $goodsInfo);
         $this->smarty->display("back/goods/editgoods.html");
     }
@@ -332,7 +327,6 @@ class GoodsbackController extends AdminController
      */
     public function update()
     {
-
         ## json 回傳格式
         $info = [
             'info' => false,

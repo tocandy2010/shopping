@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 04:00:05
+/* Smarty version 3.1.33, created on 2019-08-16 08:15:29
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\newgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d54bca5f3a134_70274832',
+  'unifunc' => 'content_5d564a01218516_29206670',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a66567d1c0531fad569640aeb332f91a668be79d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\newgoods.html',
-      1 => 1565834404,
+      1 => 1565936126,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d54bca5f3a134_70274832 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d564a01218516_29206670 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -104,7 +104,6 @@ Customerback/index">會員管理</a></li>
 goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
 loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
 "><span
@@ -112,11 +111,6 @@ loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
                 </ul>
             </div>
         </div>

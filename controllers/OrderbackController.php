@@ -14,7 +14,6 @@ class OrderbackController extends AdminController
     {
         ## 取得登入資訊
         $userInfo = $this->userInfo;
-        $loginflag = $this->loginflag;
 
         ## 取得搜尋GET參數
         $condition = [];
@@ -75,15 +74,15 @@ class OrderbackController extends AdminController
         $this->smarty->assign('nowpage', $page);
         $this->smarty->assign('searchdata', $searchdata);
         $this->smarty->assign('statushdata', $statusdata);
-        $this->smarty->assign('userinfo', $userInfo);
+         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('ostatus', $ostatusInfo);
-        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('orders', $orderInfo);
         $this->smarty->display("back/orders/orders.html");
     }
 
     public function showGoods($reg = false)
     {
+        ## 取得登入資訊
         $userInfo = $this->userInfo;
 
         $path = URL . "indexback/index";
@@ -95,22 +94,12 @@ class OrderbackController extends AdminController
             $onum = $reg[0];
         }
 
-        ## 檢查訂單是否存 並且屬於該登入使用者
         $DBOrders = $this->DBOrders;
-        $orderInfo = $DBOrders->getOne(['onum' => $onum]);
-        if (empty($orderInfo)) {
-            header("Location: {$path}");
-            exit;
-        }
-
         $goodsInfo = $DBOrders->getOrderGoods($onum);
-
-        $loginFlag = !empty($userInfo);
 
         $this->smarty->assign('onum', $onum);
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('goods', $goodsInfo);
-        $this->smarty->assign('loginflag', $loginFlag);
         $this->smarty->display("back/orders/ordergoods.html");
     }
 

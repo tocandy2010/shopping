@@ -149,26 +149,15 @@ class LoginbackController extends AdminController
     public function edit($reg = false)
     {
 
-        $loginflag = $this->loginflag;
         $userInfo = $this->userInfo;
 
         $this->smarty->assign('userinfo', $userInfo);
-        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->display("back/login/edit.html");
     }
 
     public function update()
     {
-        $loginflag = $this->loginflag;
-        if ($loginflag === false) {
-            $checkOutInfo = [
-                'info' => false,
-                'message' => "請先會員登入",
-            ];
-            echo json_encode($checkOutInfo);
-            exit;
-        }
-
+        ## 接收使用者資訊
         $userInfo = $this->userInfo;
 
         ##接收參數

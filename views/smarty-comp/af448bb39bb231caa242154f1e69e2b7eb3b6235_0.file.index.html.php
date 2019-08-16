@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 03:05:37
+/* Smarty version 3.1.33, created on 2019-08-16 08:16:47
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4b75615cd2e0_99370990',
+  'unifunc' => 'content_5d564a4f4c5a89_13327786',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'af448bb39bb231caa242154f1e69e2b7eb3b6235' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\index.html',
-      1 => 1565226232,
+      1 => 1565936203,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4b75615cd2e0_99370990 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d564a4f4c5a89_13327786 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -122,7 +122,6 @@ Customerback/index">會員管理</a></li>
 goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
                     <li><a href="<?php echo URL;?>
 loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
 ">
@@ -130,11 +129,6 @@ loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
                     <li><a href="<?php echo URL;?>
 loginback/logout"><span class="glyphicon glyphicon glyphicon-log-in"></span>
                             Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 

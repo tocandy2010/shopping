@@ -132,15 +132,10 @@
                     <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{if $loginflag|default:false}}
                     <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
                                 class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -152,75 +147,71 @@
 
     <div class="container-fluid">
         <div class="row content">
-            <!-- <div class="col-sm-2 sidenav"></div> -->
-            <!-- <div class="col-sm-8 text-left"> -->
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="{{URL}}indexback/index">Home</a></li>
-                    <li>訂單管理</li>
-                </ol>
-                <div class="container-fluid">
-                        <h2>訂單管理</h2>
-                        <form class="form-inline" actuin="{{URL}}/ordersback/index" method="get">
-                            <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"
-                                value="{{$searchdata}}">
-                            <button type="submit" id="searchsend" class="btn btn-info">search</button>
-                        </form>
-                    </div>
-                <div class="container-fluid">
-                    <table class="table table-hover" >
-                        <thead>
-                            <tr>
-                                <th>訂單編號</th>
-                                <th>總件數</th>
-                                <th>總價格</th>
-                                <th>商品</th>
-                                <th>收件地址</th>
-                                <th>成立時間</th>
-                                <form action="">
-                                    <td class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            狀態
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="{{URL}}orderback/index">全部</a></li>
-                                            {{foreach from=$ostatus item=$ostatusInfo}}
-                                            <li>
-                                                <a
-                                                    href="{{URL}}orderback/index?status={{$ostatusInfo['onum']}}">{{$ostatusInfo['name']}}</a>
-                                            </li>
-                                            {{/foreach}}
-                                        </ul>
-                                    </td>
-                                </form>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{foreach from=$orders item=$ordersinfo}}
-                            <tr>
-                                <td class='eamil'>{{$ordersinfo['onum']}}</td>
-                                <td>{{$ordersinfo['buynum']}}</td>
-                                <td>{{$ordersinfo['total']}}</td>
-                                <td class="checkorder"><a
-                                        href="{{URL}}orderback/showGoods/{{$ordersinfo['onum']}}">查看訂單商品</a></td>
-                                <td class='address'>{{$ordersinfo['address']}}</td>
-                                <td>{{$ordersinfo['createTime']}}</td>
-                                <td id="{{$ordersinfo['onum']}}">{{$ordersinfo['statusName']}}</td>
-                                <td>
-                                    {{if $ordersinfo['status'] !== 3}}
-                                    <button type="button" class="btn btn-info status"
-                                        data-status="{{$ordersinfo['status']}}"
-                                        data-onum="{{$ordersinfo['onum']}}">edit</button>
-                                    {{/if}}
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </tbody>
-                    </table>
-                <!-- </div> -->
+            <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                <li><a href="{{URL}}indexback/index">Home</a></li>
+                <li>訂單管理</li>
+            </ol>
+            <div class="container-fluid">
+                <h2>訂單管理</h2>
+                <form class="form-inline" actuin="{{URL}}/ordersback/index" method="get">
+                    <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"
+                        value="{{$searchdata}}">
+                    <button type="submit" id="searchsend" class="btn btn-info">search</button>
+                </form>
             </div>
-            <!-- <div class="col-sm-2 sidenav"></div> -->
+            <div class="container-fluid">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>訂單編號</th>
+                            <th>總件數</th>
+                            <th>總價格</th>
+                            <th>商品</th>
+                            <th>收件地址</th>
+                            <th>成立時間</th>
+                            <form action="">
+                                <td class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        狀態
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="{{URL}}orderback/index">全部</a></li>
+                                        {{foreach from=$ostatus item=$ostatusInfo}}
+                                        <li>
+                                            <a
+                                                href="{{URL}}orderback/index?status={{$ostatusInfo['onum']}}">{{$ostatusInfo['name']}}</a>
+                                        </li>
+                                        {{/foreach}}
+                                    </ul>
+                                </td>
+                            </form>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$orders item=$ordersinfo}}
+                        <tr>
+                            <td class='eamil'>{{$ordersinfo['onum']}}</td>
+                            <td>{{$ordersinfo['buynum']}}</td>
+                            <td>{{$ordersinfo['total']}}</td>
+                            <td class="checkorder"><a
+                                    href="{{URL}}orderback/showGoods/{{$ordersinfo['onum']}}">查看訂單商品</a></td>
+                            <td class='address'>{{$ordersinfo['address']}}</td>
+                            <td>{{$ordersinfo['createTime']}}</td>
+                            <td id="{{$ordersinfo['onum']}}">{{$ordersinfo['statusName']}}</td>
+                            <td>
+                                {{if $ordersinfo['status'] !== 3}}
+                                <button type="button" class="btn btn-info status"
+                                    data-status="{{$ordersinfo['status']}}"
+                                    data-onum="{{$ordersinfo['onum']}}">edit</button>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/foreach}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

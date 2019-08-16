@@ -78,15 +78,10 @@
                     <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{if $loginflag|default:false}}
                     <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
                                 class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
                 </ul>
             </div>
         </div>

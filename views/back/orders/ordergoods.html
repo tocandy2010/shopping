@@ -132,15 +132,10 @@
                     <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{if $loginflag|default:false}}
                     <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
                                 class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -152,47 +147,43 @@
 
     <div class="container-fluid">
         <div class="row content">
-            <!-- <div class="col-sm-2 sidenav"></div> -->
-            <!-- <div class="col-sm-8 text-left"> -->
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="{{URL}}indexback/index">Home</a></li>
-                    <li><a href="{{URL}}orderback/index">訂單管理</a></li>
-                    <li>訂單編號&nbsp{{$onum}}</li>
-                </ol>
-                <div class="container-fluid">
-                    <h2>訂單商品</h2>
-                    <div id='checkcookie'></div>
-                    <p>&nbsp</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>購買數量</th>
-                                <th>小計</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{foreach from=$goods item=$goodsinfo}}
-                            <tr>
-                                <td>
-                                    <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
-                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre"> </a>
-                                </td>
-                                <td><span class='goodsname'>{{$goodsinfo['name']}}<span></td>
-                                <td>NT$<span id="price{{$goodsinfo['gid']}}">{{$goodsinfo['price']}}</span></td>
-                                <td>{{$goodsinfo['number']}}</span></td>
-                                <td>
-                                    <div>NT$<span id="sum{{$goodsinfo['gid']}}">{{$goodsinfo['sumprice']}}</span></div>
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </tbody>
-                    </table>
-                </div>
-            <!-- </div> -->
-            <!-- <div class="col-sm-2 sidenav"></div> -->
+            <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                <li><a href="{{URL}}indexback/index">Home</a></li>
+                <li><a href="{{URL}}orderback/index">訂單管理</a></li>
+                <li>訂單編號&nbsp{{$onum}}</li>
+            </ol>
+            <div class="container-fluid">
+                <h2>訂單商品</h2>
+                <div id='checkcookie'></div>
+                <p>&nbsp</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>商品名稱</th>
+                            <th>單價</th>
+                            <th>購買數量</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$goods item=$goodsinfo}}
+                        <tr>
+                            <td>
+                                <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
+                                    style="max-width: 30%;margin:auto;" alt="Cinque Terre"> </a>
+                            </td>
+                            <td><span class='goodsname'>{{$goodsinfo['name']}}<span></td>
+                            <td>NT$<span id="price{{$goodsinfo['gid']}}">{{$goodsinfo['price']}}</span></td>
+                            <td>{{$goodsinfo['number']}}</span></td>
+                            <td>
+                                <div>NT$<span id="sum{{$goodsinfo['gid']}}">{{$goodsinfo['sumprice']}}</span></div>
+                            </td>
+                        </tr>
+                        {{/foreach}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <footer class="container-fluid text-center">

@@ -7,9 +7,9 @@ class CustomerbackController extends Admincontroller
      */
     public function index()
     {
-        $userInfo = $this->userInfo;
+        ## 取得使用者資訊
 
-        $loginFlag = true;
+        $userInfo = $this->userInfo;
         $DBCustomer = $this->DBCustomer;
         $customer = $DBCustomer->getAll();
         ## 轉換顯示時間格式
@@ -19,7 +19,7 @@ class CustomerbackController extends Admincontroller
                 $customer[$key]['regTime'] = date('Y-m-d H:i:s', $info['regTime']);
             }
         }
-        $this->smarty->assign('loginflag', $loginFlag);
+        
         $this->smarty->assign('userinfo', $userInfo);
         $this->smarty->assign('customer', $customer);
         $this->smarty->display("back/customer/customer.html");

@@ -51,7 +51,7 @@
             }
 
             td {
-                width:auto
+                width: auto
             }
 
         }
@@ -98,15 +98,10 @@
                     <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{if $loginflag|default:false}}
                     <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
                                 class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -118,52 +113,48 @@
 
     <div class="container-fluid">
         <div class="row content">
-            <!-- <div class="col-sm-2 sidenav"></div> -->
-            <!-- <div class="col-sm-8 text-left"> -->
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="{{URL}}indexback/index">Home</a></li>
-                    <li>會員管理</li>
-                </ol>
-                <div class="container-fluid">
-                    <p>
-                        <h2>會員管理</h2>
-                    </p>
-                    <p>&nbsp</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>會員Email</th>
-                                <th>會員姓名</th>
-                                <th>手機號碼</th>
-                                <th>註冊地址</th>
-                                <th>註冊時間</th>
-                                <th>會員狀態</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{foreach from=$customer item=$customerinfo}}
-                            <tr>
-                                <td><span class='eamil'>{{$customerinfo['email']}}<span></td>
-                                <td>{{$customerinfo['name']}}</span></td>
-                                <td>{{$customerinfo['phone']}}</td>
-                                <td class='address'>{{$customerinfo['address']}}</td>
-                                <td>{{$customerinfo['regTime']}}</td>
-                                <td class='edit'>
-                                    {{if $customerinfo['released'] === '1'}}
-                                    <button type="button" class="btn btn-success released" data-value='1'
-                                        data-gid="{{$customerinfo['cid']}}">Open</button>
-                                    {{else}}
-                                    <button type="button" class="btn btn-danger released" data-value='0'
-                                        data-gid="{{$customerinfo['cid']}}">Lock</button>
-                                    {{/if}}
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </tbody>
-                    </table>
-                </div>
-            <!-- </div> -->
-            <!-- <div class="col-sm-2 sidenav"></div> -->
+            <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                <li><a href="{{URL}}indexback/index">Home</a></li>
+                <li>會員管理</li>
+            </ol>
+            <div class="container-fluid">
+                <p>
+                    <h2>會員管理</h2>
+                </p>
+                <p>&nbsp</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>會員Email</th>
+                            <th>會員姓名</th>
+                            <th>手機號碼</th>
+                            <th>註冊地址</th>
+                            <th>註冊時間</th>
+                            <th>會員狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$customer item=$customerinfo}}
+                        <tr>
+                            <td><span class='eamil'>{{$customerinfo['email']}}<span></td>
+                            <td>{{$customerinfo['name']}}</span></td>
+                            <td>{{$customerinfo['phone']}}</td>
+                            <td class='address'>{{$customerinfo['address']}}</td>
+                            <td>{{$customerinfo['regTime']}}</td>
+                            <td class='edit'>
+                                {{if $customerinfo['released'] === '1'}}
+                                <button type="button" class="btn btn-success released" data-value='1'
+                                    data-gid="{{$customerinfo['cid']}}">Open</button>
+                                {{else}}
+                                <button type="button" class="btn btn-danger released" data-value='0'
+                                    data-gid="{{$customerinfo['cid']}}">Lock</button>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/foreach}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <footer class="container-fluid text-center">

@@ -12,6 +12,9 @@ class IndexbackController extends Controller
      */
     public function index($reg = false)
     {
+        ## 取得登入資訊
+        $userInfo = $this->userInfo;
+
         $path = URL . "loginback/index";
         if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
             header("Location: {$path}");
@@ -24,9 +27,6 @@ class IndexbackController extends Controller
                 exit;
             }
         }
-
-        $loginflag = true;
-        $this->smarty->assign('loginflag', $loginflag);
         $this->smarty->assign('userinfo', $userInfo);
         return $this->smarty->display('back/index.html');
     }

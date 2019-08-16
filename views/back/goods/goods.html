@@ -37,6 +37,7 @@
             background-color: #444444;
             padding: 25px;
             color: white;
+            margin-top: 50px;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -112,15 +113,10 @@
                     <li><a href="{{URL}}goodsback/index">商品管理</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{if $loginflag|default:false}}
                     <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
                                 class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
                     <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
                             Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
                 </ul>
             </div>
         </div>
@@ -132,76 +128,70 @@
 
     <div class="container-fluid">
         <div class="row content">
-            <!-- <div class="col-sm-2 sidenav"></div> -->
-            <!-- <div class="col-sm-8 text-left"> -->
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="{{URL}}indexback/index">Home</a></li>
-                    <li>商品管理</li>
-                </ol>
-                <div class="container-fluid">
-                    <p>
-                        <h2>商品管理</h2>
-                        <a href="{{URL}}goodsback/create" id='newbtn'>
-                            <button type="button"
-                                class="btn btn-primary btn-lg glyphicon glyphicon-plus">&nbspNew</button>
-                        </a>
-                    </p>
-                    <p>&nbsp</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>商品圖片</th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>庫存量</th>
-                                <th>上架時間</th>
-                                <th>商品狀態</th>
-                            </tr>
-                        </thead>
-                        <div class="dropdown">
-                            <span>分類篩選</span>
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                {{$typename}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                {{foreach from=$gtype item=$gtypeInfo}}
-                                <li><a
-                                        href="{{URL}}goodsback/index?type={{$gtypeInfo['tnum']}}">{{$gtypeInfo['name']}}</a>
-                                </li>
-                                {{/foreach}}
-                            </ul>
-                        </div>
-                        <tbody>
-                            {{foreach from=$goods item=$goodsinfo}}
-                            <tr>
-                                <td>
-                                    <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
-                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                </td>
-                                <td><span class='goodsname'>{{$goodsinfo['name']}}<span></td>
-                                <td>NT$<span>{{$goodsinfo['price']}}</span></td>
-                                <td>{{$goodsinfo['stock']}}</td>
-                                <td>{{$goodsinfo['addTime']}}</td>
-                                <td data-gid="1" class='edit'>
-                                    <a href="{{URL}}goodsback/edit/{{$goodsinfo['gid']}}"><button type="button"
-                                            class="btn btn-info">Edit</button></a>
-                                    {{if $goodsinfo['released'] === '1'}}
-                                    <button type="button" class="btn btn-success released" data-value='1'
-                                        data-gid="{{$goodsinfo['gid']}}">Open</button>
-                                    {{else}}
-                                    <button type="button" class="btn btn-danger released" data-value='0'
-                                        data-gid="{{$goodsinfo['gid']}}">Close</button>
-                                    {{/if}}
-                                </td>
-                            </tr>
+            <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                <li><a href="{{URL}}indexback/index">Home</a></li>
+                <li>商品管理</li>
+            </ol>
+            <div class="container-fluid">
+                <p>
+                    <h2>商品管理</h2>
+                    <a href="{{URL}}goodsback/create" id='newbtn'>
+                        <button type="button" class="btn btn-primary btn-lg glyphicon glyphicon-plus">&nbspNew</button>
+                    </a>
+                </p>
+                <p>&nbsp</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>商品圖片</th>
+                            <th>商品名稱</th>
+                            <th>單價</th>
+                            <th>庫存量</th>
+                            <th>上架時間</th>
+                            <th>商品狀態</th>
+                        </tr>
+                    </thead>
+                    <div class="dropdown">
+                        <span>分類篩選</span>
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{$typename}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            {{foreach from=$gtype item=$gtypeInfo}}
+                            <li><a href="{{URL}}goodsback/index?type={{$gtypeInfo['tnum']}}">{{$gtypeInfo['name']}}</a>
+                            </li>
                             {{/foreach}}
-                        </tbody>
-                    </table>
-                </div>
-            <!-- </div> -->
-            <!-- <div class="col-sm-2 sidenav"></div> -->
+                        </ul>
+                    </div>
+                    <tbody>
+                        {{foreach from=$goods item=$goodsinfo}}
+                        <tr>
+                            <td>
+                                <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
+                                    style="max-width: 30%;margin:auto;" alt="Cinque Terre">
+                            </td>
+                            <td><span class='goodsname'>{{$goodsinfo['name']}}<span></td>
+                            <td>NT$<span>{{$goodsinfo['price']}}</span></td>
+                            <td>{{$goodsinfo['stock']}}</td>
+                            <td>{{$goodsinfo['addTime']}}</td>
+                            <td data-gid="1" class='edit'>
+                                <a href="{{URL}}goodsback/edit/{{$goodsinfo['gid']}}"><button type="button"
+                                        class="btn btn-info">Edit</button></a>
+                                {{if $goodsinfo['released'] === '1'}}
+                                <button type="button" class="btn btn-success released" data-value='1'
+                                    data-gid="{{$goodsinfo['gid']}}">Open</button>
+                                {{else}}
+                                <button type="button" class="btn btn-danger released" data-value='0'
+                                    data-gid="{{$goodsinfo['gid']}}">Close</button>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/foreach}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <footer class="container-fluid text-center">
