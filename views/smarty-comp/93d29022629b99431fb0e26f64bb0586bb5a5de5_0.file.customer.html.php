@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 18:56:34
+/* Smarty version 3.1.33, created on 2019-08-16 13:46:58
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\customer\customer.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d553a62c7ba01_15268486',
+  'unifunc' => 'content_5d564352e1f639_59383101',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93d29022629b99431fb0e26f64bb0586bb5a5de5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\customer\\customer.html',
-      1 => 1565866594,
+      1 => 1565934182,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d553a62c7ba01_15268486 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d564352e1f639_59383101 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -75,6 +75,10 @@ function content_5d553a62c7ba01_15268486 (Smarty_Internal_Template $_smarty_tpl)
 
             .row.content {
                 height: auto;
+            }
+
+            td {
+                width:auto
             }
 
         }
@@ -149,8 +153,8 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
+            <!-- <div class="col-sm-2 sidenav"></div> -->
+            <!-- <div class="col-sm-8 text-left"> -->
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
                     <li><a href="<?php echo URL;?>
 indexback/index">Home</a></li>
@@ -208,8 +212,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="col-sm-2 sidenav"></div>
+            <!-- </div> -->
+            <!-- <div class="col-sm-2 sidenav"></div> -->
         </div>
     </div>
     <footer class="container-fluid text-center">

@@ -245,6 +245,7 @@
     })
 
     let checkoutflag = true;
+    let gnumflag = true
 
     //計算小記價格
     $('.gnum').keyup(function () {
@@ -265,6 +266,7 @@
 
     //手動輸入計算小記價格
     $('.gnum').keyup(function () {
+        gnumflag = false
         let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
         let gnum = parseInt($(this).val());
@@ -275,12 +277,10 @@
             $(this).val(max);
             alert("商品最大購買單位為" + max)
         }
-
+        gnumflag = true
         sum = price * gnum;
         $("#sum" + gid).html(sum);
     })
-
-
 
     //點擊增加計算小記價格及最大購故數量限制
     $('.gnum').click(function () {
@@ -351,11 +351,15 @@
 
     //送出結帳
     $('#checkout').click(function () {
+        if (gnumflag === false) {
+            return false;
+        }
         $.ajax({
             url: 'checkout',
             dataType: "json",
             type: 'POST',
             success: function (result) {
+                console.log(result)
                 if (result['info'] === true) {
                     if (result['message'] !== '') {
                         alert(result['message']);

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 18:55:02
+/* Smarty version 3.1.33, created on 2019-08-16 13:39:00
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\goods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d553a06bda641_26967595',
+  'unifunc' => 'content_5d56417434bc32_76127108',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7fbdec4cdcc6dea19e333cfb1dd51ff165831be6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\goods.html',
-      1 => 1565866502,
+      1 => 1565933939,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d553a06bda641_26967595 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d56417434bc32_76127108 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -167,13 +167,12 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
+            <!-- <div class="col-sm-2 sidenav"></div> -->
+            <!-- <div class="col-sm-8 text-left"> -->
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
                     <li><a href="<?php echo URL;?>
 indexback/index">Home</a></li>
-                    <li><?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
-</li>
+                    <li>商品管理</li>
                 </ol>
                 <div class="container-fluid">
                     <p>
@@ -197,7 +196,7 @@ goodsback/create" id='newbtn'>
                             </tr>
                         </thead>
                         <div class="dropdown">
-                            <span>商品分類</span>
+                            <span>分類篩選</span>
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <?php echo $_smarty_tpl->tpl_vars['typename']->value;?>
@@ -266,8 +265,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="col-sm-2 sidenav"></div>
+            <!-- </div> -->
+            <!-- <div class="col-sm-2 sidenav"></div> -->
         </div>
     </div>
     <footer class="container-fluid text-center">

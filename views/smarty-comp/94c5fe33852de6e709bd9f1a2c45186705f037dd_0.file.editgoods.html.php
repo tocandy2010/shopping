@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 12:54:47
+/* Smarty version 3.1.33, created on 2019-08-16 07:38:34
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\goods\editgoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5539f7b6fa07_51850318',
+  'unifunc' => 'content_5d56415a5ebaa0_57460907',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '94c5fe33852de6e709bd9f1a2c45186705f037dd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\goods\\editgoods.html',
-      1 => 1565866485,
+      1 => 1565933909,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d5539f7b6fa07_51850318 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d56415a5ebaa0_57460907 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 

@@ -76,7 +76,6 @@ class LoginbackController extends AdminController
     /*
      * 管理員登入
      */
-
     public function loginCheck()
     {
         $loginInfo['account'] = $_POST['account'];

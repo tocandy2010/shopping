@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 18:58:16
+/* Smarty version 3.1.33, created on 2019-08-16 13:50:15
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\orders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d553ac8caa8e4_07828579',
+  'unifunc' => 'content_5d564417ef8047_36904988',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '79b2c484fe831588a77f6964922b34782274e02f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\orders.html',
-      1 => 1565866696,
+      1 => 1565934613,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d553ac8caa8e4_07828579 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d564417ef8047_36904988 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -134,6 +134,10 @@ function content_5d553ac8caa8e4_07828579 (Smarty_Internal_Template $_smarty_tpl)
             background-color: white;
             font-size: 18px;
         }
+
+        td {
+            height: 30px;
+        }
     </style>
 </head>
 
@@ -183,15 +187,14 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
+            <!-- <div class="col-sm-2 sidenav"></div> -->
+            <!-- <div class="col-sm-8 text-left"> -->
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
                     <li><a href="<?php echo URL;?>
 indexback/index">Home</a></li>
                     <li>訂單管理</li>
                 </ol>
                 <div class="container-fluid">
-                    <div class="container">
                         <h2>訂單管理</h2>
                         <form class="form-inline" actuin="<?php echo URL;?>
 /ordersback/index" method="get">
@@ -201,7 +204,8 @@ indexback/index">Home</a></li>
                             <button type="submit" id="searchsend" class="btn btn-info">search</button>
                         </form>
                     </div>
-                    <table class="table table-hover">
+                <div class="container-fluid">
+                    <table class="table table-hover" >
                         <thead>
                             <tr>
                                 <th>訂單編號</th>
@@ -281,9 +285,9 @@ orderback/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </tbody>
                     </table>
-                </div>
+                <!-- </div> -->
             </div>
-            <div class="col-sm-2 sidenav"></div>
+            <!-- <div class="col-sm-2 sidenav"></div> -->
         </div>
     </div>
 
@@ -328,7 +332,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span
                                 class="glyphicon glyphicon-remove"></span>Cancel</button>
-
                     </div>
                 </div>
             </div>

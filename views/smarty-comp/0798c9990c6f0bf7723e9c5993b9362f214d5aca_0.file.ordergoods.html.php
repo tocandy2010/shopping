@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 13:02:19
+/* Smarty version 3.1.33, created on 2019-08-16 07:48:08
   from 'C:\xampp\htdocs\TaiwanGYM\views\back\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d553bbb24a346_65671667',
+  'unifunc' => 'content_5d564398b02846_66818121',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0798c9990c6f0bf7723e9c5993b9362f214d5aca' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\ordergoods.html',
-      1 => 1565866938,
+      1 => 1565934245,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d553bbb24a346_65671667 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d564398b02846_66818121 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -187,8 +187,8 @@ loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
+            <!-- <div class="col-sm-2 sidenav"></div> -->
+            <!-- <div class="col-sm-8 text-left"> -->
                 <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
                     <li><a href="<?php echo URL;?>
 indexback/index">Home</a></li>
@@ -244,8 +244,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="col-sm-2 sidenav"></div>
+            <!-- </div> -->
+            <!-- <div class="col-sm-2 sidenav"></div> -->
         </div>
     </div>
     <footer class="container-fluid text-center">

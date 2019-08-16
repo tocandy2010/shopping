@@ -29,8 +29,13 @@ class CartController extends Controller
             if (!empty($goods)) {
                 foreach ($goods as $key => $goodsInfo) {
                     if (array_key_exists($goodsInfo['gid'], $cartgoods)) {
-                        $goods[$key]['buynum'] = $cartgoods[$goodsInfo['gid']] >= $goodsInfo['stock'] ? $goodsInfo['stock'] : $cartgoods[$goodsInfo['gid']];
-                        $goods[$key]['sumprice'] = $goods[$key]['price'] * $goods[$key]['buynum'];
+                        if ($goodsInfo['stock'] <= 0) {
+                            unset($cartgoods[$goodsInfo['gid']]);
+                            unset($goods[$key]);
+                        } else {
+                            $goods[$key]['buynum'] = $cartgoods[$goodsInfo['gid']] >= $goodsInfo['stock'] ? $goodsInfo['stock'] : $cartgoods[$goodsInfo['gid']];
+                            $goods[$key]['sumprice'] = $goods[$key]['price'] * $goods[$key]['buynum'];
+                        }
                     }
                 }
             } else {
@@ -237,6 +242,8 @@ class CartController extends Controller
                 echo json_encode($info);
                 exit;
             }
+
+            
 
             ## 寫入訂單
             if (empty($addOrderInfo) || ($DBOrders->createOrder($addOrderInfo) !== count($addOrderInfo))) {

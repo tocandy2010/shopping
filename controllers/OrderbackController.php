@@ -114,6 +114,9 @@ class OrderbackController extends AdminController
         $this->smarty->display("back/orders/ordergoods.html");
     }
 
+    /*
+     * 修改訂單狀態
+     */
     public function editstatus()
     {
         $info = [

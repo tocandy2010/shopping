@@ -3,7 +3,7 @@
 class CustomerbackController extends Admincontroller
 {
     /*
-     * 會員管理
+     * 會員管理首頁
      */
     public function index()
     {
@@ -25,23 +25,11 @@ class CustomerbackController extends Admincontroller
         $this->smarty->display("back/customer/customer.html");
     }
 
+    /*
+     * 設定會員帳號是否凍結
+     */
     public function setCustonerStatus()
     {
-        // ## 驗證此用者登入
-        // if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
-        //     echo json_encode(['setstatus' => "notlogin"]);
-        //     exit;
-        // } else {
-        //     $DBAdmin = $this->DBAdmin;
-        //     $userInfo = $DBAdmin->getOne(['token' => $_COOKIE['admintoken']]);
-        //     if (empty($userInfo)) {
-        //         echo json_encode(['setstatus' => "notlogin"]);
-        //         exit;
-        //     }
-        // }
-
-        $userInfo = $this->userInfo;
-
         ## 接收並檢查接收變數
         parse_str(file_get_contents('php://input'), $data);
         if (!isset($data) || empty($data)) {
