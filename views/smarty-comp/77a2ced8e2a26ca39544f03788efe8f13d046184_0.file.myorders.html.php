@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 23:55:32
+/* Smarty version 3.1.33, created on 2019-08-18 22:08:42
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\orders\myorders.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5580740347e7_06890437',
+  'unifunc' => 'content_5d595bea33e730_66787155',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '77a2ced8e2a26ca39544f03788efe8f13d046184' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\myorders.html',
-      1 => 1565884185,
+      1 => 1566137319,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\home\\header.html' => 1,
   ),
 ),false)) {
-function content_5d5580740347e7_06890437 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d595bea33e730_66787155 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -119,151 +120,97 @@ function content_5d5580740347e7_06890437 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-index/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
-</span>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-goods/index/jog">Jog</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/ski">Ski</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/boxing">Boxing</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/yoga">Yoga</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="<?php echo URL;?>
-login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
-                            Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
-                    <li><a href="<?php echo URL;?>
-login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\home\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
-                <div class="container-fluid">
-
-                    <div class="container">
-                        <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                            <li><a href="<?php echo URL;?>
+            <div class="container-fluid">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
 index/index">Home</a></li>
-                            <li>Myorder</li>
-                            <!-- <li class="active">goodsname</li> -->
-                        </ol>
-                        <h2>我的訂單紀錄</h2>
-                        <form class="form-inline" actuin="<?php echo URL;?>
+                    <li>Myorder</li>
+                </ol>
+                <h2>我的訂單紀錄</h2>
+                <form class="form-inline" actuin="<?php echo URL;?>
 /orders/index" method="get">
-                            <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"
-                                value="<?php echo $_smarty_tpl->tpl_vars['searchdata']->value;?>
+                    <input type="text" class="form-control" name='search' id="search" placeholder="搜尋訂單編號"
+                        value="<?php echo $_smarty_tpl->tpl_vars['searchdata']->value;?>
 ">
-                            <button type="submit" id="searchsend" class="btn btn-info">search</button>
-                        </form>
-                    </div>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>訂單編號</th>
-                                <th>購買商品總件數</th>
-                                <th>商品</th>
-                                <th>收件地址</th>
-                                <th>成立時間</th>
-                                <form action="">
-                                    <td class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            狀態
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="<?php echo URL;?>
+                    <button type="submit" id="searchsend" class="btn btn-info">search</button>
+                </form>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>訂單編號</th>
+                            <th>購買商品總件數</th>
+                            <th>商品</th>
+                            <th>收件地址</th>
+                            <th>成立時間</th>
+                            <form action="">
+                                <td class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        狀態
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="<?php echo URL;?>
 order/index">全部</a></li>
-                                            <?php
+                                        <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['ostatus']->value, 'ostatusInfo');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['ostatusInfo']->value) {
 ?>
-                                            <li>
-                                                <a
-                                                    href="<?php echo URL;?>
+                                        <li>
+                                            <a
+                                                href="<?php echo URL;?>
 order/index?status=<?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['onum'];?>
 "><?php echo $_smarty_tpl->tpl_vars['ostatusInfo']->value['name'];?>
 </a>
-                                            </li>
-                                            <?php
+                                        </li>
+                                        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                                        </ul>
-                                    </td>
-                                </form>
+                                    </ul>
+                                </td>
+                            </form>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['orders']->value, 'ordersinfo');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['ordersinfo']->value) {
 ?>
-                            <tr>
-                                <td class='eamil'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
+                        <tr>
+                            <td class='eamil'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['buynum'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['buynum'];?>
 </td>
-                                <td class="checkorder"><a href="<?php echo URL;?>
+                            <td class="checkorder"><a href="<?php echo URL;?>
 order/showGoods/<?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['onum'];?>
 ">訂單商品</a>
-                                </td>
-                                <td class='address'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['address'];?>
+                            </td>
+                            <td class='address'><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['address'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['createTime'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['statusname'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['ordersinfo']->value['statusname'];?>
 </td>
-                            </tr>
-                            <?php
+                        </tr>
+                        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
     <div class="container-fluid page">

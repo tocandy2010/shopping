@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 18:31:36
+/* Smarty version 3.1.33, created on 2019-08-18 16:14:35
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5588e8128345_78514565',
+  'unifunc' => 'content_5d595d4bc0ed34_16174392',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b62fde8c530a0b56dd5fa747121dc88ec6a21278' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\orders\\ordergoods.html',
-      1 => 1565884185,
+      1 => 1566137488,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\back\\header.html' => 1,
   ),
 ),false)) {
-function content_5d5588e8128345_78514565 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d595d4bc0ed34_16174392 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -142,110 +143,69 @@ function content_5d5588e8128345_78514565 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-indexback/index">Home</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-orderback/index">訂單管理</a></li>
-                    <li><a href="<?php echo URL;?>
-Customerback/index">會員管理</a></li>
-                    <li><a href="<?php echo URL;?>
-goodsback/index">商品管理</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="<?php echo URL;?>
-loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span
-                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\back\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="<?php echo URL;?>
+            <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                <li><a href="<?php echo URL;?>
 indexback/index">Home</a></li>
-                    <li><a href="<?php echo URL;?>
+                <li><a href="<?php echo URL;?>
 orderback/index">訂單管理</a></li>
-                    <li>訂單編號&nbsp<?php echo $_smarty_tpl->tpl_vars['onum']->value;?>
+                <li>訂單編號&nbsp<?php echo $_smarty_tpl->tpl_vars['onum']->value;?>
 </li>
-                </ol>
-                <div class="container-fluid">
-                    <h2>訂單商品</h2>
-                    <div id='checkcookie'></div>
-                    <p>&nbsp</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>購買數量</th>
-                                <th>小計</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+            </ol>
+            <div class="container-fluid">
+                <h2>訂單商品</h2>
+                <div id='checkcookie'></div>
+                <p>&nbsp</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>商品名稱</th>
+                            <th>單價</th>
+                            <th>購買數量</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['goods']->value, 'goodsinfo');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
 ?>
-                            <tr>
-                                <td>
-                                    <img class="img-responsive" src="<?php echo URL;
+                        <tr>
+                            <td>
+                                <img class="img-responsive" src="<?php echo URL;
 echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 "
-                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre"> </a>
-                                </td>
-                                <td><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+                                    style="max-width: 30%;margin:auto;" alt="Cinque Terre"> </a>
+                            </td>
+                            <td><span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
 <span></td>
-                                <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+                            <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['number'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['number'];?>
 </span></td>
-                                <td>
-                                    <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+                            <td>
+                                <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['sumprice'];?>
 </span></div>
-                                </td>
-                            </tr>
-                            <?php
+                            </td>
+                        </tr>
+                        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
     <footer class="container-fluid text-center">

@@ -1,31 +1,32 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 18:19:53
+/* Smarty version 3.1.33, created on 2019-08-18 16:29:23
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\editinfo.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5586291bea22_78812633',
+  'unifunc' => 'content_5d5960c398b783_67382257',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1ffff54c6324ee1290c8c16eaeb076341157e523' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\editinfo.html',
-      1 => 1565884185,
+      1 => 1566138526,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\home\\header.html' => 1,
   ),
 ),false)) {
-function content_5d5586291bea22_78812633 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5960c398b783_67382257 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>join TaiwanGym</title>
+    <title>修改會員資訊</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -64,6 +65,7 @@ function content_5d5586291bea22_78812633 (Smarty_Internal_Template $_smarty_tpl)
         #username {
             cursor: default;
             color: white;
+            font-size: 16px;
         }
 
         #username:hover {
@@ -98,55 +100,8 @@ function content_5d5586291bea22_78812633 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 
 <body>
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-index/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
-</span>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-/goods/index/jog">Jog</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/ski">Ski</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/Boxing">boxing</a></li>
-                    <li><a href="<?php echo URL;?>
-/goods/index/yoga">Yoga</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="<?php echo URL;?>
-login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
-                            Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
-                    <li><a href="<?php echo URL;?>
-login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\home\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
@@ -218,106 +173,103 @@ index/index"><button type="button"
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
-    <?php echo '<script'; ?>
+
+</body>
+
+</html>
+
+<?php echo '<script'; ?>
  src='<?php echo URL;?>
 public/js/helper.js'><?php echo '</script'; ?>
 >
-    <?php echo '<script'; ?>
+<?php echo '<script'; ?>
 >
 
-        let nameflag = false;
-        let phoneflag = false;
-        let addressflag = false;
+    let nameflag = false;
+    let phoneflag = false;
+    let addressflag = false;
 
-        $("#name").blur(function () {
-            let name = $(this).val();
-            if (checkInput(name, 'length', '3~30') === false) {
-                $("#nameinfo").html("欄位填寫不正確");
-            } else {
-                nameflag = true;
-                $("#nameinfo").html("");
-            }
+    $("#name").blur(function () {
+        let name = $(this).val();
+        if (checkInput(name, 'length', '3~30') === false) {
+            $("#nameinfo").html("欄位填寫不正確");
+        } else {
+            nameflag = true;
+            $("#nameinfo").html("");
+        }
+    })
+
+    $("#phone").blur(function () {
+        let phone = $(this).val();
+        if (checkInput(phone, 'phone') === false) {
+            $("#phoneinfo").html("手機號碼錯誤");
+        } else {
+            phoneflag = true;
+            $("#phoneinfo").html("");
+        }
+    })
+
+    $("#address").blur(function () {
+        let address = $(this).val();
+        if (checkInput(address, 'length', '6~50') === false) {
+            $("#addressinfo").html("地址錯誤");
+        } else {
+            addressflag = true;
+            $("#addressinfo").html("");
+        }
+    })
+
+    $("#regsend").click(function () {
+        let name = $('#name').val();
+        let phone = $('#phone').val();
+        let address = $('#address').val();
+        let formname = ['name', 'phone', 'address'];
+
+        for (error of formname) {
+            $('#' + error + 'info').html("");
+        }
+
+        // 檢查欄位是否填寫正確
+        formname.forEach(function (item) {
+            // if($("#" + item).val() === '') {
+            $("#" + item).focus();
+            $("#" + item).blur();
+            // }
         })
 
-        $("#phone").blur(function () {
-            let phone = $(this).val();
-            if (checkInput(phone, 'phone') === false) {
-                $("#phoneinfo").html("手機號碼錯誤");
-            } else {
-                phoneflag = true;
-                $("#phoneinfo").html("");
-            }
-        })
+        if (!(nameflag && phoneflag && addressflag)) {
+            return false;
+        }
 
-        $("#address").blur(function () {
-            let address = $(this).val();
-            if (checkInput(address, 'length', '6~50') === false) {
-                $("#addressinfo").html("地址錯誤");
-            } else {
-                addressflag = true;
-                $("#addressinfo").html("");
-            }
-        })
-
-
-
-        $("#regsend").click(function () {
-            let name = $('#name').val();
-            let phone = $('#phone').val();
-            let address = $('#address').val();
-            let formname = ['name', 'phone', 'address'];
-
-            for (error of formname) {
-                $('#' + error + 'info').html("");
-            }
-
-            // 檢查欄位是否填寫正確
-            formname.forEach(function(item){
-                // if($("#" + item).val() === '') {
-                    $("#" + item).focus();
-                    $("#" + item).blur();
-                // }
-            })
-
-            if (!(nameflag && phoneflag && addressflag)) {
-                return false;
-            }
-
-            $.ajax({
-                url: "update",
-                type: "PUT",
-                dataType: "json",
-                data: {
-                    'name': name,
-                    'phone': phone,
-                    'address': address,
-                },
-                success: function (result) {
-                    if (result.info === false) {
-                        alert(result.message);
-                        if (result.error !== '') {
-                            for (error of formname) {
-                                $('#' + error + 'info').html(result.error[error]);
-                            }
+        $.ajax({
+            url: "update",
+            type: "PUT",
+            dataType: "json",
+            data: {
+                'name': name,
+                'phone': phone,
+                'address': address,
+            },
+            success: function (result) {
+                if (result.info === false) {
+                    alert(result.message);
+                    if (result.error !== '') {
+                        for (error of formname) {
+                            $('#' + error + 'info').html(result.error[error]);
                         }
-                    } else if (result.info === true) {
-                        alert(result.message);
-                        $(window).attr('location', '<?php echo URL;?>
-index/index');
-                    } else {
-                        alert('修改失敗');
-                        $(window).attr('location', '<?php echo URL;?>
-index/index');
                     }
+                } else if (result.info === true) {
+                    alert(result.message);
+                    $(window).attr('location', '<?php echo URL;?>
+index/index');
+                } else {
+                    alert('修改失敗');
+                    $(window).attr('location', '<?php echo URL;?>
+index/index');
                 }
-            });
-        })
-
-
-
-    <?php echo '</script'; ?>
->
-</body>
-
-</html><?php }
+            }
+        });
+    })
+<?php echo '</script'; ?>
+><?php }
 }

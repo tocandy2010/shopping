@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-18 17:29:13
+  from 'D:\xampp\htdocs\TaiwanGYM\views\back\modify\edit.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d596ec9b598c8_41876221',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'a6e18c7818d62ffcd6df36e0e523e544e775884a' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\modify\\edit.html',
+      1 => 1566142076,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\back\\header.html' => 1,
+  ),
+),false)) {
+function content_5d596ec9b598c8_41876221 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +30,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -65,33 +93,8 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{URL}}indexback/index">Home</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}orderback/index">訂單管理</a></li>
-                    <li><a href="{{URL}}Customerback/index">會員管理</a></li>
-                    <li><a href="{{URL}}goodsback/index">商品管理</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}loginback/edit/{{$userinfo['aid']}}"><span
-                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="{{URL}}loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\back\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
@@ -127,7 +130,8 @@
                         <div class="col-md-4">
                             <input id="repassword" name="repassword" type="password" placeholder=""
                                 class="form-control input-md" autocomplete="off">
-                            <input type="hidden" id='gid' value="{{$userinfo['aid']}}">
+                            <input type="hidden" id='gid' value="<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
+">
                             <span class="help-block">請再輸入一次密碼
                                 <span class="errorinfo" id="repasswordinfo">&nbsp</span>
                             </span>
@@ -138,7 +142,8 @@
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
                             <button type="button" id="editsend" class="btn btn-info">edit</button>
-                            <a href="{{URL}}indexback/index"><button type="button"
+                            <a href="<?php echo URL;?>
+indexback/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo" id='errorinfo'>&nbsp</span>
                         </div>
@@ -155,8 +160,12 @@
 
 </html>
 
-<script src='{{URL}}public/js/helper.js'></script>
-<script>
+<?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
 
     let oldpasswordflag = false;
     let passwordflag = false;
@@ -230,7 +239,8 @@
             success: function (result) {
                 if (result.editinfo === 'success') {
                     alert('密碼修改成功')
-                    $(window).attr('location', '{{URL}}indexback/index');
+                    $(window).attr('location', '<?php echo URL;?>
+indexback/index');
                 } else if (result.editinfo === 'fail') {
                     $('#errorinfo').html("密碼修改失敗");
                 } else if (result.editinfo) {
@@ -243,4 +253,6 @@
             }
         });
     })
-</script>
+<?php echo '</script'; ?>
+><?php }
+}

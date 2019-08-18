@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-18 16:47:10
-  from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\editpassword.html' */
+/* Smarty version 3.1.33, created on 2019-08-18 17:24:56
+  from 'D:\xampp\htdocs\TaiwanGYM\views\home\modify\editinfo.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5964ee156f60_56891895',
+  'unifunc' => 'content_5d596dc8543b04_85125358',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'b00fa4737308639a035456c6e83c3ede61284b99' => 
+    'c745c83fd7348edaf23def945042544f6c3b5312' => 
     array (
-      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\editpassword.html',
-      1 => 1566137915,
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\modify\\editinfo.html',
+      1 => 1566141884,
       2 => 'file',
     ),
   ),
@@ -21,12 +21,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:\\xampp\\htdocs\\TaiwanGym\\views\\home\\header.html' => 1,
   ),
 ),false)) {
-function content_5d5964ee156f60_56891895 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d596dc8543b04_85125358 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>修改密碼</title>
+    <title>修改會員資訊</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -108,45 +108,48 @@ function content_5d5964ee156f60_56891895 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-sm-8 text-left">
                 <div class="container">
                     <ul class="nav nav-tabs">
+                        <li class="active"><a href="">Account</a></li>
                         <li><a href="<?php echo URL;?>
-login/editinfo">Account</a></li>
-                        <li class="active"><a href="#">Security</a></li>
+customermodify/editpassword">Security</a></li>
                     </ul>
                 </div>
-                <h3 class='formtitle'>Change&nbspPassword</h3>
+                <h3 class='formtitle'>Change&nbspInfo</h3>
                 <form class="form-horizontal">
-                    <!-- Password input-->
+                    <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">Old&nbsppassword</label>
+                        <label class="col-md-4 control-label" for="address">name</label>
                         <div class="col-md-4">
-                            <input id="oldpassword" name="oldpassword" type="password" class="form-control input-md"
-                                autocomplete="off">
-                            <span class="help-block">請輸入舊密碼
-                                <span class="errorinfo" id="oldpasswordinfo"></span>
+                            <input id="name" name="name" type="text" value="<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['name'];?>
+"
+                                class="form-control input-md" autocomplete="off">
+                            <span class="help-block">請輸入您的姓名&nbsp3~30字&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="nameinfo"></span>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Password input-->
+                    <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">New&nbsppassword</label>
+                        <label class="col-md-4 control-label" for="phone">phone</label>
                         <div class="col-md-4">
-                            <input id="password" name="password" type="password" class="form-control input-md"
-                                autocomplete="off">
-                            <span class="help-block">請輸入6~20位
-                                <span class="errorinfo" id="passwordinfo"></span>
+                            <input id="phone" name="phone" type="text" value="<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['phone'];?>
+"
+                                class="form-control input-md" autocomplete="off">
+                            <span class="help-block">請輸入您的手機號碼&nbsp例如:&nbsp09xxxxxxxx&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="phoneinfo"></span>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Password input-->
+                    <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="password">repassword</label>
+                        <label class="col-md-4 control-label" for="address">address</label>
                         <div class="col-md-4">
-                            <input id="repassword" name="repassword" type="password" class="form-control input-md"
-                                autocomplete="off">
-                            <span class="help-block">請再輸入一次新密碼
-                                <span class="errorinfo" id="repasswordinfo"></span>
+                            <input id="address" name="address" type="text" value="<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['address'];?>
+"
+                                class="form-control input-md" autocomplete="off">
+                            <span class="help-block">請輸入您的地址&nbsp&nbsp&nbsp
+                                <span class="errorinfo" id="addressinfo"></span>
                             </span>
                         </div>
                     </div>
@@ -155,7 +158,7 @@ login/editinfo">Account</a></li>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="regsend" class="btn btn-info">Update&nbsppassword</button>
+                            <button type="button" id="regsend" class="btn btn-info">Update&nbspinfo</button>
                             <a href="<?php echo URL;?>
 index/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
@@ -170,68 +173,72 @@ index/index"><button type="button"
     <footer class="container-fluid text-center">
         <p>© 2019 Hogan Online shopping Mall</p>
     </footer>
+
 </body>
 
 </html>
+
 <?php echo '<script'; ?>
  src='<?php echo URL;?>
 public/js/helper.js'><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
 >
-    let oldpasswordflag = false;
-    let passwordflag = false;
-    let repasswordflag = false;
 
-    $('#oldpassword').blur(function () {
-        let oldpassword = $(this).val();
-        if (checkInput(oldpassword, 'notempty') === false) {
-            $("#oldpasswordinfo").html("請輸入舊密碼");
+    let nameflag = false;
+    let phoneflag = false;
+    let addressflag = false;
+
+    $("#name").blur(function () {
+        let name = $(this).val();
+        if (checkInput(name, 'length', '3~30') === false) {
+            $("#nameinfo").html("欄位填寫不正確");
         } else {
-            oldpasswordflag = true;
-            $("#oldpasswordinfo").html("&nbsp");
+            nameflag = true;
+            $("#nameinfo").html("");
         }
     })
 
-    $('#password').blur(function () {
-        let password = $(this).val();
-        if (checkInput(password, 'length', "6~20") === false) {
-            $("#passwordinfo").html("密碼長度錯誤");
+    $("#phone").blur(function () {
+        let phone = $(this).val();
+        if (checkInput(phone, 'phone') === false) {
+            $("#phoneinfo").html("手機號碼錯誤");
         } else {
-            passwordflag = true;
-            $("#passwordinfo").html("&nbsp");
+            phoneflag = true;
+            $("#phoneinfo").html("");
         }
     })
 
-    $('#repassword').blur(function () {
-        $('#repasswordinfo').html("&nbsp");
+    $("#address").blur(function () {
+        let address = $(this).val();
+        if (checkInput(address, 'length', '6~50') === false) {
+            $("#addressinfo").html("地址錯誤");
+        } else {
+            addressflag = true;
+            $("#addressinfo").html("");
+        }
     })
-
 
     $("#regsend").click(function () {
-        let oldpassword = $('#oldpassword').val();
-        let password = $('#password').val();
-        let repassword = $('#repassword').val();
-        let formname = ['oldpassword', 'password', 'repassword'];
-
-        if (password !== repassword || password === "") {
-            $("#repasswordinfo").html("確認密碼錯誤")
-        } else {
-            repasswordflag = true;
-        }
-
-        formname.forEach(function (item) {
-            if ($("#" + item).val() === '') {
-                $("#" + item).focus();
-            }
-        })
-
-        if (!(oldpasswordflag && passwordflag && repasswordflag)) {
-            return false;
-        }
+        let name = $('#name').val();
+        let phone = $('#phone').val();
+        let address = $('#address').val();
+        let formname = ['name', 'phone', 'address'];
 
         for (error of formname) {
             $('#' + error + 'info').html("");
+        }
+
+        // 檢查欄位是否填寫正確
+        formname.forEach(function (item) {
+            // if($("#" + item).val() === '') {
+            $("#" + item).focus();
+            $("#" + item).blur();
+            // }
+        })
+
+        if (!(nameflag && phoneflag && addressflag)) {
+            return false;
         }
 
         $.ajax({
@@ -239,9 +246,9 @@ public/js/helper.js'><?php echo '</script'; ?>
             type: "PUT",
             dataType: "json",
             data: {
-                'oldpassword': oldpassword,
-                'password': password,
-                'repassword': repassword,
+                'name': name,
+                'phone': phone,
+                'address': address,
             },
             success: function (result) {
                 if (result.info === false) {
@@ -263,9 +270,6 @@ index/index');
             }
         });
     })
-
-
-
 <?php echo '</script'; ?>
 ><?php }
 }

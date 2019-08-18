@@ -1,13 +1,41 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-18 17:24:58
+  from 'D:\xampp\htdocs\TaiwanGYM\views\home\modify\editpassword.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d596dca2d4967_92216249',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '15499bd0362b4b36cc58f825bfc8b1965854b4b4' => 
+    array (
+      0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\modify\\editpassword.html',
+      1 => 1566141894,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\home\\header.html' => 1,
+  ),
+),false)) {
+function content_5d596dca2d4967_92216249 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>join TaiwanGym</title>
+    <title>修改密碼</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -37,6 +65,7 @@
         #username {
             cursor: default;
             color: white;
+            font-size: 16px;
         }
 
         #username:hover {
@@ -71,51 +100,16 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}/goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}/goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}/goods/index/Boxing">boxing</a></li>
-                    <li><a href="{{URL}}/goods/index/yoga">Yoga</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
-                            Modify</a></li>
-                    <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span> Myorder</a></li>
-                    <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\home\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <div class="container">
                     <ul class="nav nav-tabs">
-                        <li><a href="{{URL}}login/editinfo">Account</a></li>
+                        <li><a href="<?php echo URL;?>
+customermodify/editinfo">Account</a></li>
                         <li class="active"><a href="#">Security</a></li>
                     </ul>
                 </div>
@@ -162,7 +156,8 @@
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
                             <button type="button" id="regsend" class="btn btn-info">Update&nbsppassword</button>
-                            <a href="{{URL}}index/index"><button type="button"
+                            <a href="<?php echo URL;?>
+index/index"><button type="button"
                                     class="btn btn-danger">Cancel</button></a>
                             <span class="errorinfo" id='errorinfo'></span>
                         </div>
@@ -178,8 +173,12 @@
 </body>
 
 </html>
-<script src='{{URL}}public/js/helper.js'></script>
-<script>
+<?php echo '<script'; ?>
+ src='<?php echo URL;?>
+public/js/helper.js'><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
     let oldpasswordflag = false;
     let passwordflag = false;
     let repasswordflag = false;
@@ -254,10 +253,12 @@
                     }
                 } else if (result.info === true) {
                     alert(result.message);
-                    $(window).attr('location', '{{URL}}index/index');
+                    $(window).attr('location', '<?php echo URL;?>
+index/index');
                 } else {
                     alert('修改失敗');
-                    $(window).attr('location', '{{URL}}index/index');
+                    $(window).attr('location', '<?php echo URL;?>
+index/index');
                 }
             }
         });
@@ -265,4 +266,6 @@
 
 
 
-</script>
+<?php echo '</script'; ?>
+><?php }
+}

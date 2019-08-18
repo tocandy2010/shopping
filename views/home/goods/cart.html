@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>購物車</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -110,44 +110,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}goods/index/boxing">Boxing</a></li>
-                    <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
-                            Modify</a></li>
-                    <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span>
-                            Myorder</a></li>
-                    <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    {{include file='\xampp\htdocs\TaiwanGym\views\home\header.html'}}
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>

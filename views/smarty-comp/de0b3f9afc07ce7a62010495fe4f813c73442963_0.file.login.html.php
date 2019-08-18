@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-14 16:52:27
+/* Smarty version 3.1.33, created on 2019-08-18 17:04:29
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\login\login.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d54202b91c4e0_68365163',
+  'unifunc' => 'content_5d5968fdeafdc2_63414828',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'de0b3f9afc07ce7a62010495fe4f813c73442963' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\login\\login.html',
-      1 => 1565793222,
+      1 => 1566140668,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d54202b91c4e0_68365163 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5968fdeafdc2_63414828 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Login in to TaiwanGym</title>
+    <title>會員登入</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -154,7 +154,6 @@ login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
             </div>
         </div>
     </nav>
-
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-4 sidenav"></div>
@@ -230,7 +229,7 @@ public/vcode/vcode.php?" + Math.random();
     })
 
     $("#loginsend").click(function () {
-        
+
         let eamil = $('#email').val();
         let password = $('#password').val();
         let vcode = $('#vcode').val();

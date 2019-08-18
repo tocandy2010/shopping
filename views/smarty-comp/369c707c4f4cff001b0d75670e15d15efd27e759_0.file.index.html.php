@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 17:40:40
+/* Smarty version 3.1.33, created on 2019-08-18 16:10:53
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4af0f87ccec5_06064169',
+  'unifunc' => 'content_5d595c6db82888_46021427',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '369c707c4f4cff001b0d75670e15d15efd27e759' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\index.html',
-      1 => 1565192439,
+      1 => 1566137453,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\back\\header.html' => 1,
   ),
 ),false)) {
-function content_5d4af0f87ccec5_06064169 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d595c6db82888_46021427 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -100,48 +101,8 @@ public/backimg/index.png");
 </head>
 
 <body>
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-indexback/index">Home</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-orderback/index">訂單管理</a></li>
-                    <li><a href="<?php echo URL;?>
-Customerback/index">會員管理</a></li>
-                    <li><a href="<?php echo URL;?>
-goodsback/index">商品管理</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="<?php echo URL;?>
-loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-">
-                            <span class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-loginback/logout"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\back\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav"></div>

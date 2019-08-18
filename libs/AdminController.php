@@ -14,10 +14,10 @@ class AdminController extends Controller
         ];
 
         $path = URL . "loginback/index";
-        $logincheck = URL . "loginback/loginCheck";
+        // $logincheck = URL . "loginback/loginCheck";
 
-        $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        if ($path !== $url && $url !== $logincheck) {
+        // $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        // if ($path !== $url && $url !== $logincheck) {
             if (!isset($_COOKIE['admintoken']) || empty($_COOKIE['admintoken'])) {
                 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === "xmlhttprequest") {
                     $checkOutInfo = [
@@ -51,7 +51,7 @@ class AdminController extends Controller
                     $this->loginflag = true;
                     $this->userInfo = $userInfo;
                 }
-            }
+            // }
         }
     }
 }

@@ -1,31 +1,32 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 17:57:26
+/* Smarty version 3.1.33, created on 2019-08-18 16:36:55
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\orders\ordergoods.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5580e6f35212_29353985',
+  'unifunc' => 'content_5d5962875ade66_03526929',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e05bf012d0e9519f0e351ce1abf13163a753b626' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\orders\\ordergoods.html',
-      1 => 1565884185,
+      1 => 1566137315,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\home\\header.html' => 1,
   ),
 ),false)) {
-function content_5d5580e6f35212_29353985 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5962875ade66_03526929 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>ordergoods</title>
+    <title>訂單商品</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -142,131 +143,79 @@ function content_5d5580e6f35212_29353985 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-index/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
-</span>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-goods/index/jog">Jog</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/ski">Ski</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/boxing">Boxing</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/yoga">Yoga</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="<?php echo URL;?>
-login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
-                            Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-order/index"><span class="glyphicon glyphicon-list-alt"></span>
-                            Myorder</a></li>
-                    <li><a href="<?php echo URL;?>
-login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\home\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
-                <div class="container-fluid">
-                    <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                        <li><a href="<?php echo URL;?>
+            <div class="container-fluid">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="<?php echo URL;?>
 index/index">Home</a></li>
-                        <li><a href="<?php echo URL;?>
+                    <li><a href="<?php echo URL;?>
 order/index">Myorder</a></li>
-                        <li>訂單編號&nbsp<?php echo $_smarty_tpl->tpl_vars['onum']->value;?>
+                    <li>訂單編號&nbsp<?php echo $_smarty_tpl->tpl_vars['onum']->value;?>
 </li>
-                        <!-- <li class="active">goodsname</li> -->
-                    </ol>
-                    <h2>訂單商品</h2>
-                    <div id='checkcookie'></div>
-                    <p>&nbsp</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>購買數量</th>
-                                <th>小計</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                </ol>
+                <h2>訂單商品</h2>
+                <div id='checkcookie'></div>
+                <p>&nbsp</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>商品名稱</th>
+                            <th>單價</th>
+                            <th>購買數量</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['goods']->value, 'goodsinfo');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['goodsinfo']->value) {
 ?>
-                            <tr>
-                                <td>
-                                    <a href="<?php echo URL;?>
+                        <tr>
+                            <td>
+                                <a href="<?php echo URL;?>
 goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 ">
-                                        <img class="img-responsive" src="<?php echo URL;
+                                    <img class="img-responsive" src="<?php echo URL;
 echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gimg'];?>
 "
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="<?php echo URL;?>
+                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="<?php echo URL;?>
 goods/create/<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 ">
-                                        <span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
+                                    <span class='goodsname'><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['name'];?>
 <span>
-                                    </a>
-                                </td>
-                                <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+                                </a>
+                            </td>
+                            <td>NT$<span id="price<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['price'];?>
 </span></td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['number'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['number'];?>
 </span></td>
-                                <td>
-                                    <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
+                            <td>
+                                <div>NT$<span id="sum<?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['gid'];?>
 "><?php echo $_smarty_tpl->tpl_vars['goodsinfo']->value['sumprice'];?>
 </span></div>
-                                </td>
-                            </tr>
-                            <?php
+                            </td>
+                        </tr>
+                        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
     <footer class="container-fluid text-center">
@@ -290,31 +239,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
         }
     })
-
-    // $('.add').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let max = $(this).attr("data-max");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (parseInt(gnum) < parseInt(max)) {
-    //         $("#gnum" + gid).val(parseInt(gnum) + 1);
-    //     } else {
-    //         $("#gnum" + gid).val(max);
-    //     }
-
-
-    //     //$('#gnum' + gid).blur();
-    // })
-
-    // $('.gless').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (gnum > 1) {
-    //         $("#gnum" + gid).val(parseInt(gnum) - 1);
-    //     } else {
-    //         $("#gnum" + gid).val(1);
-    //     }
-    //     $('#gnum' + gid).blur();
-    // })
 
     //計算小記價格
     $('.gnum').click(function () {

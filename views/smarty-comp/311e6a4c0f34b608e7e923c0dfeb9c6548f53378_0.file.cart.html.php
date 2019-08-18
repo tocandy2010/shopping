@@ -1,31 +1,32 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-15 18:32:29
+/* Smarty version 3.1.33, created on 2019-08-18 16:27:42
   from 'D:\xampp\htdocs\TaiwanGYM\views\home\goods\cart.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d55891ddeeca2_20953178',
+  'unifunc' => 'content_5d59605e95eb66_91285006',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '311e6a4c0f34b608e7e923c0dfeb9c6548f53378' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\home\\goods\\cart.html',
-      1 => 1565886104,
+      1 => 1566137876,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\home\\header.html' => 1,
   ),
 ),false)) {
-function content_5d55891ddeeca2_20953178 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d59605e95eb66_91285006 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>購物車</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -137,55 +138,8 @@ function content_5d55891ddeeca2_20953178 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-index/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp<?php echo (($tmp = @$_smarty_tpl->tpl_vars['userinfo']->value['name'])===null||$tmp==='' ? '訪客' : $tmp);?>
-</span>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-goods/index/jog">Jog</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/ski">Ski</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/boxing">Boxing</a></li>
-                    <li><a href="<?php echo URL;?>
-goods/index/yoga">Yoga</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo URL;?>
-cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="<?php echo URL;?>
-login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
-                            Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-order/index"><span class="glyphicon glyphicon-list-alt"></span>
-                            Myorder</a></li>
-                    <li><a href="<?php echo URL;?>
-login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\home\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
@@ -308,6 +262,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     })
 
     let checkoutflag = true;
+    let gnumflag = true
 
     //計算小記價格
     $('.gnum').keyup(function () {
@@ -328,6 +283,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
     //手動輸入計算小記價格
     $('.gnum').keyup(function () {
+        gnumflag = false
         let max = parseInt($(this).attr("max"));
         let gid = $(this).attr("data-gid");
         let gnum = parseInt($(this).val());
@@ -338,12 +294,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             $(this).val(max);
             alert("商品最大購買單位為" + max)
         }
-
+        gnumflag = true
         sum = price * gnum;
         $("#sum" + gid).html(sum);
     })
-
-
 
     //點擊增加計算小記價格及最大購故數量限制
     $('.gnum').click(function () {
@@ -414,11 +368,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
     //送出結帳
     $('#checkout').click(function () {
+        if (gnumflag === false) {
+            return false;
+        }
         $.ajax({
             url: 'checkout',
             dataType: "json",
             type: 'POST',
             success: function (result) {
+                console.log(result)
                 if (result['info'] === true) {
                     if (result['message'] !== '') {
                         alert(result['message']);

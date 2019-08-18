@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>ordergoods</title>
+    <title>訂單商品</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -115,98 +115,56 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{URL}}index/index">Home</a>
-                <span class="navbar-brand" id='username'>&nbsp
-                    <span class="glyphicon glyphicon-user"></span>&nbsp{{$userinfo['name']|default:'訪客'}}</span>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{URL}}goods/index/jog">Jog</a></li>
-                    <li><a href="{{URL}}goods/index/ski">Ski</a></li>
-                    <li><a href="{{URL}}goods/index/boxing">Boxing</a></li>
-                    <li><a href="{{URL}}goods/index/yoga">Yoga</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{URL}}cart/index"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
-                    </li>
-                    {{if $loginflag|default:false}}
-                    <li><a href="{{URL}}login/editinfo"><span class="glyphicon glyphicon glyphicon-pencil"></span>
-                            Modify</a></li>
-                    <li><a href="{{URL}}order/index"><span class="glyphicon glyphicon-list-alt"></span>
-                            Myorder</a></li>
-                    <li><a href="{{URL}}login/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    {{else}}
-                    <li><a href="{{URL}}login/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    {{/if}}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    {{include file='\xampp\htdocs\TaiwanGym\views\home\header.html'}}
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
-                <div class="container-fluid">
-                    <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                        <li><a href="{{URL}}index/index">Home</a></li>
-                        <li><a href="{{URL}}order/index">Myorder</a></li>
-                        <li>訂單編號&nbsp{{$onum}}</li>
-                        <!-- <li class="active">goodsname</li> -->
-                    </ol>
-                    <h2>訂單商品</h2>
-                    <div id='checkcookie'></div>
-                    <p>&nbsp</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>購買數量</th>
-                                <th>小計</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{foreach from=$goods item=$goodsinfo}}
-                            <tr>
-                                <td>
-                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
-                                        <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
-                                            style="max-width: 30%;margin:auto;" alt="Cinque Terre">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
-                                        <span class='goodsname'>{{$goodsinfo['name']}}<span>
-                                    </a>
-                                </td>
-                                <td>NT$<span id="price{{$goodsinfo['gid']}}">{{$goodsinfo['price']}}</span></td>
-                                <td>{{$goodsinfo['number']}}</span></td>
-                                <td>
-                                    <div>NT$<span id="sum{{$goodsinfo['gid']}}">{{$goodsinfo['sumprice']}}</span></div>
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </tbody>
-                    </table>
-                </div>
+            <div class="container-fluid">
+                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                    <li><a href="{{URL}}index/index">Home</a></li>
+                    <li><a href="{{URL}}order/index">Myorder</a></li>
+                    <li>訂單編號&nbsp{{$onum}}</li>
+                </ol>
+                <h2>訂單商品</h2>
+                <div id='checkcookie'></div>
+                <p>&nbsp</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>商品名稱</th>
+                            <th>單價</th>
+                            <th>購買數量</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$goods item=$goodsinfo}}
+                        <tr>
+                            <td>
+                                <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
+                                    <img class="img-responsive" src="{{URL}}{{$goodsinfo['gimg']}}"
+                                        style="max-width: 30%;margin:auto;" alt="Cinque Terre">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{URL}}goods/create/{{$goodsinfo['gid']}}">
+                                    <span class='goodsname'>{{$goodsinfo['name']}}<span>
+                                </a>
+                            </td>
+                            <td>NT$<span id="price{{$goodsinfo['gid']}}">{{$goodsinfo['price']}}</span></td>
+                            <td>{{$goodsinfo['number']}}</span></td>
+                            <td>
+                                <div>NT$<span id="sum{{$goodsinfo['gid']}}">{{$goodsinfo['sumprice']}}</span></div>
+                            </td>
+                        </tr>
+                        {{/foreach}}
+                    </tbody>
+                </table>
             </div>
-            <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
     <footer class="container-fluid text-center">
@@ -229,31 +187,6 @@
             checkcookie.html("偵測到您尚未開啟<strong>COOKIE</strong>這將導致您無法使用購物車");
         }
     })
-
-    // $('.add').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let max = $(this).attr("data-max");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (parseInt(gnum) < parseInt(max)) {
-    //         $("#gnum" + gid).val(parseInt(gnum) + 1);
-    //     } else {
-    //         $("#gnum" + gid).val(max);
-    //     }
-
-
-    //     //$('#gnum' + gid).blur();
-    // })
-
-    // $('.gless').click(function () {
-    //     let gid = $(this).attr("data-gid");
-    //     let gnum = $("#gnum" + gid).val();
-    //     if (gnum > 1) {
-    //         $("#gnum" + gid).val(parseInt(gnum) - 1);
-    //     } else {
-    //         $("#gnum" + gid).val(1);
-    //     }
-    //     $('#gnum' + gid).blur();
-    // })
 
     //計算小記價格
     $('.gnum').click(function () {

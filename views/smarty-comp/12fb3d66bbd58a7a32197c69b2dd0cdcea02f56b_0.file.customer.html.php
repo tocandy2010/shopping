@@ -1,31 +1,32 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-16 00:22:07
+/* Smarty version 3.1.33, created on 2019-08-18 23:30:06
   from 'D:\xampp\htdocs\TaiwanGYM\views\back\customer\customer.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d5586afaec725_09173757',
+  'unifunc' => 'content_5d596efebb1304_78548006',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '12fb3d66bbd58a7a32197c69b2dd0cdcea02f56b' => 
     array (
       0 => 'D:\\xampp\\htdocs\\TaiwanGYM\\views\\back\\customer\\customer.html',
-      1 => 1565884185,
+      1 => 1566137796,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:\\xampp\\htdocs\\TaiwanGym\\views\\back\\header.html' => 1,
   ),
 ),false)) {
-function content_5d5586afaec725_09173757 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d596efebb1304_78548006 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>goodstypename</title>
+    <title>會員管理</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -77,6 +78,10 @@ function content_5d5586afaec725_09173757 (Smarty_Internal_Template $_smarty_tpl)
                 height: auto;
             }
 
+            td {
+                width: auto
+            }
+
         }
 
         .eamil {
@@ -104,112 +109,71 @@ function content_5d5586afaec725_09173757 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo URL;?>
-indexback/index">Home</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo URL;?>
-orderback/index">訂單管理</a></li>
-                    <li><a href="<?php echo URL;?>
-Customerback/index">會員管理</a></li>
-                    <li><a href="<?php echo URL;?>
-goodsback/index">商品管理</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <?php if ((($tmp = @$_smarty_tpl->tpl_vars['loginflag']->value)===null||$tmp==='' ? false : $tmp)) {?>
-                    <li><a href="<?php echo URL;?>
-loginback/edit/<?php echo $_smarty_tpl->tpl_vars['userinfo']->value['aid'];?>
-"><span
-                                class="glyphicon glyphicon glyphicon-pencil"></span> Modify</a></li>
-                    <li><a href="<?php echo URL;?>
-loginback/logout"><span class="glyphicon glyphicon glyphicon-log-out"></span>
-                            Logout</a></li>
-                    <?php } else { ?>
-                    <li><a href="<?php echo URL;?>
-loginback/index"><span class="glyphicon glyphicon glyphicon-log-in"></span>
-                            Login</a></li>
-                    <?php }?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <?php $_smarty_tpl->_subTemplateRender('file:\xampp\htdocs\TaiwanGym\views\back\header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
     <div class="jumbotron" id='headerimg'>
         <div class="container text-center"></div>
     </div>
 
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav"></div>
-            <div class="col-sm-8 text-left">
-                <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
-                    <li><a href="<?php echo URL;?>
+            <ol class="breadcrumb glyphicon glyphicon-home" id='breadcrumbs'>
+                <li><a href="<?php echo URL;?>
 indexback/index">Home</a></li>
-                    <li>會員管理</li>
-                </ol>
-                <div class="container-fluid">
-                    <p>
-                        <h2>會員管理</h2>
-                    </p>
-                    <p>&nbsp</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>會員Email</th>
-                                <th>會員姓名</th>
-                                <th>手機號碼</th>
-                                <th>註冊地址</th>
-                                <th>註冊時間</th>
-                                <th>會員狀態</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                <li>會員管理</li>
+            </ol>
+            <div class="container-fluid">
+                <p>
+                    <h2>會員管理</h2>
+                </p>
+                <p>&nbsp</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>會員Email</th>
+                            <th>會員姓名</th>
+                            <th>手機號碼</th>
+                            <th>註冊地址</th>
+                            <th>註冊時間</th>
+                            <th>會員狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['customer']->value, 'customerinfo');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['customerinfo']->value) {
 ?>
-                            <tr>
-                                <td><span class='eamil'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['email'];?>
+                        <tr>
+                            <td><span class='eamil'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['email'];?>
 <span></td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['name'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['name'];?>
 </span></td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['phone'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['phone'];?>
 </td>
-                                <td class='address'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['address'];?>
+                            <td class='address'><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['address'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['regTime'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['regTime'];?>
 </td>
-                                <td class='edit'>
-                                    <?php if ($_smarty_tpl->tpl_vars['customerinfo']->value['released'] === '1') {?>
-                                    <button type="button" class="btn btn-success released" data-value='1'
-                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
+                            <td class='edit'>
+                                <?php if ($_smarty_tpl->tpl_vars['customerinfo']->value['released'] === '1') {?>
+                                <button type="button" class="btn btn-success released" data-value='1'
+                                    data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
 ">Open</button>
-                                    <?php } else { ?>
-                                    <button type="button" class="btn btn-danger released" data-value='0'
-                                        data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
+                                <?php } else { ?>
+                                <button type="button" class="btn btn-danger released" data-value='0'
+                                    data-gid="<?php echo $_smarty_tpl->tpl_vars['customerinfo']->value['cid'];?>
 ">Lock</button>
-                                    <?php }?>
-                                </td>
-                            </tr>
-                            <?php
+                                <?php }?>
+                            </td>
+                        </tr>
+                        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-sm-2 sidenav"></div>
         </div>
     </div>
     <footer class="container-fluid text-center">
